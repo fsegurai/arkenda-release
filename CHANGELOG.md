@@ -18,7 +18,7 @@ No changes have been made yet.
 
 ---
 
-## [0.1.0] - 2026-xx-xx
+## [0.1.0] - 2026-11-04
 
 <p align="center">
   <img src="docs/changelog/arkenda-logo.svg" alt="Arkenda" width="96">
