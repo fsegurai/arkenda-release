@@ -37,9 +37,16 @@ vaults. Betas update only to newer betas and to the final 0.2.0; stable installs
   (was 960 px), so it fits half a laptop screen.
 - **Note list right away** — in a browser vault (the web app and Android), the note list from your last visit is
   shown, read-only, while the vault opens, then switches to the live list.
+- **Toolbar settings that match the toolbar** — **Settings ▸ Editor ▸ Toolbar** previews the toolbar as the editor
+  draws it (Normal text ▾, More, Lists ▾, Callout ▾, + Insert) and has one card per part of it: choose what each
+  dropdown lists, show or hide each button, and reorder the buttons that can move. Any tool can be turned off,
+  including those hidden by default (headings 4–6, highlight, note link, Callout ▾).
 
 ### 🐛 Fixes
 
+- **Toolbar settings that did nothing** — the toolbar page still listed tools the toolbar no longer shows (divider,
+  table of contents, camera and recorders) and offered to reorder headings and lists, which the toolbar ignored.
+  Those tools are in **+ Insert**; the page now lists only what the toolbar shows.
 - **Uploads that never finished** — adding a video or a large file to a browser vault could hang until the app was
   restarted, blocking every other upload (seen on Windows). Each step now has a time limit: the upload either lands
   or says it could not be stored, and the next upload works.
