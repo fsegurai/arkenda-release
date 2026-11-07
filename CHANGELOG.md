@@ -18,6 +18,54 @@ No changes have been made yet.
 
 ---
 
+## [0.2.0-beta.0] - 2026-11-06
+
+A beta of 0.2.0: in-app updates on the desktop, PDF export on Android, `.mkv` videos and a faster start for large
+vaults. Betas update only to newer betas and to the final 0.2.0; stable installs never see them.
+
+### ✨ New
+
+- 🖥️ **Update from About** — **Settings ▸ About** downloads a new version, checks its signature and installs it
+  with **Restart now**, once every window has saved its edits, on Windows and Linux. Versions from 0.1.x still show the new version with a link to the release page: the first
+  in-app update is the one after 0.2.0 is installed.
+- 📱 **Export a note to PDF on Android** — **Export ▸ PDF** opens Android's print dialog, where you can save the
+  note as a PDF or send it to a printer.
+- **`.mkv` videos** — Matroska videos are stored and play as videos instead of becoming a `.bin` file. A video
+  the app cannot play says it can't be streamed here and, in a desktop folder vault, offers **Open in system
+  player**. Devices still on 0.1.x show an `.mkv` as a plain file until they update.
+- **Split view on smaller windows** — side-by-side editing and preview is offered from 720 px of editor width
+  (was 960 px), so it fits half a laptop screen.
+- **Note list right away** — in a browser vault (the web app and Android), the note list from your last visit is
+  shown, read-only, while the vault opens, then switches to the live list.
+
+### 🐛 Fixes
+
+- **Uploads that never finished** — adding a video or a large file to a browser vault could hang until the app was
+  restarted, blocking every other upload (seen on Windows). Each step now has a time limit: the upload either lands
+  or says it could not be stored, and the next upload works.
+- **The note list failing to load** now says so, with **Try again**, instead of staying empty.
+- 📱 **Check for updates** on Android points to the release page instead of saying nothing is configured.
+- A **New notebook** click while the sidebar was still drawing could be ignored; it now opens the name field.
+- **Sync** — a vault key sent by a device right as the connection closed is still applied, and logged when it
+  cannot be.
+
+### ⚡ Performance
+
+- **Large vaults open faster** — big saved snapshots of a browser vault are split into smaller pieces, read without
+  freezing the page, and the app starts reading the vault while the cached note list is shown.
+- **Less work for random ids** — ids for sync and the editor come from a pooled random buffer.
+- The todo page reads note details without sorting them first.
+
+### 🔧 Maintenance
+
+- 🖥️ Desktop installers are signed for the in-app updater, and each release's `latest.json` lists them; it keeps the
+  fields 0.1.x versions read.
+- Betas: a version like `0.2.0-beta.0` is published as a GitHub pre-release with its own update feed.
+- Biome 2.6 now formats and lints the stylesheets and the Markdown files.
+- New automated tests for the cached note list, split snapshots, uploads that stop answering and the update feed.
+
+---
+
 ## [0.1.1] - 2026-11-06
 
 A maintenance release: a much faster app on phones, security hardening, fixes for the editor, phones and the
