@@ -18,10 +18,11 @@ No changes have been made yet.
 
 ---
 
-## [0.2.0-beta.0] - 2026-11-06
+## [0.2.0] - 2026-11-07
 
-A beta of 0.2.0: in-app updates on the desktop, PDF export on Android, `.mkv` videos and a faster start for large
-vaults. Betas update only to newer betas and to the final 0.2.0; stable installs never see them.
+In-app updates on the desktop, PDF export on Android, `.mkv` videos, a faster start for large vaults, internal
+links that open, menus that look alike everywhere, and an experimental browser window. It includes the betas
+`0.2.0-beta.0` (2026-11-06) and `0.2.0-beta.1`.
 
 ### ✨ New
 
@@ -37,6 +38,11 @@ vaults. Betas update only to newer betas and to the final 0.2.0; stable installs
   (was 960 px), so it fits half a laptop screen.
 - **Note list right away** — in a browser vault (the web app and Android), the note list from your last visit is
   shown, read-only, while the vault opens, then switches to the live list.
+- 🧪 🖥️ **Browser window** — turn it on in **Settings ▸ Experimental** and choose **Open web links
+  in ▸ Browser window**: web links open in one Arkenda window with a **Page** menu (Back, Forward, Reload, Open
+  in system browser, Close) instead of your browser. It follows the app's light or dark theme, and a link that
+  opens a pop-up (a sign-in, a payment) gets a window of its own. Its pages can't reach your notes and keep their
+  cookies apart. Ctrl+click or a middle click still uses your system browser. Desktop only, off by default.
 - **Toolbar settings that match the toolbar** — **Settings ▸ Editor ▸ Toolbar** previews the toolbar as the editor
   draws it (Normal text ▾, More, Lists ▾, Callout ▾, + Insert) and has one card per part of it: choose what each
   dropdown lists, show or hide each button, and reorder the buttons that can move. Any tool can be turned off,
@@ -44,6 +50,16 @@ vaults. Betas update only to newer betas and to the final 0.2.0; stable installs
 
 ### 🐛 Fixes
 
+- 🖥️ **Links that did nothing on the desktop** — web and mail links (Settings ▸ About, a note's links, a plugin's
+  page) now open in the system's browser or mail app.
+- **Internal links** — Ctrl+click (Cmd+click on macOS) on a `[[link]]` in the editor opens its note, and a heading's
+  copied link (`/notes/…#heading`) opens that note and heading from the preview instead of doing nothing.
+- **Menus that looked different** — the toolbar's callout menu shows each kind's colour and its `[!NOTE]` syntax as
+  the `[!` menu does, the table row and column menus in the preview are the app's own menu, the editor's table bar
+  looks like the selection bar in every editor theme, and every menu marks the highlighted item the same way.
+- **Tables in the preview** — a column's alignment (`:---:`, `---:`) shows again, a caption lines up with the
+  cells inside the table's frame, and the add-column **+** has room of its own beside the table instead of sitting
+  under the scrollbar or over the last column (a narrow split pane above all).
 - **Toolbar settings that did nothing** — the toolbar page still listed tools the toolbar no longer shows (divider,
   table of contents, camera and recorders) and offered to reorder headings and lists, which the toolbar ignored.
   Those tools are in **+ Insert**; the page now lists only what the toolbar shows.
