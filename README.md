@@ -78,13 +78,18 @@ Get the files from the **[latest release](https://github.com/fsegurai/arkenda-re
 
 | Platform   | File | Needs |
 |------------|------|-------|
-| 🐧 Linux   | `.deb` (Debian, Ubuntu), `.rpm` (Fedora, openSUSE) or `.AppImage` (any distribution) | 64-bit (x86_64); a distribution from 2022 or newer (built on Ubuntu 22.04) |
+| 🐧 Linux   | `.deb` (Debian, Ubuntu) or `.rpm` (Fedora, openSUSE), recommended; `.AppImage` for any other distribution | 64-bit (x86_64); a distribution from 2022 or newer (built on Ubuntu 22.04) |
 | 🪟 Windows | `.msi` or the setup `.exe` | Windows 10 or 11, 64-bit. Windows 11 has Microsoft WebView2; on Windows 10 the installer downloads it if missing |
 | 🤖 Android | `.apk` | Android 7 or later, arm64 (practically every phone and tablet in use) |
 | 🍎 macOS   | Not available yet | — |
 
 <details>
 <summary><strong>🐧 Linux</strong></summary>
+
+Prefer the `.deb` or the `.rpm`: they use your system's WebKitGTK, so they are about as small as the Windows
+installer. The `.AppImage` carries its own copy of WebKitGTK and GTK, which makes it several times larger; use it
+on distributions without `.deb` or `.rpm` packages. All three update themselves from Settings ▸ About (the
+`.deb` and `.rpm` ask for your password to install the update).
 
 ```sh
 # Debian, Ubuntu and derivatives
@@ -96,6 +101,11 @@ sudo dnf install ./Arkenda-*.x86_64.rpm
 # Any distribution
 chmod +x Arkenda_*_amd64.AppImage && ./Arkenda_*_amd64.AppImage
 ```
+
+**Lines left behind while dragging the window (KDE Plasma on Wayland):** with Settings ▸ Appearance ▸ Window
+effect set to Translucent or Blur, KDE's Translucency and Wobbly Windows desktop effects can leave static lines
+behind the window while you move it. Turn those effects off in System Settings ▸ Desktop Effects, or set the
+window effect to None.
 
 </details>
 
