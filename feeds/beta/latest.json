@@ -1,39 +1,39 @@
 {
-  "version": "0.3.1",
-  "url": "https://github.com/fsegurai/arkenda-release/releases/tag/v0.3.1",
-  "pub_date": "2026-11-10T02:22:09Z",
+  "version": "0.4.0",
+  "url": "https://github.com/fsegurai/arkenda-release/releases/tag/v0.4.0",
+  "pub_date": "2026-11-11T19:36:56Z",
   "platforms": {
     "linux-x86_64-appimage": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_amd64.AppImage",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaG5RL3dlSHNnMjVwcmpmWVZlYmFuL1YvZnBYOHZGV1VTK0VyaUp0YmNvM0lLcWhOYW0rdlpuV0RiUnVPa25JczhnNk5Cbys1YlBmSWlYeGN2KzF2eFFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3MDA1CWZpbGU6QXJrZW5kYV8wLjMuMV9hbWQ2NC5BcHBJbWFnZQl2ZXJzaW9uOjAuMy4xCjFwa0ZKdTVDbm1sYTM5NldUZk04L1BBS3FZbWZZcVp5bTRKWjhUTVRNQmI0T1hLWC9DNUpYRDhrcmN3dlcxVHo5ckkrQ0c2bkdQdVhmN1ZPNlpUQ0RRPT0K"
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_amd64.AppImage",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHErK1lQSkhnNDhjYXVZVTFnRXkzSFZXMFozVWhFNXJsbnVQbkRmVXBsYzAyZ2RLYXNKajM0d1hNU0tqZVcrUCtPaXdOeDlONG81Y01uaHB4S0ZnbEFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1MTI2CWZpbGU6QXJrZW5kYV8wLjQuMF9hbWQ2NC5BcHBJbWFnZQl2ZXJzaW9uOjAuNC4wCmh2WkZ1NjdjOFlLT21JZXRQV1I0UTNUd3ZPaEhkeWdRbmFYU3RyMGlKYnFXZ3FVcGlRL3ZQY2luQ3FQbGlyQktEYkkrbzNKTlNtNVVRV05RSFh3ekR3PT0K"
     },
     "linux-x86_64": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_amd64.AppImage",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaG5RL3dlSHNnMjVwcmpmWVZlYmFuL1YvZnBYOHZGV1VTK0VyaUp0YmNvM0lLcWhOYW0rdlpuV0RiUnVPa25JczhnNk5Cbys1YlBmSWlYeGN2KzF2eFFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3MDA1CWZpbGU6QXJrZW5kYV8wLjMuMV9hbWQ2NC5BcHBJbWFnZQl2ZXJzaW9uOjAuMy4xCjFwa0ZKdTVDbm1sYTM5NldUZk04L1BBS3FZbWZZcVp5bTRKWjhUTVRNQmI0T1hLWC9DNUpYRDhrcmN3dlcxVHo5ckkrQ0c2bkdQdVhmN1ZPNlpUQ0RRPT0K"
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_amd64.AppImage",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHErK1lQSkhnNDhjYXVZVTFnRXkzSFZXMFozVWhFNXJsbnVQbkRmVXBsYzAyZ2RLYXNKajM0d1hNU0tqZVcrUCtPaXdOeDlONG81Y01uaHB4S0ZnbEFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1MTI2CWZpbGU6QXJrZW5kYV8wLjQuMF9hbWQ2NC5BcHBJbWFnZQl2ZXJzaW9uOjAuNC4wCmh2WkZ1NjdjOFlLT21JZXRQV1I0UTNUd3ZPaEhkeWdRbmFYU3RyMGlKYnFXZ3FVcGlRL3ZQY2luQ3FQbGlyQktEYkkrbzNKTlNtNVVRV05RSFh3ekR3PT0K"
     },
     "linux-x86_64-deb": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_amd64.deb",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaG40K09hTENnTGFPNm5UekxFMWhoc0ErNmV1cXlLUWtvNWQ0TVVadWppVzhLRCtoK04wUDN2eG5BN2ZUQVlRbHpaam5yMGlqRG5oVytKTTFTL25qT2cwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3MDA1CWZpbGU6QXJrZW5kYV8wLjMuMV9hbWQ2NC5kZWIJdmVyc2lvbjowLjMuMQpOK04vWmVHeFRSTXlXOFFMNFIxUThqWE50QmRCRzMwcGFVUWxLS2VIdHY4U2pPcjZialJic0wrWHVlYjJhWFdqWlB3Qkt6QmtpaXdzbjM3WHJ6bWlEZz09Cg=="
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_amd64.deb",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaGx3OUdrT2RXczFQcGk1Q2piNDVvOW9zVGxnV29reUZ3SlZVbkVCVWJHVUlWNW0xMmhkMHRza2s2OG1LZU9ONWdwS3FzMmR0RVBTYTZTNGNsUFRqekFBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1MTI2CWZpbGU6QXJrZW5kYV8wLjQuMF9hbWQ2NC5kZWIJdmVyc2lvbjowLjQuMApld29kRG5UTzl0bVBIR2ZTcnpyNnRtbHJTbnRaVEtxRTJycSswY3FiUWxmNER6eUxYU2JQaFVPU1BWZHlXNkZqRzNKOHZqN0luZEJVR3oxMnlFd2FCdz09Cg=="
     },
     "linux-x86_64-rpm": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda-0.3.1-1.x86_64.rpm",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHZiWXBtZFVOSmpCeDdpbkIweVQ0Q2t0N21YSGt1NTQ0MnFLbmVDcDN2QlJONXA0NmdaYzlYMXB5NGFoaHJuT1ZYdkJzMkJYTkIrUmo3U00zYWYvWVFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3MDA1CWZpbGU6QXJrZW5kYS0wLjMuMS0xLng4Nl82NC5ycG0JdmVyc2lvbjowLjMuMQorV0hQY05yWEFMZ1NCd00vTkp5eEh6NlZ5MEkxallNOU9WR3VxZGdjeGdOaWVvV2R5MGdzWXI1anl1MVdVYzJsdVptdTYvMDkyOGEwTC9udkhxWWVDQT09Cg=="
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda-0.4.0-1.x86_64.rpm",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHQwQkZPUUd6SCtzbXZDWEg3UG51SWZHSFUzV0pndk93WXU2dHZzY1kydzN6aXR5eVkzZTFoL3dmbU8yemIrQzZpeG1COXB0aGlwUDFUdCs3U3k2Q0FFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1MTI2CWZpbGU6QXJrZW5kYS0wLjQuMC0xLng4Nl82NC5ycG0JdmVyc2lvbjowLjQuMApIMEJTYmd1cFpTU0hnemtOaFNVcVNrL2xHY0ZmVGEycE5RZVFKQ1h4K1RSQ3o3V3NRVE03K2pOOXdvZWM0NDUvSTZmUGd0UytYNmFDcktzQitpek1Cdz09Cg=="
     },
     "windows-x86_64-nsis": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHA5VGpNRmpyNzA1K2NwK2pBTlJvcVQ1VmpoQ0lSYVhNTlJidjRZcUFtQ2NacUlhY20zUEc0VHRyVzdHdUcrY3hHL3BRbklhMTJrcXRKd3JUeGM1NGdzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3Mjg2CWZpbGU6QXJrZW5kYV8wLjMuMV94NjQtc2V0dXAuZXhlCXZlcnNpb246MC4zLjEKL28rUjhldDJHOGU5WGpXaHpKbm5NUEZoTjVKU0tKaUtTN0EyeFhoWnNnakpZMUppS3dPS2RyekNJcjV6dlhvZnBpMUt3Rm1KOTFGaHdFY2FnQUJHQ2c9PQo="
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaGdRZ0pYYXkrNkZIU2UyZ1ZaWVgwUWsxR1A3RWUwWm9JMUtQRFNWNXFyekN4RkgyelZNc3gyVjlNaGQ4aTVwY1ZNWXhhOUhsYXpyeTZGNEErRkR3N3c4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1Nzc0CWZpbGU6QXJrZW5kYV8wLjQuMF94NjQtc2V0dXAuZXhlCXZlcnNpb246MC40LjAKY2dwWHpSdlM1ZmVkWDYyUW44dzlmTk4vMDczM3Z5aFJvN3BZdXBHSDRmeGgwczROQ3VPc25IUE9XUFkvUmJNdzdwc0hZc2tseUtYeWlNbHlvTkJxQXc9PQo="
     },
     "windows-x86_64": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHA5VGpNRmpyNzA1K2NwK2pBTlJvcVQ1VmpoQ0lSYVhNTlJidjRZcUFtQ2NacUlhY20zUEc0VHRyVzdHdUcrY3hHL3BRbklhMTJrcXRKd3JUeGM1NGdzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3Mjg2CWZpbGU6QXJrZW5kYV8wLjMuMV94NjQtc2V0dXAuZXhlCXZlcnNpb246MC4zLjEKL28rUjhldDJHOGU5WGpXaHpKbm5NUEZoTjVKU0tKaUtTN0EyeFhoWnNnakpZMUppS3dPS2RyekNJcjV6dlhvZnBpMUt3Rm1KOTFGaHdFY2FnQUJHQ2c9PQo="
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaGdRZ0pYYXkrNkZIU2UyZ1ZaWVgwUWsxR1A3RWUwWm9JMUtQRFNWNXFyekN4RkgyelZNc3gyVjlNaGQ4aTVwY1ZNWXhhOUhsYXpyeTZGNEErRkR3N3c4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1Nzc0CWZpbGU6QXJrZW5kYV8wLjQuMF94NjQtc2V0dXAuZXhlCXZlcnNpb246MC40LjAKY2dwWHpSdlM1ZmVkWDYyUW44dzlmTk4vMDczM3Z5aFJvN3BZdXBHSDRmeGgwczROQ3VPc25IUE9XUFkvUmJNdzdwc0hZc2tseUtYeWlNbHlvTkJxQXc9PQo="
     },
     "windows-x86_64-msi": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_x64_en-US.msi",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHFDa2xkNExLWWxjMElGbHBvTUlWMUpYZVRPWkpxVllzZ0ZDUWxFczRMallFMkdwRkZEMjBrMXRGdFRlVDBZMVBNQWU5TGNYUDVyNFpqSU8xa2VIemdVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3Mjg2CWZpbGU6QXJrZW5kYV8wLjMuMV94NjRfZW4tVVMubXNpCXZlcnNpb246MC4zLjEKWE5VT3pxbzlSMnFLWW9DS0h0aVZBQlJGbk4ycDkyejJSbGVvUklWMm5WVmsrSzIyZW1mbG05dllIS1pCbVF5T2pmM0d5TFd1aVVZRzFtMm9IbFFwRHc9PQo="
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_x64_en-US.msi",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaGtNL3dtaTJPblBEWWlUYld4NnFzZGJoV3Yyb2poenlIWVRISGhScDhNNCtZMmRNMExDVmVWSmg3VE4rTlBmcW9jYnp2aS9RbzVpZ0JMMlJGSVJBM3drPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1Nzc0CWZpbGU6QXJrZW5kYV8wLjQuMF94NjRfZW4tVVMubXNpCXZlcnNpb246MC40LjAKUHFVZUdoL3VwNHV6WWpGeFRaWTJjckRXenljNXRvMEhtR2VPby9TTGg0bldGZkFpaFhWK3ZuZVJ0czVKUWZPdjZRNjZSNTJ2dE90OHpOWHdjN3B0Q1E9PQo="
     },
     "android-aarch64": {
-      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.3.1/Arkenda_0.3.1_android-arm64.apk",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHAyWnJHVWhoQ21jR081N0JFcG9aNEtZejg4WjVtcC9rQjBZRkhqS1BNTWhnZFZqbnU0RTlYV2JCSys2VWlkUUY1dGxyRGJQVU9qOWtKMTFFTk5HR0FJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0Mjc3MTI5CWZpbGU6QXJrZW5kYV8wLjMuMV9hbmRyb2lkLWFybTY0LmFwawpvRFVCSVphK1FUckp0eTBYWklxNkZpeDl6UlByZjZ6MHY0QmFaL0htUmErNHUxdTJpRTBpQ2xsajFacUVYeEFodU9uYWtWM3pvT1U0eFI5NC9OdEVBdz09Cg=="
+      "url": "https://github.com/fsegurai/arkenda-release/releases/download/v0.4.0/Arkenda_0.4.0_android-arm64.apk",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRdmlsZUJ6SGJaaHZFNjlta3c2ZDVMOGhMVmVJM2xpdFNJMTQvS3lHNDRVOU56QTZndC9WejFHUk1MbkphWTZlelBRWCtpQW1NQ0dPc3BreStuSHNzd3JVRnZTdE96dVFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NDI1MjIxCWZpbGU6QXJrZW5kYV8wLjQuMF9hbmRyb2lkLWFybTY0LmFwawpvalBlSUhMVmdSeDlZaU5SRzFTL3BsUUxXN0p2VDFMTTMxdmNaMVh0WTZjeEpXS2dKd1BiTHZReVJVcW44cXFjK2lTcm9kQ2tIZFBFNmwyS0NUTDJBUT09Cg=="
     }
   }
 }
