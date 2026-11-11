@@ -24,21 +24,55 @@ A redesigned Settings, an Inbox that files your captures, a richer right-click m
 a cleaner Markdown map, Arkenda in the Microsoft Store, and phones that save battery when Arkenda is in the
 background.
 
+<p align="center">
+  <img src="docs/changelog/0.4.0/editor.png" alt="Arkenda 0.4.0: the sidebar with the Inbox, the note list, tabs, the editor and the Markdown map" width="900">
+</p>
+
 ### ✨ New
 
 - **Inbox** — one Inbox note per vault, with its own page to file what you capture: move a line to a note, turn it
   into a new note, or mark it done. Images, videos and files show what they are, with their name and a thumbnail.
   Choose the Inbox note and what filing does in **Settings ▸ Notes & capture ▸ Capture**.
+
+  <p align="center"><img src="docs/changelog/0.4.0/inbox.png" alt="The Inbox page: each captured line with Move to note, New note and Done" width="820"></p>
 - **Redesigned Settings** — every option grouped into nine categories, with the less common ones folded under
   **Advanced**, one search that also finds plugins and experiments, an icon rail on tablets and category screens
   on phones.
 - **Plugins and Experimental as grids** — filter by family or area, search, show only what is on, and open a
   plugin's options in a sheet.
+
+  <table>
+    <tr>
+      <td width="62%"><img src="docs/changelog/0.4.0/settings.png" alt="Settings on the desktop: the categories, one search, and the Appearance page"></td>
+      <td width="38%" align="center"><img src="docs/changelog/0.4.0/phone-settings.png" alt="Settings on a phone: one screen per category" width="260"></td>
+    </tr>
+    <tr>
+      <td align="center"><sub>The categories and one search on the desktop</sub></td>
+      <td align="center"><sub>One screen per category on phones</sub></td>
+    </tr>
+    <tr>
+      <td colspan="2"><img src="docs/changelog/0.4.0/plugins.png" alt="Settings ▸ Plugins as a grid with families, search and an On only switch"></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"><sub>Plugins as a grid: families, search and On only</sub></td>
+    </tr>
+  </table>
 - **Media library preview** — each file previews by its kind: images whole, video and audio that play in place
   (audio with its waveform), a PDF's first page and page count, a text file's first lines.
 - 🧪 **Right-click menu** — back and forward, reload (it saves your edits first), zoom, settings, and in the editor
   **Check spelling**; 🖥️ on Linux and Windows the misspelled word's suggestions appear at the top of the menu. On by
   default; turn it off in **Settings ▸ Experimental**.
+
+  <table>
+    <tr>
+      <td width="50%"><img src="docs/changelog/0.4.0/context-menu.png" alt="The editor's right-click menu"></td>
+      <td width="50%"><img src="docs/changelog/0.4.0/command-palette-dark.png" alt="The command palette in the dark theme"></td>
+    </tr>
+    <tr>
+      <td align="center"><sub>The editor's right-click menu</sub></td>
+      <td align="center"><sub>Ctrl+P finds notes, commands and tags</sub></td>
+    </tr>
+  </table>
 - **Ctrl+Tab order** — in **Settings ▸ Editor ▸ Tabs**, keep the strip order (Linear) or switch to the most recent
   tabs (Recent): hold Ctrl and press Tab to walk back, release to land.
 - **Keys** — Alt+← / Alt+→ go back and forward, Ctrl+R (⌘R) reloads after saving.
@@ -83,6 +117,8 @@ background.
 ### 📝 Documentation
 
 - A [privacy policy](PRIVACY.md) and issue forms for bugs, features, questions and other feedback.
+- The [README](README.md) shows the 0.4.0 screens and features: the Inbox, tabs, the Glass theme, the new Settings
+  paths and in-app updates.
 
 ---
 
@@ -148,7 +184,7 @@ yours, X and YouTube cards, a much fuller MCP for AI agents, and in-app updates 
 - **CSS snippets** — your own small style sheets in **Settings ▸ Appearance ▸ CSS snippets**, kept on this device,
   each turned on or off. If the app fails to start with snippets on, the next start runs without them and tells
   you which; Ctrl/Cmd+Alt+Shift+S turns them all off for the rest of a run. Stable hooks:
-  docs/css-snippets.md.
+  [docs/css-snippets.md](docs/css-snippets.md).
 - **Glass theme** — a built-in theme pack, light and dark: see-through side panels and bars over an aurora in
   your accent colour (or your desktop, with the window effect's blur), text kept readable.
 - **Reduce transparency** — a switch in **Settings ▸ Appearance** makes Glass, the window effect and frosted menus
@@ -409,7 +445,7 @@ desktop builds, and a steadier release pipeline.
 
 - **Browser vault** — stored in the browser (IndexedDB) and exported to a portable archive whenever you want.
 - 🖥️ **Folder vaults** — a vault is a folder: folder = notebook, file name = title. See
-  the folder vault guide.
+  [the folder vault guide](docs/file-vault.md).
 - **Several vaults** — a vault picker and **Manage vaults**; a vault that is not reachable is shown as such, never
   lost.
 - **Backups** — import and export run in the background, and imports are checked before anything is written.
@@ -418,7 +454,7 @@ desktop builds, and a steadier release pipeline.
 
 #### 🔄 Sync and devices
 
-- **End-to-end encrypted sync** between your paired devices — see the sync guide.
+- **End-to-end encrypted sync** between your paired devices — see [the sync guide](docs/sync.md).
 - **Pair with a code**, step by step; paired devices find each other again on the local network.
 - **Every way to connect, in order** — the local network, across networks (desktop and Android), public relays, and
   store-and-forward through your own S3 mirror.
@@ -441,19 +477,19 @@ desktop builds, and a steadier release pipeline.
 - **Sandboxed plugins** with declared permissions: they add commands, insert items, panels, widgets, settings, themes
   and Markdown blocks — and never reach the app's pages, cookies, storage or secrets.
 - **Built-in plugins** (🧩 all off by default): pomodoro, insights, vault map, git history, weather and clock.
-- **Write your own** — plugin documentation, from getting started to permissions and
+- **Write your own** — [plugin documentation](docs/plugins/README.md), from getting started to permissions and
   testing.
 
 #### 🖥️ Desktop app
 
 - **A flexible layout** — collapsible panes with an icon rail, a toolbar row, a selection bar, and notes side by
-  side in horizontal and vertical splits. See the desktop layout guide.
+  side in horizontal and vertical splits. See [the desktop layout guide](docs/desktop-layout.md).
 - **The activity island** — quick capture with a global key, screenshots, voice memos and a drop shelf. See
-  the island guide.
+  [the island guide](docs/notch.md).
 - 🧩 **Version history with git** — the vault's history through your system's git.
 - **Secrets in the OS keychain.**
 - **Check for updates** in **Settings ▸ About**, which asks the release page only when you click.
-- 🧪 Glass window effect (Linux notes), a system-wide notch, screen recording, an
+- 🧪 Glass window effect ([Linux notes](docs/window-effect-linux.md)), a system-wide notch, screen recording, an
   integrated terminal and a local MCP server.
 
 <p align="center">
@@ -467,7 +503,7 @@ desktop builds, and a steadier release pipeline.
 - **Writing on a phone** — a single compact header, the formatting bar above the keyboard, and details as sheets;
   new notes open ready to type.
 - **Tablets** — drawers in portrait, two panes with a rail in landscape. See
-  the phone and tablet guide.
+  [the phone and tablet guide](docs/phone-and-tablet.md).
 
 <table>
   <tr>
@@ -485,7 +521,7 @@ desktop builds, and a steadier release pipeline.
 - **A new Settings** — two columns on desktop, stacked pages on touch, with dedicated *Sync & devices* and
   *Data & storage* pages and a tidy *Experimental* page.
 - **Themes and accents** — presets such as Nord, Sepia and High contrast, and accent colours.
-- **Your shortcuts** — customise keyboard shortcuts and snippets. See keyboard shortcuts.
+- **Your shortcuts** — customise keyboard shortcuts and snippets. See [keyboard shortcuts](docs/keyboard-shortcuts.md).
 - **English and Spanish** (en-US, es-CR).
 
 <table>
@@ -516,10 +552,10 @@ desktop builds, and a steadier release pipeline.
 
 ### 📝 Documentation
 
-- Guides for folder vaults, sync, media,
-  keyboard shortcuts, the desktop layout,
-  phones and tablets, the activity island and
-  plugins.
+- Guides for [folder vaults](docs/file-vault.md), [sync](docs/sync.md), [media](docs/media.md),
+  [keyboard shortcuts](docs/keyboard-shortcuts.md), [the desktop layout](docs/desktop-layout.md),
+  [phones and tablets](docs/phone-and-tablet.md), [the activity island](docs/notch.md) and
+  [plugins](docs/plugins/README.md).
 
 ---
 

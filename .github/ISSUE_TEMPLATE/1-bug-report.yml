@@ -1,0 +1,59 @@
+name: Bug report
+description: Something doesn't work as it should.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please **never paste your notes, file paths, keys or passwords**.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Click …
+        3. See …
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      multiple: true
+      options: [Windows, Linux, Android, Web, Other]
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How did you install Arkenda?
+      options: [Microsoft Store, Windows .msi, Windows setup .exe, Linux .deb, Linux .rpm, Linux AppImage, Android APK, Web app, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: system
+    attributes:
+      label: System information
+      description: Copy it from **Settings ▸ About ▸ Copy system info** (versions and platform only).
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: vault
+    attributes:
+      label: Vault type
+      options: [Folder vault, Browser vault, Not sure]
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or anything else
+      description: Screenshots help a lot. Hide anything private first.

@@ -1,0 +1,18 @@
+name: Other feedback
+description: Documentation, translations, the release notes, or anything that fits nowhere else.
+title: "[Feedback]: "
+labels: [feedback]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [Documentation or release notes, Translation, Accessibility, Performance or battery, Something else]
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+    validations:
+      required: true
