@@ -79,7 +79,7 @@ Get the files from the **[latest release](https://github.com/fsegurai/arkenda-re
 | Platform   | File | Needs |
 |------------|------|-------|
 | 🐧 Linux   | `.deb` (Debian, Ubuntu) or `.rpm` (Fedora, openSUSE), recommended; `.AppImage` for any other distribution | 64-bit (x86_64); a distribution from 2022 or newer (built on Ubuntu 22.04) |
-| 🪟 Windows | `.msi` or the setup `.exe` | Windows 10 or 11, 64-bit. Windows 11 has Microsoft WebView2; on Windows 10 the installer downloads it if missing |
+| 🪟 Windows | The Microsoft Store, or the `.msi` or setup `.exe` | Windows 10 or 11, 64-bit. Windows 11 has Microsoft WebView2; on Windows 10 the installer downloads it if missing |
 | 🤖 Android | `.apk` | Android 7 or later, arm64 (practically every phone and tablet in use) |
 | 🍎 macOS   | Not available yet | — |
 
@@ -103,7 +103,7 @@ chmod +x Arkenda_*_amd64.AppImage && ./Arkenda_*_amd64.AppImage
 ```
 
 **Lines left behind while dragging the window (KDE Plasma on Wayland):** with Settings ▸ Appearance ▸ Window
-effect set to Translucent or Blur, KDE's Translucency and Wobbly Windows desktop effects can leave static lines
+effect set to Blur, KDE's Translucency and Wobbly Windows desktop effects can leave static lines
 behind the window while you move it. Turn those effects off in System Settings ▸ Desktop Effects, or set the
 window effect to None.
 
@@ -112,8 +112,22 @@ window effect to None.
 <details>
 <summary><strong>🪟 Windows</strong></summary>
 
-Run the `.msi` or the setup `.exe`. The installers are not code-signed yet, so Windows SmartScreen may show
-*"Windows protected your PC"* the first time: choose **More info ▸ Run anyway**.
+Two ways, pick one:
+
+- **The Microsoft Store** (once Arkenda is listed there: search for *Arkenda*). Microsoft signs the Store
+  package, so there is no SmartScreen warning, and the Store installs updates for you; Settings ▸ About says so
+  instead of offering *Check for updates*.
+- **The `.msi` or the setup `.exe`** from the release. These installers are not code-signed, so Windows
+  SmartScreen may show *"Windows protected your PC"* the first time: choose **More info ▸ Run anyway**. They
+  update themselves from Settings ▸ About.
+
+The release's `.msix` file is the unsigned Store package, kept for the Store submission: Windows does not install
+it as it is, so use the Store instead.
+
+**Store and direct installs keep separate app data.** Windows gives a Store app its own copy of the app data
+folder, so each install has its own browser vault, settings and device pairings. To move between them, export
+your vault (Settings ▸ Data & storage) and import it in the other install, or open the same folder vault in both. Use one
+install at a time.
 
 </details>
 
@@ -158,7 +172,8 @@ you click; it never checks in the background. On Android it links to the release
 
 ## 🔒 Privacy
 
-No account, no telemetry, no ads. Arkenda contacts the network only for features you turn on, and only then:
+No account, no telemetry, no ads. Arkenda contacts the network only for features you turn on, and only then
+(the full [privacy policy](PRIVACY.md)):
 
 | Feature | Contacts |
 |---------|----------|
@@ -170,7 +185,8 @@ No account, no telemetry, no ads. Arkenda contacts the network only for features
 
 ## 💬 Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/fsegurai/arkenda-release/issues). Please include the
+Found a bug, have an idea or a question? [Open an issue](https://github.com/fsegurai/arkenda-release/issues/new/choose)
+and pick the form that fits (bug, feature, question or other). For bugs, please include the
 **system information** from **Settings ▸ About** (versions and platform only — never your notes, file paths or keys).
 
 ## 📄 License
