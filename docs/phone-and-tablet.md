@@ -146,6 +146,8 @@ On a phone and a tablet, Settings is a list you go into and back out of:
   foot. Tap a section to open it as its own page; the back arrow at its top goes back to the list.
 - A search result opens its section scrolled to the setting.
 - Every page fits the screen: rows stack, and every button, switch, field and colour swatch is a 44 px target.
+- On a phone, each card's title sits above the card, a page's tabs are one row you swipe sideways, and
+  **Reset this page** is at the end of the page.
 - What a phone has no use for is not listed there; the search still finds it, greyed ("Not available on this
   device"):
   - **Keyboard** (a tablet can have a keyboard, so it is listed there);
@@ -181,7 +183,12 @@ sync catches up as soon as you open Arkenda again. Turn it off to keep syncing i
 Pictures, audio, video and other files work as on a computer. **Take photo**, **Record video** and **Record audio**
 in the insert menu (the formatting bar's **…**, or **/**) open the camera or recorder. Galleries become a swipeable
 strip, PDFs open full screen in the reader, and the media library and the trash are under **More**; press and hold
-an item for its menu. See [Media](media.md) for everything else.
+an item for its menu. In the trash, **Empty trash** is in the **⋯** menu at the top. See [Media](media.md) for
+everything else.
+
+Every page on a phone (Settings, the media library, the trash, More, Today, Inbox, Todos, Calendar and the others)
+has the same margins, its title with at most one button beside it, and its tabs or filters in one row you swipe
+sideways.
 
 ## The activity island
 

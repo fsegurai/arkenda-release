@@ -150,10 +150,16 @@ from that copy instead of treating your folders as deleted.
 ## The trash
 
 **More ▸ Trash** groups what you deleted by kind: notes, whiteboards and media. Press and hold an item (or use
-its menu) for Restore, Open, Select and Delete forever.
+its menu) for Restore, Open, Select and Delete forever. On a phone, **Empty trash** is in the **⋯** menu at the top,
+and with items selected **Restore** and **Delete forever** stay at the bottom of the screen.
 
 - **The trash is per device.** Each device shows only what was moved to the trash on it.
-- **Deleting forever syncs.** Once you delete something for good, it is gone from your other devices too.
+- **Files in a browser vault** (phones, the web) are stored in one place that every browser vault on the device
+  shares, so deleting a file forever cannot free its space while another vault might use it. It leaves the trash and
+  no longer shows in the media library; if a note uses it again, it shows again.
+- **Moving to the trash and restoring sync; deleting forever does not.** Delete forever cleans up this device
+  only: a note leaves this device's trash and stays deleted (and hidden) on every device, and a file's space is
+  freed on this device once no note uses it.
 
 ## Storage
 
