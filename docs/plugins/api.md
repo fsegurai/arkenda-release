@@ -1,7 +1,7 @@
 # API reference
 
 Generated from `@arkenda/kit/plugin-api` (to be published as `@arkenda/plugin-api`) and its JSDoc.
-API version 1.0: `ctx.apiVersion` is `1`, `ctx.apiMinor` is `0`.
+API version 1.2: `ctx.apiVersion` is `1`, `ctx.apiMinor` is `2`.
 
 - **Every `ctx` call is asynchronous** and answered only when the manifest declares its permission,
   the user granted it, and any contribution id is declared. A refused call rejects with an error
@@ -333,6 +333,7 @@ Types, constants and checks you can use while building, grouped by area.
 | `SANDBOX_VIEW_LIMITS` | constant | — |
 | `SandboxViewNode` | type | — |
 | `SandboxView` | interface | What a sandboxed plugin shows in a sidebar panel, dashboard widget or settings tab: data, never markup. |
+| `checkSandboxView(value: unknown): SchemaResult<SandboxView>` | function | Checks a view sent by a plugin: a clean copy, or every problem found in it. |
 
 ### Sandbox limits and errors
 
@@ -352,7 +353,7 @@ Types, constants and checks you can use while building, grouped by area.
 | `ExtensionManifestBase` | interface | The fields of every extension manifest (`arkenda-plugin.json`), schema version 2, whatever its kind. |
 | `ExtensionManifestV2` | type | Any valid v2 manifest. |
 | `PLUGIN_CONTRIBUTION_KINDS` (9 entries) | constant | Kinds of declarative contributions, listed in the manifest so the host knows them before loading code. |
-| `PLUGIN_MANIFEST_FIELDS` | constant | The fields of a v2 manifest, read by the validator and by the JSON Schema generator (`scripts/plugin-manifest-schema.ts`), so both list the same ones: - `required`: every kind; - `optional`: every kind; - `code`: required for the `plugin` kind, an error (`kind-code`) for every other kind; - `codeOptional`: optional for the `plugin` kind, an error for every other kind. |
+| `PLUGIN_MANIFEST_FIELDS` | constant | The fields of a v2 manifest, the shapes of `PLUGIN_MANIFEST_SCHEMA` (a spec keeps them equal) and the docs' requirement column: - `required`: every kind; - `optional`: every kind; - `code`: required for the `plugin` kind, an error (`kind-code`) for every other kind; - `codeOptional`: optional for the `plugin` kind, an error for every other kind. |
 | `PLUGIN_MANIFEST_FILE = "arkenda-plugin.json"` | constant | File name of a third-party plugin manifest, at the root of the plugin folder or archive. |
 | `PLUGIN_MANIFEST_LIMITS` | constant | Text limits of a v2 manifest (characters), shared by the validator and the JSON Schema. |
 | `PLUGIN_PANEL_ICONS` (12 entries) | constant | The icons a sandboxed plugin's sidebar panel may use on the right sidebar's tab strip: names of the app's own icon set that are registered before any plugin panel shows (the shell icons and the deferred icons). |
@@ -361,14 +362,17 @@ Types, constants and checks you can use while building, grouped by area.
 | `PluginContributes` | type | — |
 | `PluginContributionDeclaration` | interface | One declared contribution: an id unique within its kind and a title shown to the user. |
 | `PluginContributionKind` | type | — |
+| `PluginInputIssue` | interface | One problem of a plugin input, in the one format authors, users and the reviewer see: a stable code, where it is (a JSON path such as `$.versions[0].bundleUrl`, or a file of a package) and a readable message. |
 | `PluginManifestV2` | interface | Manifest of a third-party plugin: the `plugin` kind (the default), the only kind that runs code. |
 | `PluginPanelIcon` | type | — |
 | `PluginPermissionV2` | type | — |
 | `PluginPlatform` | type | — |
 | `SCHEMA_ERROR_CODES` (27 entries) | constant | Stable codes of schema errors (manifest v2, catalog v1, revocation list v1). |
 | `SchemaErrorCode` | type | — |
-| `SchemaIssue` | interface | One problem of a document: a stable code, a JSON path (`$.versions[0].bundleUrl`) and a readable message. |
+| `SchemaIssue` | type | One problem of a document checked by a plugin schema: a `PluginInputIssue` with a schema code. |
 | `SchemaResult` | type | The checked document, or every problem found in it. |
+| `formatPluginIssue(issue: PluginInputIssue): string` | function | `<path>: <message> [<code>]`: one problem as one line, the same for authors, users and the reviewer. |
+| `formatPluginIssues(issues: readonly PluginInputIssue[], max = 3): string` | function | The first `max` problems as one text (`; ` between them), naming how many more there are. |
 | `isPluginKindManifest(manifest: ExtensionManifestV2): manifest is PluginManifestV2` | function | Whether a manifest is of the `plugin` kind, the only one that runs code. |
 | `isPluginPanelIcon(value: unknown): value is PluginPanelIcon` | function | Whether `value` is one of `PLUGIN_PANEL_ICONS` (own names only, no prototype keys). |
 | `isPluginToolPlaces(value: unknown): value is readonly PluginToolPlace[]` | function | Whether `value` is a non-empty list of distinct `PluginToolPlace` values. |

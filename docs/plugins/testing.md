@@ -9,6 +9,10 @@ thing in developer mode.
 
 ## 1. Check the contract
 
+> **The checker is not published yet.** Until it is, check a package by installing it in developer mode: the
+> install dialog runs the same checks and lists every problem as `<path>: <message> [<code>]`. The commands below
+> show how `plugin-check` will be used.
+
 ```sh
 bun scripts/plugin-check.ts path/to/my-plugin --platform web   # the app's install gate, in memory
 ```
@@ -30,6 +34,14 @@ problems, so call them in your own tests:
 | `validatePluginTheme(id, theme)` | a theme's tokens and contrast |
 | `validatePluginInsertItem(id, item)`, `validatePluginToolbarItem(id, item)` | editor items |
 | `checkCompatibility(requirements, target)` | app version, API version and platform |
+| `checkSandboxView(view)` | a view you show in a panel, widget or settings tab; `{ ok: true }` or every problem |
+
+Every problem of a plugin input (the manifest, the settings, the package, the catalog, a sandbox
+message or view) has the same three parts: a stable `code`, a `path` (a JSON path such as
+`$.contributes.commands[0].id`, or a file of the package) and a `message`. `formatPluginIssue`
+writes one as `<path>: <message> [<code>]`, the line `plugin-check` prints;
+`formatPluginIssues(issues)` writes the first three. An error a check throws carries the same list as
+`issues` (`PluginManifestError`, `PluginSettingsSchemaError`).
 
 ## 3. Test your logic against a fake `ctx`
 

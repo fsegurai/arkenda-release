@@ -5,7 +5,8 @@ plugin can do; this list keeps it from asking for more than it needs.
 
 ## For authors
 
-- [ ] `bun scripts/plugin-check.ts` reports no error for the zip you ship.
+- [ ] The zip you ship installs in developer mode with no problem listed (the same checks `plugin-check` will run
+      once it is published).
 - [ ] Every permission is used; the ones you can work without are in `optionalPermissions`.
 - [ ] `network.hosts` lists only the hosts you call, exactly (no wildcard exists, and none is needed).
 - [ ] Nothing you send to a host contains note text the user did not ask you to send.

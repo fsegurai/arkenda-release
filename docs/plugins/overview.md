@@ -77,7 +77,16 @@ capability is missing. These are the ids, and where each one can be available:
 | `plugin-secrets` | — | yes | yes |
 | `device-sync` | yes | yes | yes |
 | `lan-sync` | — | yes | — |
+| `screenshot` | — | yes | — |
+| `screen-recording` | — | yes | — |
+| `system-notch` | — | yes | — |
+| `clipboard-reader` | — | yes | — |
+| `linux-rendering` | — | yes | — |
+| `share` | — | — | yes |
+| `dictation` | yes | yes | yes |
 | `updates` | yes (when configured) | yes (when configured) | — |
+| `plugin-marketplace` | yes | yes | yes |
+| `weather` | yes | yes | yes |
 
 <!-- /generated:capabilities -->
 
@@ -85,4 +94,5 @@ capability is missing. These are the ids, and where each one can be available:
 
 ## Next
 
-[Getting started](getting-started.md): build and install your first plugin.
+[Getting started](getting-started.md): build and install your first plugin. Before you share it, read
+[Requirements](requirements.md) and [Contributing a plugin](contributing.md).

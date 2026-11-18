@@ -1,8 +1,9 @@
 # Manifest reference
 
 `arkenda-plugin.json` describes an extension before any of its code runs: who made it, what it is,
-what it asks for and what it adds. The app's validator (`parsePluginManifestV2`) is the authority;
-[`manifest.schema.json`](manifest.schema.json) is generated from it, for your editor.
+what it asks for and what it adds. The app's validator (`parsePluginManifestV2`) is the authority, and it
+reads one schema, `PLUGIN_MANIFEST_SCHEMA`; [`manifest.schema.json`](manifest.schema.json) is generated from that
+same schema (`scripts/plugin-schema.ts`), for your editor, so the two cannot disagree.
 
 ## Example
 
@@ -53,22 +54,22 @@ Generated from the schema; the prose sections below explain the fields that need
 | Field | Required | Value |
 |-------|----------|-------|
 | [`schemaVersion`](#schemaversion) | Required | always `2` |
-| [`kind`](#kind) | Optional | one of `plugin`, `theme`, `font`, `icon-pack`, `snippet-pack`, `language-pack`; or text, matching `^[a-z0-9][a-z0-9-]{1,63}$` |
-| [`id`](#id) | Required | text, matching `^[a-z0-9][a-z0-9-]{1,63}$` |
+| [`kind`](#kind) | Optional | one of `plugin`, `theme`, `font`, `icon-pack`, `snippet-pack`, `language-pack`; or text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters |
+| [`id`](#id) | Required | text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters |
 | [`name`](#name) | Required | text, not blank, up to 80 characters |
 | [`version`](#version) | Required | text, matching `^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$` |
 | [`apiVersion`](#apiversion) | Required | a whole number, at least 1 |
 | [`minAppVersion`](#minappversion) | Required | text, matching `^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$` |
 | [`description`](#description) | Required | text, up to 500 characters |
 | [`author`](#author) | Required | an object |
-| [`publisher`](#publisher) | Required | text, matching `^[a-z0-9][a-z0-9-]{1,63}$` |
+| [`publisher`](#publisher) | Required | text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters |
 | [`license`](#license) | Required | text, up to 128 characters |
 | [`repository`](#repository) | Required | a URL, starting with `https://`, up to 2048 characters |
 | [`categories`](#categories) | Required | a list of 1 to 3 distinct items, each a category of the governed taxonomy; or any other id is accepted and shown as "other" |
 | [`keywords`](#keywords) | Optional | a list of up to 10 distinct items, each text, not blank, up to 32 characters |
-| [`platforms`](#platforms) | Required | a list of at least 1 distinct items, each one of `web`, `desktop`, `mobile` |
-| [`permissions`](#permissions) | Plugins | a list of any number of distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync` |
-| [`optionalPermissions`](#optionalpermissions) | Optional (plugins) | a list of any number of distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync` |
+| [`platforms`](#platforms) | Required | a list of 1 to 3 distinct items, each one of `web`, `desktop`, `mobile` |
+| [`permissions`](#permissions) | Plugins | a list of up to 13 distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync` |
+| [`optionalPermissions`](#optionalpermissions) | Optional (plugins) | a list of up to 13 distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync` |
 | [`network`](#network) | Optional (plugins) | an object |
 | [`contributes`](#contributes) | Plugins | an object |
 | [`entry`](#entry) | Plugins | text, matching `^[A-Za-z0-9_-][A-Za-z0-9._-]*(?:/[A-Za-z0-9_-][A-Za-z0-9._-]*)*\.m?js$`, up to 200 characters |
@@ -82,7 +83,7 @@ Generated from the schema; the prose sections below explain the fields that need
 ### `kind`
 
 - Optional.
-- **Value:** one of `plugin`, `theme`, `font`, `icon-pack`, `snippet-pack`, `language-pack`; or text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+- **Value:** one of `plugin`, `theme`, `font`, `icon-pack`, `snippet-pack`, `language-pack`; or text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
 - What the extension is; "plugin" when left out. Only "plugin" runs code. An unknown kind is shown as "other" and never run.
 - **Default:** `"plugin"`.
 - **More:** [Extension kinds](#extension-kinds).
@@ -90,7 +91,7 @@ Generated from the schema; the prose sections below explain the fields that need
 ### `id`
 
 - Required.
-- **Value:** text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+- **Value:** text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
 
 ### `name`
 
@@ -130,7 +131,7 @@ Generated from the schema; the prose sections below explain the fields that need
 ### `publisher`
 
 - Required.
-- **Value:** text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+- **Value:** text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
 - **More:** [Signing](package.md#signing).
 
 ### `license`
@@ -159,19 +160,19 @@ Generated from the schema; the prose sections below explain the fields that need
 ### `platforms`
 
 - Required.
-- **Value:** a list of at least 1 distinct items, each one of `web`, `desktop`, `mobile`.
+- **Value:** a list of 1 to 3 distinct items, each one of `web`, `desktop`, `mobile`.
 - **More:** [Overview](overview.md#platforms).
 
 ### `permissions`
 
 - Required for the `plugin` kind; refused on every other kind (`kind-code`).
-- **Value:** a list of any number of distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync`.
+- **Value:** a list of up to 13 distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync`.
 - **More:** [Permissions and privacy](permissions.md#permissions).
 
 ### `optionalPermissions`
 
 - Optional, `plugin` kind only; refused on every other kind (`kind-code`).
-- **Value:** a list of any number of distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync`.
+- **Value:** a list of up to 13 distinct items, each one of `notes:read`, `notes:write`, `storage`, `commands`, `ui:panels`, `ui:widgets`, `markdown`, `network`, `clipboard`, `notifications`, `ui:themes`, `editor`, `sync`.
 - Permissions of `permissions` the plugin works without.
 - **More:** [Permissions and privacy](permissions.md#optional-permissions).
 
@@ -187,39 +188,39 @@ Generated from the schema; the prose sections below explain the fields that need
 
 - Required for the `plugin` kind; refused on every other kind (`kind-code`).
 - **Value:** an object with these fields:
-  - `commands`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `commands`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 80 characters.
     - `hotkey`: text. The default key, e.g. Mod-Shift-k; bound only when free.
-  - `markdownFeatures`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `markdownFeatures`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 80 characters.
-  - `sidebarPanels`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `sidebarPanels`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 80 characters.
     - `icon`: one of `note`, `pin`, `search`, `dashboard`, `notebook`, `tag`, `command`, `panel-outline`, `panel-backlinks`, `panel-properties`, `panel-hotkeys`, `panel-widgets`.
-    - `places`: a list of at least 1 distinct items, each one of `left`, `right`, `status`.
+    - `places`: a list of 1 to 3 distinct items, each one of `left`, `right`, `status`.
     - `defaultPlace`: one of `left`, `right`, `status`. One of the declared places (by default: dashboard for widgets, left for panels).
-  - `dashboardWidgets`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `dashboardWidgets`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 80 characters.
     - `category`: one of `notes`, `tasks`, `time`, `focus`, `insights`, `other`.
-    - `places`: a list of at least 1 distinct items, each one of `dashboard`, `aside`.
+    - `places`: a list of 1 to 2 distinct items, each one of `dashboard`, `aside`.
     - `defaultPlace`: one of `dashboard`, `aside`. One of the declared places (by default: dashboard for widgets, left for panels).
-  - `settingsTabs`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `settingsTabs`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 80 characters.
-  - `themes`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `themes`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 64 characters.
-  - `insertItems`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `insertItems`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 64 characters.
-  - `toolbarItems`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `toolbarItems`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 64 characters.
-  - `syncSources`: a list of any number of distinct items, each an object with these fields:
-    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`.
+  - `syncSources`: a list of up to 500 items with distinct `id`s, each an object with these fields:
+    - `id` (required): text, matching `^[a-z0-9][a-z0-9-]{1,63}$`, up to 64 characters.
     - `title` (required): text, not blank, up to 80 characters.
 - **More:** [Surfaces](surfaces.md).
 

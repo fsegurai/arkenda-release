@@ -52,3 +52,4 @@ Check `ctx.apiMinor` before you use an addition, so your plugin keeps working on
 |-----|--------|
 | 1.0 | First version of the contract: manifest schema version 2, extension kinds, the governed category taxonomy and the sandbox API. Not yet released publicly. |
 | 1.1 | Sync sources: `ctx.sync.registerSource`, the `sync` permission, `contributes.syncSources` (plugins of the `syncing` category) and the `sync` surface. See [Sync sources](surfaces.md#sync-sources). |
+| 1.2 | Live activities (`ctx.activities.publish`), for built-in plugins only; nothing changes for sandboxed plugins. |

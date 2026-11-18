@@ -132,7 +132,8 @@ are granted later, when the user turns it on.
 
 ## Error codes
 
-Every code `bun scripts/plugin-check.ts` reports for a package, and the section that explains it:
+Every code the app reports for a package when you install it (and `plugin-check` will, once published), and the
+section that explains it:
 
 <!-- generated:package-errors -->
 

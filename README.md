@@ -67,18 +67,18 @@
   </tr>
   <tr>
     <td width="50%"><img src="docs/changelog/0.4.0/settings.png" alt="Settings, grouped into categories with one search"></td>
-    <td width="50%"><img src="docs/changelog/0.1.0/split-panes.png" alt="Notes side by side in split panes"></td>
+    <td width="50%"><img src="docs/changelog/0.5.0/whiteboard.png" alt="A whiteboard with stickies, note cards, the floating tool dock and a shape's property bar"></td>
   </tr>
   <tr>
     <td align="center"><sub>Every setting in a few categories, with one search</sub></td>
-    <td align="center"><sub>Several notes side by side</sub></td>
+    <td align="center"><sub>Sketch and plan on a whiteboard</sub></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.1.0/media-library.png" alt="The media library"></td>
+    <td width="50%"><img src="docs/changelog/0.5.0/playground.png" alt="The playground: a sample vault in the browser with its banner and tour"></td>
     <td width="50%"><img src="docs/changelog/0.1.0/sync-overview.png" alt="Sync and devices"></td>
   </tr>
   <tr>
-    <td align="center"><sub>Pictures, audio, video and PDFs in one library</sub></td>
+    <td align="center"><sub>Try it in your browser, with a sample vault</sub></td>
     <td align="center"><sub>Your devices, in sync and encrypted</sub></td>
   </tr>
 </table>
@@ -91,7 +91,7 @@ Get the files from the **[latest release](https://github.com/fsegurai/arkenda-re
 
 | Platform   | File | Needs |
 |------------|------|-------|
-| 🐧 Linux   | `.deb` (Debian, Ubuntu) or `.rpm` (Fedora, openSUSE), recommended; `.AppImage` for any other distribution | 64-bit (x86_64); a distribution from 2022 or newer (built on Ubuntu 22.04) |
+| 🐧 Linux   | `.deb` (Debian, Ubuntu), `.rpm` (Fedora, openSUSE) or the AUR package `arkenda-bin` (Arch and derivatives), recommended; `.AppImage` for any other distribution | 64-bit (x86_64); a distribution from 2022 or newer (built on Ubuntu 22.04) |
 | 🪟 Windows | The Microsoft Store, or the `.msi` or setup `.exe` | Windows 10 or 11, 64-bit. Windows 11 has Microsoft WebView2; on Windows 10 the installer downloads it if missing |
 | 🤖 Android | `.apk` | Android 7 or later, arm64 (practically every phone and tablet in use) |
 | 🍎 macOS   | Not available yet | — |
@@ -99,10 +99,12 @@ Get the files from the **[latest release](https://github.com/fsegurai/arkenda-re
 <details>
 <summary><strong>🐧 Linux</strong></summary>
 
-Prefer the `.deb` or the `.rpm`: they use your system's WebKitGTK, so they are about as small as the Windows
-installer. The `.AppImage` carries its own copy of WebKitGTK and GTK, which makes it several times larger; use it
-on distributions without `.deb` or `.rpm` packages. All three update themselves from Settings ▸ About (the
-`.deb` and `.rpm` ask for your password to install the update).
+Prefer the `.deb`, the `.rpm` or, on Arch Linux and its derivatives (Manjaro, EndeavourOS, CachyOS), the AUR package
+`arkenda-bin`: they use your system's WebKitGTK, GStreamer and GTK theme, so they are about as small as the Windows
+installer and play video with your system's codecs. The `.AppImage` carries its own copy of WebKitGTK and GTK,
+which makes it several times larger; use it on distributions without these packages. The `.deb`, the `.rpm`
+and the `.AppImage` update themselves from Settings ▸ About (the `.deb` and `.rpm` ask for your password to
+install the update); `arkenda-bin` is updated by pacman or your AUR helper, like the rest of the system.
 
 ```sh
 # Debian, Ubuntu and derivatives
@@ -110,6 +112,9 @@ sudo apt install ./Arkenda_*_amd64.deb
 
 # Fedora, openSUSE
 sudo dnf install ./Arkenda-*.x86_64.rpm
+
+# Arch Linux and derivatives (with an AUR helper such as yay or paru)
+yay -S arkenda-bin
 
 # Any distribution
 chmod +x Arkenda_*_amd64.AppImage && ./Arkenda_*_amd64.AppImage
@@ -227,4 +232,5 @@ and pick the form that fits (bug, feature, question or other). For bugs, please 
 ## 📄 License
 
 Arkenda is proprietary software, **free to use**. All rights reserved © fsegurai. This repository holds the
-releases and their notes; the source code is not public.
+releases and their notes; the source code is not public. The terms are in [LICENSE](LICENSE): use it on any number
+of devices, personal or commercial; share the official, unmodified release files; don't sell or modify it.

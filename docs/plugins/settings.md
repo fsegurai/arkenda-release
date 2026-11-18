@@ -27,6 +27,8 @@ as if the user entered it (never a secret).
 
 ## Field types
 
+<!-- generated:setting-field-types -->
+
 | Type | Value | Extra keys |
 |------|-------|------------|
 | `toggle` | a boolean | `default` |
@@ -34,17 +36,19 @@ as if the user entered it (never a secret).
 | `select` | one option's value | `options`, `default` |
 | `multi-select` | a list of option values | `options`, `default` |
 | `number` | a number | `min`, `max`, `step`, `default` |
-| `duration` | a number in `seconds`, `minutes` or `hours` | `unit`, `min`, `max`, `step`, `default` |
-| `text` | text, up to 500 characters | `default`, `maxLength`, `minLength`, `allowed`, `placeholder` |
-| `string-list` | a list of texts | `default`, `maxItems`, `maxLength`, `minLength`, `allowed` |
+| `duration` | a number in `seconds`, `minutes` or `hours` | `min`, `max`, `step`, `default`, `unit` |
+| `text` | text, up to 500 characters | `placeholder`, `maxLength`, `default`, `minLength`, `allowed` |
+| `string-list` | a list of texts | `default`, `maxLength`, `maxItems`, `minLength`, `allowed` |
 | `key-value` | an object of text keys and text values | `default`, `maxItems`, `maxLength` |
 | `color` | `#rrggbb` | `default` |
 | `hotkey` | Ctrl/Cmd or Alt with a letter or digit, or F1–F12; the app's own keys are refused | `default` |
 | `folder` | a path inside the vault (`''` for the vault itself) | `default` |
 | `secret` | kept in the OS keychain; see [Secrets](#secrets) | `maxLength` |
 
+<!-- /generated:setting-field-types -->
+
 **On every field:** `key` (lowercase letters, digits, `-`, `_`), `label`, `description`, `group`,
-`required`, `scope`, `visibleWhen: { key, equals }` (an earlier field's value, or a list of values)
+`required`, `scope`, `visibleWhen` (`{ key, equals }`: an earlier field's value, or a list of values)
 and `capability` (an [app capability id](overview.md#capability-ids) such as `platform:desktop` or
 `git`: elsewhere the field is greyed, with the reason).
 
@@ -121,5 +125,6 @@ version of your plugin wrote is kept as it is.
 | `secret` | 1,024 | Longest secret (it goes to the OS keychain). |
 | `allowed` | 256 | Most characters of an `allowed` set. |
 | `version` | 10,000 | — |
+| `entries` | 1,000 | Most items read from a list or object value (a default, a stored or imported value, a migration map). |
 
 <!-- /generated:settings-limits -->

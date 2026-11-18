@@ -1,0 +1,139 @@
+name: Plugin submission
+description: Tell us about a plugin you built and ask for an early review. The marketplace is not open yet.
+title: "[Plugin]: "
+labels: [plugin-submission]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **The plugin marketplace is not open yet.** Publishing a plugin to other users is not available, and no plugin can be signed yet.
+
+        A submission registers your plugin and asks for an early look against the review checklist in [Contributing a plugin](https://github.com/fsegurai/arkenda-release/blob/main/docs/plugins/contributing.md). It does not publish, sign or list anything, and an early look is best effort.
+
+        Please **never paste keys, passwords, tokens or your notes** here.
+  - type: input
+    id: plugin-id
+    attributes:
+      label: Plugin id
+      description: The `id` of your manifest.
+      placeholder: reading-time
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The `version` of the release you submit.
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: repository
+    attributes:
+      label: Source repository
+      description: The `repository` of your manifest. Its source must build to the bundle you submit.
+      placeholder: https://github.com/you/reading-time
+    validations:
+      required: true
+  - type: input
+    id: release
+    attributes:
+      label: Package or release link
+      description: Where to download the `.zip` of this version.
+      placeholder: https://github.com/you/reading-time/releases/tag/v1.0.0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does it do?
+      description: A few sentences, as you would tell a user.
+    validations:
+      required: true
+  - type: textarea
+    id: permissions
+    attributes:
+      label: Permissions and why
+      description: Each permission of your manifest and what the plugin uses it for. Name each host of `network.hosts` and what it is.
+      placeholder: |
+        notes:read: counts the words of the open note.
+        ui:panels: shows the reading time in a sidebar panel.
+    validations:
+      required: true
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Platforms
+      description: The `platforms` of your manifest.
+      multiple: true
+      options: [web, desktop, mobile]
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: The SPDX expression of your manifest's `license`.
+      placeholder: MIT
+    validations:
+      required: true
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security
+      description: The security part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      options:
+        - label: "The package passes the app's install checks with no error."
+          required: true
+        - label: "`publisher`, `version`, `apiVersion`, `permissions` and `integrity` match the release."
+          required: true
+        - label: "The source at `repository` builds to the same bundle bytes (`integrity`)."
+          required: true
+        - label: "No `eval`, remote code or obfuscated parts."
+          required: true
+        - label: "If it uses `network`: each host in `network.hosts` is my own service or a well-known API the plugin names."
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      description: The privacy part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      options:
+        - label: "Each permission is explained by what the plugin does; `notes:write` and `network` (if used) are justified in its description or README."
+          required: true
+        - label: "It reads only the notes it needs, and sends none anywhere without a user action."
+          required: true
+        - label: "If it has secrets: they are `secret` settings; the plugin honours its own privacy switches."
+        - label: "It keeps working when an optional permission or a host is revoked."
+          required: true
+  - type: checkboxes
+    id: performance
+    attributes:
+      label: Performance
+      description: The performance part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      options:
+        - label: "`activate` is short, and nothing in the plugin runs close to the time or rate limits."
+          required: true
+        - label: "If it shows views: they show a state at once and update when the work is done."
+  - type: checkboxes
+    id: ux
+    attributes:
+      label: UX
+      description: The ux part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      options:
+        - label: "Titles and labels are plain English, in sentence case."
+          required: true
+        - label: "Buttons have labels that say what they do; nothing is said by colour alone."
+          required: true
+        - label: "It reads well in light and dark themes, and at a phone width if it lists `mobile`."
+          required: true
+        - label: "Its categories describe what it does (1 to 3), and its keywords are not spam."
+          required: true
+        - label: "It is quiet by default: no notification for routine work."
+          required: true
+        - label: "The README has screenshots and says where to report problems."
+          required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Questions about the API, or what you would need from it.

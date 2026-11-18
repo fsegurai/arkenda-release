@@ -5,7 +5,7 @@ contract: the manifest, the package, the entry point, the permission and sandbox
 version. The app checks all of it when it installs a package, and each problem it reports links to its rule in
 these pages.
 
-> **Status (API version 1.1).** Building a plugin and installing it as a development package from a file work
+> **Status (API version 1.2).** Building a plugin and installing it as a development package from a file work
 > today. Not available yet: the marketplace (publishing a plugin for other users), signed releases, a published
 > `@arkenda/plugin-api` package, and the command-line checker these pages call `plugin-check` (until it is
 > published, install your package in the app to see the same checks). See
@@ -33,5 +33,14 @@ these pages.
 | [Versioning and compatibility](versioning.md) | release a new version or target an app version. |
 | [Testing a plugin](testing.md) | check your plugin before you ship it. |
 | [Security checklist](security.md) | review a plugin, yours or someone else's. |
+
+## Contributing
+
+| Page | Read it when you… |
+|------|-------------------|
+| [Requirements](requirements.md) | want to know what a plugin must have, and what is optional. |
+| [Limitations](limitations.md) | need what a plugin cannot do, the performance budget and what is not exposed yet. |
+| [Considerations](considerations.md) | design for privacy, performance, phones, sync and offline. |
+| [Contributing a plugin](contributing.md) | want to submit a plugin: today's state, the review checklist, licensing and support. |
 
 The JSON Schema of the manifest is [`manifest.schema.json`](manifest.schema.json).

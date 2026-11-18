@@ -6,7 +6,8 @@ Build a "Reading time" plugin: a sidebar panel that shows how long the open note
 
 1. Create the project below: your sources and build, plus a `package/` folder with the manifest.
 2. Build the bundle into `package/` at the manifest's `entry`, and put its hash in `integrity`.
-3. Check the package: `bun scripts/plugin-check.ts reading-time/package` (from an Arkenda checkout).
+3. Check the package: install it in developer mode (step 4) — the install dialog lists every problem. The
+   command-line checker, `plugin-check`, is not published yet.
 4. Install it in developer mode, turn it on, and grant its permissions.
 5. After each change: build, update `integrity`, install again.
 
@@ -105,6 +106,10 @@ echo "sha256-$(openssl dgst -sha256 -binary package/dist/main.js | base64)"
 `computeIntegrity(bytes)` from `@arkenda/kit/plugin-api` gives the same value.
 
 ## 3. Check
+
+> **The checker is not published yet.** Until it is, check a package by installing it in developer mode: the
+> install dialog runs the same checks and lists every problem as `<path>: <message> [<code>]`. The commands below
+> show how `plugin-check` will be used.
 
 ```sh
 bun scripts/plugin-check.ts path/to/reading-time/package            # the package folder, as the app reads it
