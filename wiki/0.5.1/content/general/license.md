@@ -1,0 +1,45 @@
+---
+label: "License"
+description: "The terms under which Arkenda is published."
+order: 2
+tags: ["general","license"]
+publishedAt: "2026-11-18"
+updatedAt: "2026-11-18"
+---
+
+# Arkenda License (proprietary freeware)
+
+Copyright (c) 2026 fsegurai. All rights reserved.
+
+Arkenda (the "Software") is proprietary software, provided free of charge. This license covers the
+Software's published releases: the desktop, mobile and web apps and their installers and packages.
+
+1. Use. You may install and use the Software, for personal or commercial purposes, on any number of
+   devices, at no cost.
+
+2. Redistribution. You may redistribute the Software's official, unmodified release files (for example
+   through a package repository or a mirror), free of charge, provided this license accompanies them. A
+   package that installs the Software from its official release files, without changing the Software
+   itself, is such a redistribution.
+
+3. Restrictions. You may not sell the Software; distribute modified copies of it; or reverse engineer,
+   decompile or disassemble it, except to the extent that applicable law expressly permits it despite
+   this restriction. You may not remove or alter this license or the copyright notices.
+
+4. Your content. The notes, files and settings you create with the Software are yours. The Software keeps
+   them on your devices; see PRIVACY.md.
+
+5. Plugins and third-party components. Plugins written by others are not part of the Software and are
+   covered by their own terms. The Software includes open-source components that remain under their own
+   licenses; nothing in this license limits the rights those licenses grant.
+
+6. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NON-INFRINGEMENT.
+
+7. Limitation of liability. IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+   OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+8. Termination. This license ends automatically if you break its terms; you must then stop using and
+   distributing the Software.

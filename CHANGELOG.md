@@ -18,6 +18,54 @@ No changes have been made yet.
 
 ---
 
+## [0.5.1] - 2026-11-18
+
+Arkenda now works with the rest of your desktop: links and Markdown files open in it, notes are a search away in
+KRunner, the taskbar and sleep follow what the app is doing, deleted notes go to the system's trash, and video posters
+come from the system first. Plus one Attach entry for any file, versioned documentation, and tools for plugin authors.
+
+### ✨ New
+
+- 🖥️ **One Arkenda at a time** — starting Arkenda again brings the open window forward instead of opening a second
+  copy.
+- **Note links** — an `arkenda://note/<id>` link (the address MCP clients get for a note) opens that note from another
+  app or the browser. The `.deb`, `.rpm`, Windows installers and Microsoft Store package register the link; the
+  `.AppImage` registers it the first time it starts; 📱 on Android the link opens the note too.
+- 🖥️ **Open Markdown files with Arkenda** — double-click a `.md` file or use Open with: a file inside the open folder
+  vault opens as its note, any other is edited in place (it stays where it is, outside the vault; edits save after a
+  short pause, and if another app changed it meanwhile, Arkenda asks whether to reload theirs or keep yours).
+- 🖥️ **New note and Quick capture from the launcher** — right-click Arkenda in the Linux launcher or taskbar, or run
+  `arkenda --new-note` / `arkenda --quick-capture`.
+- 🖥️ **Show in folder** — a note's menu opens your file manager at the note's file (folder vaults).
+- 🖥️ **Deleted notes go to the system's trash** — a note deleted forever from a folder vault moves its file to the
+  trash of Linux or Windows, so it can still be restored there.
+- 🖥️ **System notifications on Linux** — the 🧩 Pomodoro timer's notifications show as your desktop's own, with an
+  Open action that brings Arkenda forward.
+- 🖥️ **Taskbar progress and due count** — an import, export or sync shows its progress on Arkenda's taskbar icon (KDE
+  Plasma and other launchers that read it, and Windows), and the icon shows how many tasks are due.
+- 🖥️ **The computer stays awake for long work** — while Arkenda records, imports, exports or syncs a lot, Linux does
+  not suspend; it may sleep again as soon as the work ends.
+- 🖥️ **Sync knows your network and battery on Linux** — a metered connection, a low battery or power saver lets the
+  media policy wait for a better moment, as on Android.
+- 🖥️🧪 **Notes in KRunner** — on KDE Plasma, find your notes by title from the search (Alt+Space) and open them, or
+  start a new note there (Settings ▸ Experimental ▸ Notes in KRunner).
+- **Video posters and lengths from the system** — a video's poster, duration and size come from what Linux, Windows
+  and 📱 Android already know (the thumbnail cache, the shell, the media retriever) before Arkenda decodes the file
+  itself, so long videos show their poster sooner.
+- **Attach a file…** — one entry in the editor and on the whiteboard takes any file: a picture, audio, video or any
+  other file, recognised from its contents.
+- **Versioned documentation** — the user guides and the plugin guide now have one folder per version in the public
+  repo (`wiki/`), readable in Arkodex; the [guides of this version](wiki/0.5.1/content/guides/README.md).
+- **Plugin author tools** — every release now carries `arkenda-plugin-check.mjs` (checks a plugin package with
+  Node.js 22) and `arkenda-plugin-starter.zip` (a template to start from).
+
+### 🐛 Fixed
+
+- 🖥️ On Linux, sync frames and plugin signatures of 65,473 to 65,535 bytes could fail to verify or close the window
+  (a WebKitGTK limit); they are now checked another way.
+
+---
+
 ## [0.5.0] - 2026-11-17
 
 Dictation that stays on your device, a website with a playground to try Arkenda in the browser, motion you can
@@ -25,7 +73,7 @@ tune or turn off, a sharper Linux app (Wayland quick capture, an AUR package, na
 can share, a fuller whiteboard, and a public guide for plugin authors.
 
 <p align="center">
-  <img src="docs/changelog/0.5.0/whiteboard.png" alt="Arkenda 0.5.0: a whiteboard with the board's title, undo and redo at the top left, the floating tool dock at the bottom, and a selected rectangle with its property bar open on corners and shadow" width="900">
+  <img src="wiki/0.5.0/content/images/whiteboard.png" alt="Arkenda 0.5.0: a whiteboard with the board's title, undo and redo at the top left, the floating tool dock at the bottom, and a selected rectangle with its property bar open on corners and shadow" width="900">
 </p>
 
 ### ✨ New
@@ -49,7 +97,7 @@ can share, a fuller whiteboard, and a public guide for plugin authors.
   motion; it follows a change at once), Full, Subtle or Off, on this device only. The app's animations follow
   it.
 
-  <p align="center"><img src="docs/changelog/0.5.0/motion-setting-dark.png" alt="Settings ▸ Appearance in the dark theme: the Motion card with System, Full, Subtle and Off" width="820"></p>
+  <p align="center"><img src="wiki/0.5.0/content/images/motion-setting-dark.png" alt="Settings ▸ Appearance in the dark theme: the Motion card with System, Full, Subtle and Off" width="820"></p>
 - **Small feedback** — buttons give a little when pressed, switches slide, checkboxes and radios dip while pressed,
   and button and menu highlights fade in; all of it follows the Motion setting (none at Off), and keyboard focus
   still shows at once. Checkboxes, sliders and progress bars use the accent colour everywhere, and the settings pages
@@ -65,7 +113,7 @@ can share, a fuller whiteboard, and a public guide for plugin authors.
   problem says how to attach the saved file. On Android, Share hands the same file to an app you pick (mail, chat, a
   drive) through the system's share sheet.
 
-  <p align="center"><img src="docs/changelog/0.5.0/logs.png" alt="Settings ▸ About ▸ Logs: Detailed logging on, Copy, Save as file, Refresh and Clear, filters by level and area, and the newest entries with their time, level and area" width="820"></p>
+  <p align="center"><img src="wiki/0.5.0/content/images/logs.png" alt="Settings ▸ About ▸ Logs: Detailed logging on, Copy, Save as file, Refresh and Clear, filters by level and area, and the newest entries with their time, level and area" width="820"></p>
 
 - 📱 **Dictation** — the microphone button in the editor's toolbar (or Dictate in the command palette) types what
   you say at the cursor: the words heard so far show as you speak, and each finished phrase is one undo step. Press
@@ -81,8 +129,8 @@ can share, a fuller whiteboard, and a public guide for plugin authors.
 
   <table>
     <tr>
-      <td width="50%"><img src="docs/changelog/0.5.0/website.png" alt="The website's home page: Download for Linux, Try it in your browser, and a picture of the app"></td>
-      <td width="50%"><img src="docs/changelog/0.5.0/playground.png" alt="The playground: the sample vault with its banner (Reset sample, Export as Markdown, Get the app) and the first step of the tour"></td>
+      <td width="50%"><img src="wiki/0.5.0/content/images/website.png" alt="The website's home page: Download for Linux, Try it in your browser, and a picture of the app"></td>
+      <td width="50%"><img src="wiki/0.5.0/content/images/playground.png" alt="The playground: the sample vault with its banner (Reset sample, Export as Markdown, Get the app) and the first step of the tour"></td>
     </tr>
     <tr>
       <td align="center"><sub>The website, in English and Spanish</sub></td>
@@ -98,7 +146,7 @@ can share, a fuller whiteboard, and a public guide for plugin authors.
   **comments** (review comments with replies, as a block or inline), **lettered and Roman lists**, and
   **inserted, superscript and subscript text** (++ins++, x^2^, H~2~O).
 
-  <p align="center"><img src="docs/changelog/0.5.0/markdown-blocks.png" alt="A note's preview with an open and a closed accordion, a kanban block with To do, In progress and Done, a lettered list and a review comment" width="820"></p>
+  <p align="center"><img src="wiki/0.5.0/content/images/markdown-blocks.png" alt="A note's preview with an open and a closed accordion, a kanban block with To do, In progress and Done, a lettered list and a review comment" width="820"></p>
 
 ### 🔧 Changes
 
@@ -110,8 +158,8 @@ can share, a fuller whiteboard, and a public guide for plugin authors.
 
   <table>
     <tr>
-      <td width="50%" align="center"><img src="docs/changelog/0.5.0/phone-whiteboard.png" alt="A whiteboard on a phone: the title and undo at the top left, export and ? at the top right, and the tool dock at the bottom" width="240"></td>
-      <td width="50%" align="center"><img src="docs/changelog/0.5.0/phone-whiteboard-sheet.png" alt="A whiteboard on a phone: a selected sticky note with its style in a sheet from the bottom, open on corners and shadow" width="240"></td>
+      <td width="50%" align="center"><img src="wiki/0.5.0/content/images/phone-whiteboard.png" alt="A whiteboard on a phone: the title and undo at the top left, export and ? at the top right, and the tool dock at the bottom" width="240"></td>
+      <td width="50%" align="center"><img src="wiki/0.5.0/content/images/phone-whiteboard-sheet.png" alt="A whiteboard on a phone: a selected sticky note with its style in a sheet from the bottom, open on corners and shadow" width="240"></td>
     </tr>
     <tr>
       <td align="center"><sub>The tool dock on a phone</sub></td>
@@ -164,9 +212,9 @@ AppImage, and a trash that really deletes on phones.
 
 <table>
   <tr>
-    <td width="33%" align="center"><img src="docs/changelog/0.4.1/phone-settings.png" alt="Settings on a phone: labels above each card, the tabs in one row" width="240"></td>
-    <td width="33%" align="center"><img src="docs/changelog/0.4.1/phone-media.png" alt="The media library on a phone: filters in one row, a two-column grid" width="240"></td>
-    <td width="33%" align="center"><img src="docs/changelog/0.4.1/phone-trash.png" alt="The trash on a phone: two items selected, Restore and Delete forever at the bottom" width="240"></td>
+    <td width="33%" align="center"><img src="wiki/0.4.1/content/images/phone-settings.png" alt="Settings on a phone: labels above each card, the tabs in one row" width="240"></td>
+    <td width="33%" align="center"><img src="wiki/0.4.1/content/images/phone-media.png" alt="The media library on a phone: filters in one row, a two-column grid" width="240"></td>
+    <td width="33%" align="center"><img src="wiki/0.4.1/content/images/phone-trash.png" alt="The trash on a phone: two items selected, Restore and Delete forever at the bottom" width="240"></td>
   </tr>
   <tr>
     <td align="center"><sub>Settings</sub></td>
@@ -205,7 +253,7 @@ a cleaner Markdown map, Arkenda in the Microsoft Store, and phones that save bat
 background.
 
 <p align="center">
-  <img src="docs/changelog/0.4.0/editor.png" alt="Arkenda 0.4.0: the sidebar with the Inbox, the note list, tabs, the editor and the Markdown map" width="900">
+  <img src="wiki/0.4.0/content/images/editor.png" alt="Arkenda 0.4.0: the sidebar with the Inbox, the note list, tabs, the editor and the Markdown map" width="900">
 </p>
 
 ### ✨ New
@@ -214,7 +262,7 @@ background.
   into a new note, or mark it done. Images, videos and files show what they are, with their name and a thumbnail.
   Choose the Inbox note and what filing does in **Settings ▸ Notes & capture ▸ Capture**.
 
-  <p align="center"><img src="docs/changelog/0.4.0/inbox.png" alt="The Inbox page: each captured line with Move to note, New note and Done" width="820"></p>
+  <p align="center"><img src="wiki/0.4.0/content/images/inbox.png" alt="The Inbox page: each captured line with Move to note, New note and Done" width="820"></p>
 - **Redesigned Settings** — every option grouped into nine categories, with the less common ones folded under
   **Advanced**, one search that also finds plugins and experiments, an icon rail on tablets and category screens
   on phones.
@@ -223,15 +271,15 @@ background.
 
   <table>
     <tr>
-      <td width="62%"><img src="docs/changelog/0.4.0/settings.png" alt="Settings on the desktop: the categories, one search, and the Appearance page"></td>
-      <td width="38%" align="center"><img src="docs/changelog/0.4.0/phone-settings.png" alt="Settings on a phone: one screen per category" width="260"></td>
+      <td width="62%"><img src="wiki/0.4.0/content/images/settings.png" alt="Settings on the desktop: the categories, one search, and the Appearance page"></td>
+      <td width="38%" align="center"><img src="wiki/0.4.0/content/images/phone-settings.png" alt="Settings on a phone: one screen per category" width="260"></td>
     </tr>
     <tr>
       <td align="center"><sub>The categories and one search on the desktop</sub></td>
       <td align="center"><sub>One screen per category on phones</sub></td>
     </tr>
     <tr>
-      <td colspan="2"><img src="docs/changelog/0.4.0/plugins.png" alt="Settings ▸ Plugins as a grid with families, search and an On only switch"></td>
+      <td colspan="2"><img src="wiki/0.4.0/content/images/plugins.png" alt="Settings ▸ Plugins as a grid with families, search and an On only switch"></td>
     </tr>
     <tr>
       <td colspan="2" align="center"><sub>Plugins as a grid: families, search and On only</sub></td>
@@ -245,8 +293,8 @@ background.
 
   <table>
     <tr>
-      <td width="50%"><img src="docs/changelog/0.4.0/context-menu.png" alt="The editor's right-click menu"></td>
-      <td width="50%"><img src="docs/changelog/0.4.0/command-palette-dark.png" alt="The command palette in the dark theme"></td>
+      <td width="50%"><img src="wiki/0.4.0/content/images/context-menu.png" alt="The editor's right-click menu"></td>
+      <td width="50%"><img src="wiki/0.4.0/content/images/command-palette-dark.png" alt="The command palette in the dark theme"></td>
     </tr>
     <tr>
       <td align="center"><sub>The editor's right-click menu</sub></td>
@@ -364,7 +412,7 @@ yours, X and YouTube cards, a much fuller MCP for AI agents, and in-app updates 
 - **CSS snippets** — your own small style sheets in **Settings ▸ Appearance ▸ CSS snippets**, kept on this device,
   each turned on or off. If the app fails to start with snippets on, the next start runs without them and tells
   you which; Ctrl/Cmd+Alt+Shift+S turns them all off for the rest of a run. Stable hooks:
-  [docs/css-snippets.md](docs/css-snippets.md).
+  [docs/css-snippets.md](wiki/0.5.1/content/guides/css-snippets.md).
 - **Glass theme** — a built-in theme pack, light and dark: see-through side panels and bars over an aurora in
   your accent colour (or your desktop, with the window effect's blur), text kept readable.
 - **Reduce transparency** — a switch in **Settings ▸ Appearance** makes Glass, the window effect and frosted menus
@@ -536,7 +584,7 @@ desktop builds, and a steadier release pipeline.
 ## [0.1.0] - 2026-11-04
 
 <p align="center">
-  <img src="docs/changelog/arkenda-logo.svg" alt="Arkenda" width="96">
+  <img src="wiki/assets/arkenda-logo.svg" alt="Arkenda" width="96">
 </p>
 
 <p align="center">
@@ -546,7 +594,7 @@ desktop builds, and a steadier release pipeline.
 </p>
 
 <p align="center">
-  <img src="docs/changelog/0.1.0/editor.png" alt="The editor: notebooks and statuses in the sidebar, the note list, and a note with links" width="900">
+  <img src="wiki/0.1.0/content/images/editor.png" alt="The editor: notebooks and statuses in the sidebar, the note list, and a note with links" width="900">
 </p>
 
 ### ✨ Highlights
@@ -588,8 +636,8 @@ desktop builds, and a steadier release pipeline.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.1.0/command-palette-dark.png" alt="The command palette in the dark theme"></td>
-    <td width="50%"><img src="docs/changelog/0.1.0/kanban.png" alt="Notes grouped by status on the kanban board"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/command-palette-dark.png" alt="The command palette in the dark theme"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/kanban.png" alt="Notes grouped by status on the kanban board"></td>
   </tr>
   <tr>
     <td align="center"><sub>The command palette (dark theme)</sub></td>
@@ -618,14 +666,14 @@ desktop builds, and a steadier release pipeline.
 - 📱 Capture photos, audio and video from the phone or tablet.
 
 <p align="center">
-  <img src="docs/changelog/0.1.0/media-library.png" alt="The media library with filters, folders and file tiles" width="820">
+  <img src="wiki/0.1.0/content/images/media-library.png" alt="The media library with filters, folders and file tiles" width="820">
 </p>
 
 #### 💾 Vaults and storage
 
 - **Browser vault** — stored in the browser (IndexedDB) and exported to a portable archive whenever you want.
 - 🖥️ **Folder vaults** — a vault is a folder: folder = notebook, file name = title. See
-  [the folder vault guide](docs/file-vault.md).
+  [the folder vault guide](wiki/0.5.1/content/guides/file-vault.md).
 - **Several vaults** — a vault picker and **Manage vaults**; a vault that is not reachable is shown as such, never
   lost.
 - **Backups** — import and export run in the background, and imports are checked before anything is written.
@@ -634,7 +682,7 @@ desktop builds, and a steadier release pipeline.
 
 #### 🔄 Sync and devices
 
-- **End-to-end encrypted sync** between your paired devices — see [the sync guide](docs/sync.md).
+- **End-to-end encrypted sync** between your paired devices — see [the sync guide](wiki/0.5.1/content/guides/sync.md).
 - **Pair with a code**, step by step; paired devices find each other again on the local network.
 - **Every way to connect, in order** — the local network, across networks (desktop and Android), public relays, and
   store-and-forward through your own S3 mirror.
@@ -643,8 +691,8 @@ desktop builds, and a steadier release pipeline.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.1.0/sync-overview.png" alt="Sync and devices overview with paired devices"></td>
-    <td width="50%"><img src="docs/changelog/0.1.0/sync-pairing.png" alt="The pairing code dialog"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/sync-overview.png" alt="Sync and devices overview with paired devices"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/sync-pairing.png" alt="The pairing code dialog"></td>
   </tr>
   <tr>
     <td align="center"><sub>Sync &amp; devices at a glance</sub></td>
@@ -657,23 +705,23 @@ desktop builds, and a steadier release pipeline.
 - **Sandboxed plugins** with declared permissions: they add commands, insert items, panels, widgets, settings, themes
   and Markdown blocks — and never reach the app's pages, cookies, storage or secrets.
 - **Built-in plugins** (🧩 all off by default): pomodoro, insights, vault map, git history, weather and clock.
-- **Write your own** — [plugin documentation](docs/plugins/README.md), from getting started to permissions and
+- **Write your own** — [plugin documentation](wiki/0.5.1/content/api/README.md), from getting started to permissions and
   testing.
 
 #### 🖥️ Desktop app
 
 - **A flexible layout** — collapsible panes with an icon rail, a toolbar row, a selection bar, and notes side by
-  side in horizontal and vertical splits. See [the desktop layout guide](docs/desktop-layout.md).
+  side in horizontal and vertical splits. See [the desktop layout guide](wiki/0.5.1/content/guides/desktop-layout.md).
 - **The activity island** — quick capture with a global key, screenshots, voice memos and a drop shelf. See
-  [the island guide](docs/notch.md).
+  [the island guide](wiki/0.5.1/content/guides/notch.md).
 - 🧩 **Version history with git** — the vault's history through your system's git.
 - **Secrets in the OS keychain.**
 - **Check for updates** in **Settings ▸ About**, which asks the release page only when you click.
-- 🧪 Glass window effect ([Linux notes](docs/window-effect-linux.md)), a system-wide notch, screen recording, an
+- 🧪 Glass window effect ([Linux notes](wiki/0.5.1/content/guides/window-effect-linux.md)), a system-wide notch, screen recording, an
   integrated terminal and a local MCP server.
 
 <p align="center">
-  <img src="docs/changelog/0.1.0/split-panes.png" alt="Four notes open side by side in split panes" width="900">
+  <img src="wiki/0.1.0/content/images/split-panes.png" alt="Four notes open side by side in split panes" width="900">
 </p>
 
 #### 📱 Phone and tablet
@@ -683,12 +731,12 @@ desktop builds, and a steadier release pipeline.
 - **Writing on a phone** — a single compact header, the formatting bar above the keyboard, and details as sheets;
   new notes open ready to type.
 - **Tablets** — drawers in portrait, two panes with a rail in landscape. See
-  [the phone and tablet guide](docs/phone-and-tablet.md).
+  [the phone and tablet guide](wiki/0.5.1/content/guides/phone-and-tablet.md).
 
 <table>
   <tr>
-    <td width="50%" align="center"><img src="docs/changelog/0.1.0/phone-today.png" alt="Today on a phone with the bottom bar" width="300"></td>
-    <td width="50%" align="center"><img src="docs/changelog/0.1.0/phone-note.png" alt="Reading a note on a phone" width="300"></td>
+    <td width="50%" align="center"><img src="wiki/0.1.0/content/images/phone-today.png" alt="Today on a phone with the bottom bar" width="300"></td>
+    <td width="50%" align="center"><img src="wiki/0.1.0/content/images/phone-note.png" alt="Reading a note on a phone" width="300"></td>
   </tr>
   <tr>
     <td align="center"><sub>Today, with the bottom bar</sub></td>
@@ -701,13 +749,13 @@ desktop builds, and a steadier release pipeline.
 - **A new Settings** — two columns on desktop, stacked pages on touch, with dedicated *Sync & devices* and
   *Data & storage* pages and a tidy *Experimental* page.
 - **Themes and accents** — presets such as Nord, Sepia and High contrast, and accent colours.
-- **Your shortcuts** — customise keyboard shortcuts and snippets. See [keyboard shortcuts](docs/keyboard-shortcuts.md).
+- **Your shortcuts** — customise keyboard shortcuts and snippets. See [keyboard shortcuts](wiki/0.5.1/content/guides/keyboard-shortcuts.md).
 - **English and Spanish** (en-US, es-CR).
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.1.0/appearance.png" alt="Appearance settings with themes and accents"></td>
-    <td width="50%"><img src="docs/changelog/0.1.0/plugins.png" alt="Plugins settings"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/appearance.png" alt="Appearance settings with themes and accents"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/plugins.png" alt="Plugins settings"></td>
   </tr>
   <tr>
     <td align="center"><sub>Appearance</sub></td>
@@ -732,10 +780,10 @@ desktop builds, and a steadier release pipeline.
 
 ### 📝 Documentation
 
-- Guides for [folder vaults](docs/file-vault.md), [sync](docs/sync.md), [media](docs/media.md),
-  [keyboard shortcuts](docs/keyboard-shortcuts.md), [the desktop layout](docs/desktop-layout.md),
-  [phones and tablets](docs/phone-and-tablet.md), [the activity island](docs/notch.md) and
-  [plugins](docs/plugins/README.md).
+- Guides for [folder vaults](wiki/0.5.1/content/guides/file-vault.md), [sync](wiki/0.5.1/content/guides/sync.md), [media](wiki/0.5.1/content/guides/media.md),
+  [keyboard shortcuts](wiki/0.5.1/content/guides/keyboard-shortcuts.md), [the desktop layout](wiki/0.5.1/content/guides/desktop-layout.md),
+  [phones and tablets](wiki/0.5.1/content/guides/phone-and-tablet.md), [the activity island](wiki/0.5.1/content/guides/notch.md) and
+  [plugins](wiki/0.5.1/content/api/README.md).
 
 ---
 

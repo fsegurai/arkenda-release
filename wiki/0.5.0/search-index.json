@@ -1,0 +1,966 @@
+[
+  {
+    "label": "Arkenda",
+    "description": "Arkenda 0.5.0: a local-first, private Markdown notes app for Linux, Windows, Android and the web.",
+    "route": "content/README",
+    "tags": [
+      "overview",
+      "notes",
+      "markdown"
+    ],
+    "headings": [
+      "Sections"
+    ],
+    "excerpt": "Arkenda 0.5.0\n\nArkenda is a local-first, private Markdown notes app. There is no account and no telemetry: notes stay on your\ndevice as plain...",
+    "breadcrumb": [
+      {
+        "label": "Home",
+        "route": "content/README"
+      }
+    ]
+  },
+  {
+    "label": "Plugin API",
+    "description": "Build an extension with any tooling, language or layout you like. To be supported it must meet one contract: the manifest, the package, the entry point, the permission and sandbox rules, and the API version. The app…",
+    "route": "content/api/README",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Start here",
+      "Reference",
+      "Contributing"
+    ],
+    "excerpt": "Build an extension with any tooling, language or layout you like.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Plugin API",
+        "route": "content/api/README"
+      }
+    ]
+  },
+  {
+    "label": "API reference",
+    "description": "Generated from @arkenda/kit/plugin-api (to be published as @arkenda/plugin-api) and its JSDoc. API version 1.2: ctx.apiVersion is 1, ctx.apiMinor is 2.",
+    "route": "content/api/api",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "The plugin context (`ctx`)",
+      "`ctx.apiVersion`",
+      "`ctx.apiMinor`",
+      "`ctx.manifest`",
+      "`ctx.commands`",
+      "`ctx.editor`",
+      "`ctx.appearance`",
+      "`ctx.markdown`",
+      "`ctx.views`",
+      "`ctx.settings`",
+      "`ctx.permissions`",
+      "`ctx.dashboard`",
+      "`ctx.storage`",
+      "`ctx.notes`",
+      "`ctx.knowledge`",
+      "`ctx.workspace`",
+      "`ctx.clipboard`",
+      "`ctx.sync`",
+      "`ctx.notifications`",
+      "`ctx.network`",
+      "Exports",
+      "The sandbox context",
+      "Views",
+      "Sandbox limits and errors",
+      "The manifest",
+      "Kinds, categories and surfaces",
+      "Settings",
+      "Themes, editor items and hotkeys",
+      "Versions and compatibility",
+      "In-process plugins and places",
+      "Sync sources",
+      "Signing and integrity",
+      "Other (live-activity.ts)"
+    ],
+    "excerpt": "Generated from (to be published as ) and its JSDoc.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "API reference",
+        "route": "content/api/api"
+      }
+    ]
+  },
+  {
+    "label": "Considerations",
+    "description": "Things to think about while you design a plugin. None of them is a single rule the app can check, but the review will look at each.",
+    "route": "content/api/considerations",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Privacy",
+      "Performance",
+      "Accessibility",
+      "Phones",
+      "Sync",
+      "Offline",
+      "Versioning and the compatibility promise"
+    ],
+    "excerpt": "Things to think about while you design a plugin.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Considerations",
+        "route": "content/api/considerations"
+      }
+    ]
+  },
+  {
+    "label": "Contributing a plugin",
+    "description": "How a plugin will reach other Arkenda users, what the review checks, and what is expected of you after it is published.",
+    "route": "content/api/contributing",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Today: publishing is not open yet",
+      "Planned: the process",
+      "Review checklist",
+      "Security",
+      "Privacy",
+      "Performance",
+      "UX",
+      "Signing",
+      "Updates",
+      "Revocation",
+      "Licensing",
+      "Support",
+      "Deprecation"
+    ],
+    "excerpt": "Contributing a plugin\n\nHow a plugin will reach other Arkenda users, what the review checks, and what is expected of you after\nit is...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Contributing a plugin",
+        "route": "content/api/contributing"
+      }
+    ]
+  },
+  {
+    "label": "Worked examples",
+    "description": "Two built-in plugins, read as examples: word count (the smallest useful plugin) and git (settings, commands, a tool and a desktop-only feature). Built-in plugins run in-process with more API than a sandboxed plugin;…",
+    "route": "content/api/examples",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Word count",
+      "Git"
+    ],
+    "excerpt": "Worked examples\n\nTwo built-in plugins, read as examples: word count (the smallest useful plugin) and git (settings,\ncommands, a tool and a...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Worked examples",
+        "route": "content/api/examples"
+      }
+    ]
+  },
+  {
+    "label": "Getting started",
+    "description": "Build a \"Reading time\" plugin: a sidebar panel that shows how long the open note takes to read.",
+    "route": "content/api/getting-started",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Quick path",
+      "1. The starter template",
+      "2. Build and hash",
+      "3. Check",
+      "4. Install and run",
+      "5. Reload after a change",
+      "Next"
+    ],
+    "excerpt": "Build a \"Reading time\" plugin: a sidebar panel that shows how long the open note takes to read.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Getting started",
+        "route": "content/api/getting-started"
+      }
+    ]
+  },
+  {
+    "label": "Limitations",
+    "description": "What a plugin cannot do, what each permission opens, the performance budget it runs under, and what is not exposed to plugins yet. The rules themselves are in The sandbox and Permissions and privacy; this page puts…",
+    "route": "content/api/limitations",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "The sandbox",
+      "What each permission opens",
+      "Performance budget",
+      "Platforms",
+      "Not exposed yet"
+    ],
+    "excerpt": "Limitations\n\nWhat a plugin cannot do, what each permission opens, the performance budget it runs under, and what is\nnot exposed to plugins yet. The...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Limitations",
+        "route": "content/api/limitations"
+      }
+    ]
+  },
+  {
+    "label": "Manifest reference",
+    "description": "arkenda-plugin.json describes an extension before any of its code runs: who made it, what it is, what it asks for and what it adds. The app's validator (parsePluginManifestV2) is the authority, and it reads one…",
+    "route": "content/api/manifest",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Example",
+      "Rules for every field",
+      "Fields",
+      "`schemaVersion`",
+      "`kind`",
+      "`id`",
+      "`name`",
+      "`version`",
+      "`minAppVersion`",
+      "`description`",
+      "`author`",
+      "`publisher`",
+      "`license`",
+      "`repository`",
+      "`categories`",
+      "`keywords`",
+      "`platforms`",
+      "`permissions`",
+      "`network`",
+      "`contributes`",
+      "`entry`",
+      "`integrity`",
+      "Extension kinds",
+      "Taxonomy",
+      "Built-in plugins"
+    ],
+    "excerpt": "what it asks for and what it adds.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Manifest reference",
+        "route": "content/api/manifest"
+      }
+    ]
+  },
+  {
+    "label": "Overview",
+    "description": "A plugin is an ES module that runs in a sandbox and talks to Arkenda only through ctx. It can read and change notes, add commands, panels, widgets, editor items, Markdown blocks, themes and settings, and fetch…",
+    "route": "content/api/overview",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "What a plugin can do",
+      "Platforms",
+      "Capability ids",
+      "Next"
+    ],
+    "excerpt": "A plugin is an ES module that runs in a sandbox and talks to Arkenda only through .",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Overview",
+        "route": "content/api/overview"
+      }
+    ]
+  },
+  {
+    "label": "The package and release",
+    "description": "A package is a .zip (or, in developer mode, a folder) holding the manifest, one bundle and a few assets. Arkenda reads it without running it, checks every file, and installs it only when it passes.",
+    "route": "content/api/package",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Layout",
+      "Files",
+      "Zip",
+      "Limits",
+      "Integrity",
+      "Signing",
+      "Revocation",
+      "Installing",
+      "Publishing",
+      "Error codes"
+    ],
+    "excerpt": "The package and release\n\nA package is a (or, in developer mode, a folder) holding the manifest, one bundle and a few\nassets. Arkenda reads it without...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "The package and release",
+        "route": "content/api/package"
+      }
+    ]
+  },
+  {
+    "label": "Permissions and privacy",
+    "description": "Ask only for what you use: users see every permission before they install, and grant each one when they turn the plugin on. Every call is checked against the grant at the moment it is made.",
+    "route": "content/api/permissions",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Permissions",
+      "Grants",
+      "Notes scope",
+      "Network hosts",
+      "Privacy label",
+      "Updates"
+    ],
+    "excerpt": "Permissions and privacy\n\nAsk only for what you use: users see every permission before they install, and grant each one when\nthey turn the plugin on....",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Permissions and privacy",
+        "route": "content/api/permissions"
+      }
+    ]
+  },
+  {
+    "label": "Requirements",
+    "description": "What a plugin must have before it can be reviewed, and what is up to you. Most of the \"must have\" list is checked by the app when it installs your package; the rest is checked by a person during review.",
+    "route": "content/api/requirements",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Must have",
+      "Optional",
+      "Next"
+    ],
+    "excerpt": "What a plugin must have before it can be reviewed, and what is up to you.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Requirements",
+        "route": "content/api/requirements"
+      }
+    ]
+  },
+  {
+    "label": "The sandbox",
+    "description": "Each enabled third-party plugin runs isolated from the app, talks to it only through checked messages, and is stopped when it breaks a limit. Built-in plugins run in-process and are not sandboxed.",
+    "route": "content/api/sandbox",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "How it is isolated",
+      "Limits",
+      "When a plugin is stopped",
+      "What is refused, and why",
+      "Why these rules"
+    ],
+    "excerpt": "The sandbox\n\nEach enabled third-party plugin runs isolated from the app, talks to it only through checked messages,\nand is stopped when it breaks a...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "The sandbox",
+        "route": "content/api/sandbox"
+      }
+    ]
+  },
+  {
+    "label": "Security checklist",
+    "description": "Use it before you ship a plugin, and when you review someone else's. The sandbox limits the damage a plugin can do; this list keeps it from asking for more than it needs.",
+    "route": "content/api/security",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "For authors",
+      "For reviewers",
+      "What the app already enforces"
+    ],
+    "excerpt": "Use it before you ship a plugin, and when you review someone else's.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Security checklist",
+        "route": "content/api/security"
+      }
+    ]
+  },
+  {
+    "label": "Settings",
+    "description": "A plugin declares its settings as data; Arkenda renders them on the plugin's page (the Options gear on its card, shown while the plugin is on). A plugin never renders its own settings HTML.",
+    "route": "content/api/settings",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Quick path",
+      "Field types",
+      "Scopes",
+      "Secrets",
+      "Migrations",
+      "What users can do",
+      "Limits"
+    ],
+    "excerpt": "Settings\n\nA plugin declares its settings as data; Arkenda renders them on the plugin's page (the Options\ngear on its card, shown while the plugin is...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Settings",
+        "route": "content/api/settings"
+      }
+    ]
+  },
+  {
+    "label": "Surfaces",
+    "description": "Where a plugin can show, and when to use each place. Declare every item in contributes first: the app shows titles from there before any code runs, and refuses an undeclared id (not-declared).",
+    "route": "content/api/surfaces",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Commands",
+      "Insert items and toolbar items",
+      "Tools: sidebar panels and status chips",
+      "Widgets",
+      "Settings tabs",
+      "Markdown code blocks",
+      "Themes",
+      "Sync sources",
+      "Not available to plugins yet"
+    ],
+    "excerpt": "Where a plugin can show, and when to use each place.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Surfaces",
+        "route": "content/api/surfaces"
+      }
+    ]
+  },
+  {
+    "label": "Testing a plugin",
+    "description": "Check the contract with the app's own tools, test your logic against a fake ctx, then try the real thing in developer mode.",
+    "route": "content/api/testing",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "1. Check the contract",
+      "2. Check what you register",
+      "3. Test your logic against a fake `ctx`",
+      "4. Run it for real",
+      "Before you ship"
+    ],
+    "excerpt": "Testing a plugin\n\nCheck the contract with the app's own tools, test your logic against a fake , then try the real\nthing in developer mode.\n\nNot...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Testing a plugin",
+        "route": "content/api/testing"
+      }
+    ]
+  },
+  {
+    "label": "UX guidelines",
+    "description": "A plugin should feel like part of Arkenda. For sandboxed plugins most of this is automatic, because the app renders their views, settings and menus with its own components; what is left is the words, the structure…",
+    "route": "content/api/ux",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Quick rules",
+      "Design tokens and themes",
+      "Components",
+      "Words and languages",
+      "Accessibility",
+      "Mobile"
+    ],
+    "excerpt": "A plugin should feel like part of Arkenda.",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "UX guidelines",
+        "route": "content/api/ux"
+      }
+    ]
+  },
+  {
+    "label": "Versioning and compatibility",
+    "description": "Three numbers decide whether a plugin runs: its own version, the apiVersion it was built for and the minAppVersion it needs.",
+    "route": "content/api/versioning",
+    "tags": [
+      "plugins",
+      "api"
+    ],
+    "headings": [
+      "Compatibility",
+      "Your plugin's version",
+      "The plugin API version",
+      "Deprecation policy",
+      "API changelog"
+    ],
+    "excerpt": "Versioning and compatibility\n\nThree numbers decide whether a plugin runs: its own , the it was built for and\nthe it needs.\n\nCompatibility\n\n runs at...",
+    "breadcrumb": [
+      {
+        "label": "Plugin API",
+        "route": "content/api"
+      },
+      {
+        "label": "Versioning and compatibility",
+        "route": "content/api/versioning"
+      }
+    ]
+  },
+  {
+    "label": "What's new in 0.5.0",
+    "description": "The release notes of Arkenda 0.5.0 (2026-11-17).",
+    "route": "content/changelog",
+    "tags": [
+      "changelog",
+      "release-notes"
+    ],
+    "headings": [
+      "✨ New",
+      "🔧 Changes"
+    ],
+    "excerpt": "What's new in 0.5.0\n\nReleased on 2026-11-17.\n\nDictation that stays on your device, a website with a playground to try Arkenda in the browser, motion...",
+    "breadcrumb": [
+      {
+        "label": "What's new in 0.5.0",
+        "route": "content/changelog"
+      }
+    ]
+  },
+  {
+    "label": "Getting started",
+    "description": "Install Arkenda 0.5.0 on Linux, Windows, Android or the web, and open your first vault.",
+    "route": "content/getting-started/README",
+    "tags": [
+      "getting-started",
+      "install"
+    ],
+    "headings": [
+      "Install",
+      "Your first vault",
+      "Next"
+    ],
+    "excerpt": "Every download of 0.5.0 is on its release page.",
+    "breadcrumb": [
+      {
+        "label": "Getting started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Getting started",
+        "route": "content/getting-started/README"
+      }
+    ]
+  },
+  {
+    "label": "Guides",
+    "description": "How to use Arkenda 0.5.0: vaults, layout, shortcuts, media, sync and more.",
+    "route": "content/guides/README",
+    "tags": [
+      "guides",
+      "overview"
+    ],
+    "excerpt": "Guides\n\nFolder vaults (desktop)\nThe desktop layout\nKeyboard shortcuts\nMedia\nSync between your devices\nThe activity island\nPhones and tablets\nCSS...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Guides",
+        "route": "content/guides/README"
+      }
+    ]
+  },
+  {
+    "label": "CSS snippets",
+    "description": "CSS snippets are small style sheets that change how Arkenda looks on one device. You manage them in Settings ▸ Appearance ▸ CSS snippets: write a new one, import a .css file, edit it, turn it on or off, or delete it.",
+    "route": "content/guides/css-snippets",
+    "tags": [
+      "appearance",
+      "css"
+    ],
+    "headings": [
+      "Where they live",
+      "How they apply",
+      "Safety",
+      "Stable hooks",
+      "Design tokens",
+      "Page attributes",
+      "Elements",
+      "Example"
+    ],
+    "excerpt": "CSS snippets are small style sheets that change how Arkenda looks on one device.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "CSS snippets",
+        "route": "content/guides/css-snippets"
+      }
+    ]
+  },
+  {
+    "label": "The desktop layout",
+    "description": "On a window wider than 1023 px (the desktop app, and the web app on a large screen; a tablet shares most of it), Arkenda shows four panes side by side: the sidebar on the left, the note list, the note with its tabs…",
+    "route": "content/guides/desktop-layout",
+    "tags": [
+      "desktop",
+      "layout",
+      "windows"
+    ],
+    "headings": [
+      "Panes, and collapsing them",
+      "The sidebar and its rail",
+      "Views and More",
+      "The note list",
+      "The inspector",
+      "The tab row",
+      "The toolbar row",
+      "The selection bar",
+      "Split panes",
+      "The palette",
+      "Density",
+      "Settings",
+      "Media",
+      "The activity island",
+      "The window effect",
+      "The browser window"
+    ],
+    "excerpt": "The desktop layout\n\nOn a window wider than 1023 px (the desktop app, and the web app on a large screen; a tablet\nshares most of it), Arkenda shows...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "The desktop layout",
+        "route": "content/guides/desktop-layout"
+      }
+    ]
+  },
+  {
+    "label": "Folder vaults (desktop)",
+    "description": "On the desktop app, a vault can be a folder on your disk. The folder is the source of truth: your notes are plain .md files you can open, edit, move, sync or version with any other tool, and Arkenda follows those…",
+    "route": "content/guides/file-vault",
+    "tags": [
+      "vaults",
+      "files",
+      "markdown"
+    ],
+    "headings": [
+      "Choosing a vault",
+      "How the folder maps to notes",
+      "Frontmatter",
+      "What Arkenda writes, and when",
+      "`.arkenda/`",
+      "Changes made outside Arkenda",
+      "Conflicts",
+      "When the folder is unavailable",
+      "Limitations"
+    ],
+    "excerpt": "On the desktop app, a vault can be a folder on your disk.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Folder vaults (desktop)",
+        "route": "content/guides/file-vault"
+      }
+    ]
+  },
+  {
+    "label": "Keyboard shortcuts",
+    "description": "Arkenda's default keys follow the conventions shared by Google Docs, Word, Confluence, Notion, Obsidian and VS Code. Almost every key below can be changed or removed in Settings ▸ Keyboard, which also prints a cheat…",
+    "route": "content/guides/keyboard-shortcuts",
+    "tags": [
+      "keyboard",
+      "shortcuts"
+    ],
+    "headings": [
+      "Desktop app and web",
+      "App",
+      "Tabs and panes",
+      "Editor",
+      "Keys the Markdown editor gave up",
+      "Plugins",
+      "Layouts and AltGr"
+    ],
+    "excerpt": "Keyboard shortcuts\n\nArkenda's default keys follow the conventions shared by Google Docs, Word, Confluence, Notion,\nObsidian and VS Code. Almost every...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Keyboard shortcuts",
+        "route": "content/guides/keyboard-shortcuts"
+      }
+    ]
+  },
+  {
+    "label": "Media",
+    "description": "Pictures, audio, video and other files live in your vault next to your notes. Everything here works on the device: nothing is sent to a service to be read, converted or recognised.",
+    "route": "content/guides/media",
+    "tags": [
+      "media",
+      "images",
+      "audio",
+      "video"
+    ],
+    "headings": [
+      "Adding files",
+      "Cards: Open and Save",
+      "Galleries, players and photos",
+      "Annotating and redacting a picture",
+      "Reading PDFs",
+      "A table of contents",
+      "The media library",
+      "Media folders",
+      "The trash",
+      "Storage",
+      "Linux"
+    ],
+    "excerpt": "Pictures, audio, video and other files live in your vault next to your notes.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Media",
+        "route": "content/guides/media"
+      }
+    ]
+  },
+  {
+    "label": "The activity island",
+    "description": "The activity island is a small dark pill at the top centre of Arkenda's window. It shows what Arkenda is doing right now — a sync, a focus timer, an export — what asks for you — a device that wants to pair — and what…",
+    "route": "content/guides/notch",
+    "tags": [
+      "desktop",
+      "quick-capture",
+      "island"
+    ],
+    "headings": [
+      "Where it is",
+      "What it shows",
+      "Opening it",
+      "Next up",
+      "Incoming requests",
+      "Quick capture",
+      "Voice memo",
+      "Screenshot (desktop app)",
+      "Screen recording (desktop app, an experiment)",
+      "The notch outside the app (desktop app, an experiment)",
+      "The drop shelf",
+      "On Android: a notification (an experiment)",
+      "Privacy",
+      "For plugins"
+    ],
+    "excerpt": "The activity island is a small dark pill at the top centre of Arkenda's window.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "The activity island",
+        "route": "content/guides/notch"
+      }
+    ]
+  },
+  {
+    "label": "Phones and tablets",
+    "description": "Arkenda picks one of three layouts from the window's width and the kind of pointer:",
+    "route": "content/guides/phone-and-tablet",
+    "tags": [
+      "android",
+      "phone",
+      "tablet"
+    ],
+    "headings": [
+      "The bottom bar",
+      "The + button",
+      "Today",
+      "A note",
+      "Reading and editing",
+      "The status sheet",
+      "Lists",
+      "Settings",
+      "Going back",
+      "Sync in the background",
+      "Media",
+      "The activity island",
+      "Tablets",
+      "Upright (721 to 1023 px wide, touch)",
+      "On its side (1024 px wide and more)"
+    ],
+    "excerpt": "Phones and tablets\n\nArkenda picks one of three layouts from the window's width and the kind of pointer:\n\n| Window | Layout |\n| --- | --- |\n| Up to...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Phones and tablets",
+        "route": "content/guides/phone-and-tablet"
+      }
+    ]
+  },
+  {
+    "label": "Sync between your devices",
+    "description": "Arkenda syncs a vault between the devices you paired, with no account and no server of ours in the middle. Turn it on in Settings ▸ Sync & devices ▸ Overview (its guided setup names this device, turns sync on and…",
+    "route": "content/guides/sync",
+    "tags": [
+      "sync",
+      "devices",
+      "privacy"
+    ],
+    "headings": [
+      "Settings ▸ Sync & devices",
+      "What a sync brings, and what came of it",
+      "The sync status",
+      "Pairing a device, step by step",
+      "A device's health",
+      "The paths, in order",
+      "Relays",
+      "Pairing carries the route",
+      "The S3 mirror",
+      "Media on mobile data",
+      "Sync in the background (phones)",
+      "What stays end-to-end"
+    ],
+    "excerpt": "Arkenda syncs a vault between the devices you paired, with no account and no server of ours in the middle.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Sync between your devices",
+        "route": "content/guides/sync"
+      }
+    ]
+  },
+  {
+    "label": "Window effect on Linux (desktop)",
+    "description": "Appearance ▸ Window effect ▸ Blur lets the desktop show, blurred, through Arkenda's chrome: the sidebar, the note list, the inspector, the tab and toolbar rows, and the status bar. The note's text area always stays…",
+    "route": "content/guides/window-effect-linux",
+    "tags": [
+      "linux",
+      "appearance"
+    ],
+    "headings": [
+      "What Arkenda does on Linux",
+      "Turning it on",
+      "Getting a real blur, desktop by desktop",
+      "Finding Arkenda's window class",
+      "Troubleshooting",
+      "Limits no app can fix"
+    ],
+    "excerpt": "Window effect on Linux (desktop)\n\nAppearance ▸ Window effect ▸ Blur lets the desktop show, blurred, through Arkenda's chrome: the sidebar, the...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Window effect on Linux (desktop)",
+        "route": "content/guides/window-effect-linux"
+      }
+    ]
+  }
+]

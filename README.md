@@ -5,7 +5,7 @@
 -->
 
 <p align="center">
-  <img src="docs/changelog/arkenda-logo.svg" alt="Arkenda" width="112">
+  <img src="wiki/assets/arkenda-logo.svg" alt="Arkenda" width="112">
 </p>
 
 <h1 align="center">Arkenda</h1>
@@ -27,7 +27,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/changelog/0.4.0/editor.png" alt="Arkenda: the sidebar, the note list, tabs and the editor" width="900">
+  <img src="wiki/0.4.0/content/images/editor.png" alt="Arkenda: the sidebar, the note list, tabs and the editor" width="900">
 </p>
 
 ## 🚀 Get started in three steps
@@ -58,24 +58,24 @@
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.4.0/command-palette-dark.png" alt="The command palette in the dark theme"></td>
-    <td width="50%"><img src="docs/changelog/0.4.0/context-menu.png" alt="The editor's right-click menu"></td>
+    <td width="50%"><img src="wiki/0.4.0/content/images/command-palette-dark.png" alt="The command palette in the dark theme"></td>
+    <td width="50%"><img src="wiki/0.4.0/content/images/context-menu.png" alt="The editor's right-click menu"></td>
   </tr>
   <tr>
     <td align="center"><sub>Find anything: notes, commands and tags</sub></td>
     <td align="center"><sub>Right-click for what you can do here</sub></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.4.0/settings.png" alt="Settings, grouped into categories with one search"></td>
-    <td width="50%"><img src="docs/changelog/0.5.0/whiteboard.png" alt="A whiteboard with stickies, note cards, the floating tool dock and a shape's property bar"></td>
+    <td width="50%"><img src="wiki/0.4.0/content/images/settings.png" alt="Settings, grouped into categories with one search"></td>
+    <td width="50%"><img src="wiki/0.5.0/content/images/whiteboard.png" alt="A whiteboard with stickies, note cards, the floating tool dock and a shape's property bar"></td>
   </tr>
   <tr>
     <td align="center"><sub>Every setting in a few categories, with one search</sub></td>
     <td align="center"><sub>Sketch and plan on a whiteboard</sub></td>
   </tr>
   <tr>
-    <td width="50%"><img src="docs/changelog/0.5.0/playground.png" alt="The playground: a sample vault in the browser with its banner and tour"></td>
-    <td width="50%"><img src="docs/changelog/0.1.0/sync-overview.png" alt="Sync and devices"></td>
+    <td width="50%"><img src="wiki/0.5.0/content/images/playground.png" alt="The playground: a sample vault in the browser with its banner and tour"></td>
+    <td width="50%"><img src="wiki/0.1.0/content/images/sync-overview.png" alt="Sync and devices"></td>
   </tr>
   <tr>
     <td align="center"><sub>Try it in your browser, with a sample vault</sub></td>
@@ -189,16 +189,16 @@ On Windows (PowerShell): `Get-FileHash .\<file>` and compare it with the line in
 
 | Guide | What it covers |
 |-------|----------------|
-| [Folder vaults](docs/file-vault.md) | Keeping notes in a folder of `.md` files on the desktop |
-| [Sync between your devices](docs/sync.md) | Pairing, how devices connect, the S3 mirror, Save battery |
-| [Media](docs/media.md) | Pictures, audio, video, PDFs and other files; the library and the trash |
-| [Keyboard shortcuts](docs/keyboard-shortcuts.md) | Every default key and how to change them |
-| [The desktop layout](docs/desktop-layout.md) | The sidebar, note list, note tabs and the inspector |
-| [Phones and tablets](docs/phone-and-tablet.md) | The phone and tablet layouts and gestures |
-| [The activity island](docs/notch.md) | Quick capture, voice memos, screenshots and recordings |
-| [CSS snippets](docs/css-snippets.md) | Small style sheets that change how Arkenda looks |
-| [Window effect on Linux](docs/window-effect-linux.md) | Blur behind the window: what works on Linux and what to change if it does not |
-| [Building plugins](docs/plugins/README.md) | The plugin guide: manifest, API, sandbox and permissions (the marketplace is not open yet) |
+| [Folder vaults](wiki/0.5.1/content/guides/file-vault.md) | Keeping notes in a folder of `.md` files on the desktop |
+| [Sync between your devices](wiki/0.5.1/content/guides/sync.md) | Pairing, how devices connect, the S3 mirror, Save battery |
+| [Media](wiki/0.5.1/content/guides/media.md) | Pictures, audio, video, PDFs and other files; the library and the trash |
+| [Keyboard shortcuts](wiki/0.5.1/content/guides/keyboard-shortcuts.md) | Every default key and how to change them |
+| [The desktop layout](wiki/0.5.1/content/guides/desktop-layout.md) | The sidebar, note list, note tabs and the inspector; opening Arkenda from other apps, KRunner, the taskbar and notifications |
+| [Phones and tablets](wiki/0.5.1/content/guides/phone-and-tablet.md) | The phone and tablet layouts and gestures |
+| [The activity island](wiki/0.5.1/content/guides/notch.md) | Quick capture, voice memos, screenshots and recordings |
+| [CSS snippets](wiki/0.5.1/content/guides/css-snippets.md) | Small style sheets that change how Arkenda looks |
+| [Window effect on Linux](wiki/0.5.1/content/guides/window-effect-linux.md) | Blur behind the window: what works on Linux and what to change if it does not |
+| [Building plugins](wiki/0.5.1/content/api/README.md) | The plugin guide: manifest, API, sandbox and permissions (the marketplace is not open yet) |
 
 ### 🔔 Updates
 

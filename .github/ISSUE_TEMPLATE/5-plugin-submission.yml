@@ -8,7 +8,7 @@ body:
       value: |
         **The plugin marketplace is not open yet.** Publishing a plugin to other users is not available, and no plugin can be signed yet.
 
-        A submission registers your plugin and asks for an early look against the review checklist in [Contributing a plugin](https://github.com/fsegurai/arkenda-release/blob/main/docs/plugins/contributing.md). It does not publish, sign or list anything, and an early look is best effort.
+        A submission registers your plugin and asks for an early look against the review checklist in [Contributing a plugin](https://fsegurai.github.io/arkenda-release/plugins/contributing.html). It does not publish, sign or list anything, and an early look is best effort.
 
         Please **never paste keys, passwords, tokens or your notes** here.
   - type: input
@@ -81,7 +81,7 @@ body:
     id: security
     attributes:
       label: Security
-      description: The security part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      description: The security part of the review checklist (Contributing a plugin), one box per item. A box marked "if" can stay empty when it does not apply.
       options:
         - label: "The package passes the app's install checks with no error."
           required: true
@@ -96,7 +96,7 @@ body:
     id: privacy
     attributes:
       label: Privacy
-      description: The privacy part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      description: The privacy part of the review checklist (Contributing a plugin), one box per item. A box marked "if" can stay empty when it does not apply.
       options:
         - label: "Each permission is explained by what the plugin does; `notes:write` and `network` (if used) are justified in its description or README."
           required: true
@@ -109,7 +109,7 @@ body:
     id: performance
     attributes:
       label: Performance
-      description: The performance part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      description: The performance part of the review checklist (Contributing a plugin), one box per item. A box marked "if" can stay empty when it does not apply.
       options:
         - label: "`activate` is short, and nothing in the plugin runs close to the time or rate limits."
           required: true
@@ -118,7 +118,7 @@ body:
     id: ux
     attributes:
       label: UX
-      description: The ux part of the review checklist (docs/plugins/contributing.md), one box per item. A box marked "if" can stay empty when it does not apply.
+      description: The ux part of the review checklist (Contributing a plugin), one box per item. A box marked "if" can stay empty when it does not apply.
       options:
         - label: "Titles and labels are plain English, in sentence case."
           required: true
