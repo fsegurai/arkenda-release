@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var e={arm:()=>Promise.resolve(),release:()=>Promise.resolve()};var i=new A(`ARKENDA_MICROPHONE`,{providedIn:`root`,factory:()=>e});export{i as t};

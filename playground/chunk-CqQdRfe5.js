@@ -1,0 +1,1 @@
+import{t as r}from"./chunk-CxX6LDY3.js";import{D as re,l as N,m as X,r as C}from"./chunk-BRqqXnv-.js";var o=Object.freeze({bar:`native`});var n=C(X({bar:re(N([`native`,`arkenda`]),`native`)}));var l={key:r,version:1,defaults:o,migrate:[()=>o],validate:n};export{l as t};

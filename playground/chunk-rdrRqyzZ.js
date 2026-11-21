@@ -1,0 +1,1 @@
+import{t as o$1}from"./chunk-CbDK6emo.js";var r=/^[A-Za-z0-9_-]{1,64}$/;function o(t,n){if(!r.test(t))throw new o$1(`invalid-id`,`Invalid ${n} id "${t}"`)}function i(t){return o(t,`note`),t}function s(t){return o(t,`notebook`),t}function I(t){return o(t,`device`),t}export{i as n,s as r,I as t};

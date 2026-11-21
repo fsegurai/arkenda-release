@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var e=new A(`ARKENDA_DISPLAY_CAPTURE`,{providedIn:`root`,factory:()=>null});var o=new A(`ARKENDA_SCREEN_CAPTURE`,{providedIn:`root`,factory:()=>null});export{e as n,o as t};

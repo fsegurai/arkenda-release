@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Surfaces · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/surfaces.html">
+<link rel="alternate" hreflang="es" href="surfaces.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/surfaces.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="surfaces">Surfaces</h1>
+<p>Where a plugin can show, and when to use each place. Declare every item in <code>contributes</code> first:
+the app shows titles from there before any code runs, and refuses an undeclared id (<code>not-declared</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Contribution kind</th>
+<th>Shows as</th>
+<th>Call</th>
+<th>Permission</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>commands</code></td>
+<td>A command in the palette, with an optional default hotkey</td>
+<td><code>commands.register</code></td>
+<td><code>commands</code></td>
+</tr>
+<tr>
+<td><code>insertItems</code></td>
+<td>A block in every insert menu of the editor</td>
+<td><code>editor.registerInsertItem</code></td>
+<td><code>editor</code></td>
+</tr>
+<tr>
+<td><code>toolbarItems</code></td>
+<td>A button on the editor toolbar</td>
+<td><code>editor.registerToolbarItem</code></td>
+<td><code>editor</code></td>
+</tr>
+<tr>
+<td><code>sidebarPanels</code></td>
+<td>A tool: a sidebar panel, or a chip in the status bar</td>
+<td><code>views.registerSidebarPanel</code></td>
+<td><code>ui:panels</code></td>
+</tr>
+<tr>
+<td><code>dashboardWidgets</code></td>
+<td>A widget on the dashboard or in the Widgets panel</td>
+<td><code>dashboard.registerWidget</code></td>
+<td><code>ui:widgets</code></td>
+</tr>
+<tr>
+<td><code>settingsTabs</code></td>
+<td>A tab of its own in its settings page</td>
+<td><code>settings.registerTab</code></td>
+<td><code>ui:panels</code></td>
+</tr>
+<tr>
+<td><code>markdownFeatures</code></td>
+<td>A fenced code block language it renders</td>
+<td><code>markdown.registerCodeBlock</code></td>
+<td><code>markdown</code></td>
+</tr>
+<tr>
+<td><code>themes</code></td>
+<td>A theme in the app&#39;s theme picker</td>
+<td><code>appearance.registerTheme</code></td>
+<td><code>ui:themes</code></td>
+</tr>
+<tr>
+<td><code>syncSources</code></td>
+<td>A sync source in Settings ▸ Sync &amp; devices (<code>syncing</code> category, API 1.1)</td>
+<td><code>sync.registerSource</code></td>
+<td><code>sync</code></td>
+</tr>
+</tbody></table>
+<p>Users can rename your commands, toolbar buttons, panels and widgets, and hide or reorder commands
+(Settings ▸ Customize). They find them by id, so <strong>keep ids stable across versions</strong>, and never rely
+on your own title being shown.</p>
+<h2 id="commands">Commands</h2>
+<p>Use a command for anything a person may want from the keyboard. Its title and default hotkey come
+from <code>contributes.commands</code>; the hotkey (<code>Mod-Shift-k</code>) is shown for approval when the plugin is
+reviewed and bound only when free (the app&#39;s and the user&#39;s keys win; reserved keys never bind).</p>
+<p><img src="../../files/wiki/0.5.2/content/api/images/palette.png" alt="The command palette"></p>
+<h2 id="insert-items-and-toolbar-items">Insert items and toolbar items</h2>
+<p>Use an insert item for a block people add while writing; a toolbar item for a frequent action on
+the editor toolbar. Both are data, checked when registered:</p>
+<ul>
+<li><code>text</code>: the Markdown it inserts, up to 4 KB; <code>cursor</code>: where the caret goes (its end by default).</li>
+<li><code>icon</code>: one of <code>PLUGIN_EDITOR_ICONS</code>; anything else is refused.</li>
+<li>Insert items only: <code>group</code> (one of <code>PLUGIN_INSERT_GROUPS</code>, <code>plugins</code> by default), up to 8
+<code>keywords</code> the menus&#39; filter matches, and a <code>detail</code> (up to 120 characters) shown in the <code>/</code> menu.</li>
+<li>A toolbar item either inserts <code>text</code> or runs one of your <code>command</code>s.</li>
+</ul>
+<pre><code class="language-ts">await ctx.editor.registerInsertItem({
+  id: &#39;meeting&#39;, text: &#39;## Meeting\n\n- &#39;, icon: &#39;format-calendar&#39;, group: &#39;basic&#39;, keywords: [&#39;agenda&#39;],
+});
+</code></pre>
+<p><img src="../../files/wiki/0.5.2/content/api/images/insert-menu-slash.png" alt="The insert menu"></p>
+<h2 id="tools-sidebar-panels-and-status-chips">Tools: sidebar panels and status chips</h2>
+<p>Use a panel for something people keep open next to their note. A panel is a <em>tool</em>, and a tool shows
+in one place at a time: the left sidebar, the right sidebar or the status bar. In the status bar it is
+a chip whose click opens the same view in a popover (a bottom sheet on phones).</p>
+<ul>
+<li><code>places</code>: distinct values among <code>left</code>, <code>right</code> and <code>status</code>; both sidebars without it.</li>
+<li><code>defaultPlace</code>: one of <code>places</code>; <code>left</code> (else its first place) without it.</li>
+<li><code>icon</code>: one of <code>PLUGIN_PANEL_ICONS</code>, for its tab.</li>
+</ul>
+<p>The person moves a tool among its places, from its menu or in Settings ▸ Workspace ▸ Panels and
+status bar; their choice wins. On the desktop, a tool that allows <code>status</code> can also go to Arkenda&#39;s
+title bar: a host place you never declare.</p>
+<pre><code class="language-json">&quot;sidebarPanels&quot;: [{ &quot;id&quot;: &quot;timer&quot;, &quot;title&quot;: &quot;Timer&quot;, &quot;places&quot;: [&quot;right&quot;, &quot;status&quot;], &quot;defaultPlace&quot;: &quot;status&quot; }]
+</code></pre>
+<p><img src="../../files/wiki/0.5.2/content/api/images/status-bar.png" alt="A tool in the status bar">
+<img src="../../files/wiki/0.5.2/content/api/images/tool-popover.png" alt="A tool&#39;s popover"></p>
+<h2 id="widgets">Widgets</h2>
+<p>Use a widget for a glanceable summary. It lives on the dashboard or in the Widgets panel (<code>aside</code>).</p>
+<ul>
+<li><code>category</code>: one of <code>notes</code>, <code>tasks</code>, <code>time</code>, <code>focus</code>, <code>insights</code>, <code>other</code> (the default); the
+pickers group widgets by it.</li>
+<li><code>places</code>: distinct values among <code>dashboard</code> and <code>aside</code>; the dashboard only without it.</li>
+<li><code>defaultPlace</code>: one of <code>places</code>; <code>dashboard</code> (else its first place) without it.</li>
+<li><code>defaultSize</code> and <code>minSize</code> (<code>{ w, h }</code>) at registration.</li>
+</ul>
+<p><img src="../../files/wiki/0.5.2/content/api/images/dashboard.png" alt="The dashboard">
+<img src="../../files/wiki/0.5.2/content/api/images/widgets-panel.png" alt="The Widgets panel"></p>
+<p>Panels, widgets and settings tabs show a <code>SandboxView</code>: headings, text (<code>muted</code> or <code>strong</code>), lists,
+links to notes and tags, and buttons that call your <code>onAction</code>. Limits are in
+<a href="sandbox.html#limits">The sandbox</a>.</p>
+<pre><code class="language-ts">{ blocks: [
+  { kind: &#39;heading&#39;, text: &#39;Today&#39; },
+  { kind: &#39;text&#39;, text: &#39;3 notes&#39;, tone: &#39;muted&#39; },
+  { kind: &#39;list&#39;, items: [{ kind: &#39;note&#39;, noteId: &#39;n1&#39;, label: &#39;Plan&#39; }, { kind: &#39;tag&#39;, tag: &#39;work&#39; }] },
+  { kind: &#39;button&#39;, label: &#39;Refresh&#39;, action: &#39;refresh&#39; },
+] }
+</code></pre>
+<h2 id="settings-tabs">Settings tabs</h2>
+<p>Use the declarative <a href="settings.html">settings</a> first; add a tab only for something fields cannot
+express (a status, a list of results).</p>
+<p><img src="../../files/wiki/0.5.2/content/api/images/settings-plugin-pomodoro.png" alt="A plugin&#39;s settings page"></p>
+<h2 id="markdown-code-blocks">Markdown code blocks</h2>
+<p><code>markdown.registerCodeBlock({ id, render })</code> renders fenced blocks whose language is a declared
+<code>markdownFeatures</code> id (<code>```reading-time</code>). <code>render(source)</code> returns HTML; the app sanitizes
+it (no scripts, styles, frames, forms, event handlers or unsafe URLs) and hardens it like a note.
+When rendering fails, the code block stays.</p>
+<h2 id="themes">Themes</h2>
+<p>A theme is token values only (<code>THEME_TOKENS</code>: colours, quoted font stacks, radii, line heights),
+with an optional dark set. Anything outside the token grammar, or text below 4.5:1 contrast on the
+background, is refused. The <code>theme</code> <a href="manifest.html#extension-kinds">extension kind</a> will carry themes
+without code; until it installs, a theme ships inside a plugin.</p>
+<h2 id="sync-sources">Sync sources</h2>
+<p>From API 1.1 (<code>ctx.apiMinor &gt;= 1</code>), a plugin of the <code>syncing</code> <a href="manifest.html#taxonomy">category</a> with the
+<code>sync</code> <a href="permissions.html">permission</a> can offer a way to sync a vault (a server, a service, a protocol).
+Declare it in <code>contributes.syncSources</code> (its title is the name people see), then register it
+(<code>ctx.sync</code> exists only when the manifest declares <code>sync</code>; the grant is checked at every call):</p>
+<pre><code class="language-js">const source = await ctx.sync?.registerSource({
+  id: &#39;my-server&#39;,
+  needs: [&#39;account&#39;],
+  async onControl(action) {
+    if (action === &#39;start&#39; || action === &#39;sync&#39;) await pushAndPull();
+    if (action === &#39;stop&#39;) cancelPass();
+    if (action === &#39;remove&#39;) await ctx.storage.delete(&#39;cursor&#39;);
+  },
+});
+await source?.setStatus({ state: &#39;idle&#39;, lastSyncAt: Date.now() });
+</code></pre>
+<ul>
+<li><strong>The user decides.</strong> People add the source per vault in Settings ▸ Sync &amp; devices, see its status
+and what it contacts, and pause or remove it there. The app calls <code>onControl</code> with <code>start</code> (added,
+or the app started with it added), <code>stop</code> (paused or taken out), <code>sync</code> (one pass now: &quot;Sync now&quot;,
+or the app opened or came back to the foreground) and <code>remove</code> (forget what you kept for that vault).</li>
+<li><strong>Nothing in the background on phones.</strong> Sync on <code>start</code> and <code>sync</code> only; keep no timers of your own.</li>
+<li><strong>No access of its own.</strong> A source reads and changes notes only through <code>notes</code> (and the notebook
+or tag scope the user chose), and reaches only the <code>network.hosts</code> the user approved, which the app
+lists as what the source contacts. Registering a source grants nothing.</li>
+<li><strong>Revocation is immediate.</strong> While <code>sync</code> is revoked, the app sends no control call and refuses
+<code>setStatus</code>; revoking <code>network</code> or <code>notes:*</code> refuses those calls at once as usual.</li>
+<li><code>setStatus</code> takes <code>idle</code>, <code>syncing</code> or <code>error</code>, a line of at most 160 characters (<code>detail</code>) and
+<code>lastSyncAt</code>; <code>paused</code> and &quot;not available here&quot; are the app&#39;s.</li>
+</ul>
+<h2 id="not-available-to-plugins-yet">Not available to plugins yet</h2>
+<ul>
+<li><strong>Built-in plugins only:</strong> note actions, status bar items of their own, history providers, and
+CodeMirror or Marked extensions.</li>
+<li><strong>No plugin API yet:</strong> sidebar views and map node kinds.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

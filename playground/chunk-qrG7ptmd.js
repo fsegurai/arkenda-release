@@ -1,0 +1,1 @@
+var t=/[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu;function r(n){return n.match(t)?.length??0}export{r as t};

@@ -1,0 +1,1 @@
+function i(e,n){let[r,a,s]=e.split(`-`).map(Number),t=/* @__PURE__ */ new Date(0);return t.setUTCFullYear(r,a-1,s+n),t.toISOString().slice(0,10)}export{i as t};

@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var o=new A(`ARKENDA_KRUNNER`,{providedIn:`root`,factory:()=>null});export{o as t};

@@ -1,0 +1,1 @@
+var r=/^[a-z0-9][a-z0-9-]{1,63}$/;function t(e){return typeof e==`string`&&r.test(e)}var o=/^[\x21-\x7e]{1,128}$/;function i(e,n){if(!t(e))throw new Error(`Invalid plugin id "${e}"`);if(n!==void 0&&!o.test(n))throw new Error(`Invalid plugin storage key "${n}"`)}function s(e){return typeof e.storageEntries==`function`}export{t as a,s as i,o as n,r,i as t};

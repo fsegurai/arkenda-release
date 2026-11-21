@@ -1,0 +1,1 @@
+var t=/* @__PURE__ */ new WeakSet;function l(n){t.add(n)}function o(n){for(let e=n;e;e=e.parentElement)if(t.has(e))return!0;return!1}export{o as n,l as t};

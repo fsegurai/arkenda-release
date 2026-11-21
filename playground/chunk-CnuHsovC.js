@@ -1,0 +1,1 @@
+import{t as f}from"./chunk-DrpgyC4z.js";import{t as b}from"./chunk-Cfx3qH4E.js";import{$n as mn}from"./chunk-CibnGSF9.js";import{t as r}from"./chunk-CtLIq420.js";var c=`calc(72px + env(safe-area-inset-bottom))`;function s(o,a){f(o.get(mn),r({message:a},o.get(b).phone()?{bottom:c}:{}))}export{s as t};

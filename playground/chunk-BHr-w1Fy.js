@@ -1,0 +1,1 @@
+var i=/^[a-z0-9][a-z0-9-]{0,63}$/;function c(n){return typeof n==`string`&&i.test(n)}function a(n){if(n===null||typeof n!=`object`||Array.isArray(n))return{value:{},broken:n!==void 0};let e={},o=!1,t=0;for(let[r,s]of Object.entries(n))c(r)&&typeof s==`boolean`&&t<200?(e[r]=s,t++):o=!0;return{value:e,broken:o}}function l(n){return a(n).value}export{c as n,l as r,a as t};

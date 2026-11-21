@@ -1,0 +1,1 @@
+import{t as q}from"./chunk-BRcexh0H.js";import{f as l$1}from"./chunk--hVX-Ayb.js";var l=30;var c=100;async function m(e,t){let o=t.noteId;if(!await e.get(l$1,null)?.openNote(o).catch(()=>!1))return!1;let i=e.get(q,null);for(let n=0;n<l;n++){if(i?.revealLine(t.line,o))return!0;await new Promise(s=>setTimeout(s,c))}return!0}export{m as t};

@@ -1,0 +1,1 @@
+function r(o,e,l){return new Promise(n=>o.toBlob(n,e,l))}export{r as t};

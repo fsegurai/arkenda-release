@@ -1,0 +1,1 @@
+var o=t=>`app:format-${t}`;var n=t=>t.startsWith(o(``));var r=`app:toggle-terminal`;var s=t=>`app:layout-${t}`;var i=t=>`app:profile-${t}`;var p=t=>`app:status-${t}`;var a=t=>`app:${t}`;export{p as a,o as i,i as n,r as o,n as r,s,a as t};

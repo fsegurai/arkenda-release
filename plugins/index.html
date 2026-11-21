@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Plugin guide · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/index.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/index.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  
+  <article class="prose" lang="en">
+<h1 id="arkenda-extensions">Arkenda extensions</h1>
+<p>Build an extension with any tooling, language or layout you like. To be supported it must meet one
+contract: the manifest, the package, the entry point, the permission and sandbox rules, and the API
+version. The app checks all of it when it installs a package, and each problem it reports links to its rule in
+these pages.</p>
+<blockquote>
+<p><strong>Status (API version 1.2).</strong> Building a plugin and installing it as a development package from a file work
+today, and every <a href="https://github.com/fsegurai/arkenda-release/releases">release</a> carries the command-line checker these pages call <code>plugin-check</code>
+(<code>arkenda-plugin-check.mjs</code>) and the starter template (<code>arkenda-plugin-starter.zip</code>). Not available yet: the
+marketplace (publishing a plugin for other users), signed releases and a published <code>@arkenda/plugin-api</code> package. See
+<a href="package.html#publishing">The package and release</a>. Questions and ideas are welcome in the
+<a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">issues</a>.</p>
+</blockquote>
+<h2 id="start-here">Start here</h2>
+<ol>
+<li><a href="overview.html">Overview</a>: what a plugin can and cannot do, on which platform.</li>
+<li><a href="getting-started.html">Getting started</a>: a starter template, build, install and reload.</li>
+<li><a href="examples.html">Worked examples</a>: the built-in word count and git plugins.</li>
+</ol>
+<h2 id="reference">Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Read it when you…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="manifest.html">Manifest reference</a></td>
+<td>write <code>arkenda-plugin.json</code>: every field, kinds and the category taxonomy.</td>
+</tr>
+<tr>
+<td><a href="package.html">The package and release</a></td>
+<td>zip, sign or install a package, or hit a package error.</td>
+</tr>
+<tr>
+<td><a href="api.html">API reference</a></td>
+<td>call <code>ctx</code> or use an export of <code>@arkenda/kit/plugin-api</code>.</td>
+</tr>
+<tr>
+<td><a href="surfaces.html">Surfaces</a></td>
+<td>choose where your plugin shows: commands, panels, widgets, editor items.</td>
+</tr>
+<tr>
+<td><a href="settings.html">Settings</a></td>
+<td>give your plugin options.</td>
+</tr>
+<tr>
+<td><a href="permissions.html">Permissions and privacy</a></td>
+<td>decide what to ask for and what users see.</td>
+</tr>
+<tr>
+<td><a href="sandbox.html">The sandbox</a></td>
+<td>need the limits, timeouts and error codes.</td>
+</tr>
+<tr>
+<td><a href="ux.html">UX guidelines</a></td>
+<td>want your plugin to look and behave like the app.</td>
+</tr>
+<tr>
+<td><a href="versioning.html">Versioning and compatibility</a></td>
+<td>release a new version or target an app version.</td>
+</tr>
+<tr>
+<td><a href="testing.html">Testing a plugin</a></td>
+<td>check your plugin before you ship it.</td>
+</tr>
+<tr>
+<td><a href="security.html">Security checklist</a></td>
+<td>review a plugin, yours or someone else&#39;s.</td>
+</tr>
+</tbody></table>
+<h2 id="contributing">Contributing</h2>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Read it when you…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="requirements.html">Requirements</a></td>
+<td>want to know what a plugin must have, and what is optional.</td>
+</tr>
+<tr>
+<td><a href="limitations.html">Limitations</a></td>
+<td>need what a plugin cannot do, the performance budget and what is not exposed yet.</td>
+</tr>
+<tr>
+<td><a href="considerations.html">Considerations</a></td>
+<td>design for privacy, performance, phones, sync and offline.</td>
+</tr>
+<tr>
+<td><a href="contributing.html">Contributing a plugin</a></td>
+<td>want to submit a plugin: today&#39;s state, the review checklist, licensing and support.</td>
+</tr>
+</tbody></table>
+<p>The JSON Schema of the manifest is <a href="../files/wiki/0.5.2/content/api/manifest.schema.json"><code>manifest.schema.json</code></a>.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,1 @@
+import{t as b}from"./chunk-pW5qiLbZ.js";import"./chunk-CtLIq420.js";export{b as browserDownload};

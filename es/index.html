@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Arkenda: sus notas, en sus dispositivos</title>
+<meta name="description" content="Arkenda es una aplicación de notas en Markdown que guarda todo en su dispositivo, con sincronización cifrada, pizarra, multimedia, tareas y calendario.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="../index.html">
+<link rel="alternate" hreflang="es" href="index.html">
+<script src="../assets/download.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Inicio de Arkenda"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../playground/">Pruébelo</a></li><li><a href="download.html">Descargar</a></li><li><a href="plugins/index.html">Plugins</a></li><li><a href="docs/index.html">Guías</a></li><li><a href="changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../index.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="hero"><div class="wrap">
+  <a class="pill" href="changelog.html">Versión 0.5.2 · Novedades</a>
+  <h1>Sus notas, en sus dispositivos. Privadas, rápidas y suyas.</h1>
+  <p class="lead">Arkenda es una aplicación de notas en Markdown que guarda todo en su dispositivo, con sincronización cifrada entre sus equipos, pizarra, multimedia, tareas y calendario, en Windows, Linux, Android y la web.</p>
+  <div class="ctas">
+    <a class="btn primary" href="download.html" data-detect-label data-for-linux="Descargar para Linux" data-for-windows="Descargar para Windows" data-for-android="Descargar para Android" data-for-web="Úsela en su navegador">Descargar</a>
+    <a class="btn" href="../playground/"><span aria-hidden="true">▶</span> Pruébelo en su navegador</a>
+  </div>
+  <p class="meta">Gratis · Sin cuenta · Sus archivos siguen siendo Markdown · <a href="download.html">Otras plataformas</a></p>
+  <figure class="window">
+    <div class="titlebar" aria-hidden="true"><i></i><i></i><i></i></div>
+    <img src="../files/wiki/0.4.0/content/images/editor.png" alt="Arkenda en el escritorio: la barra lateral con la bandeja de entrada, la lista de notas, las pestañas, el editor y el mapa del Markdown" width="1440" height="900">
+  </figure>
+</div></div>
+
+<section id="features" aria-labelledby="features-title"><div class="wrap">
+  <h2 class="sec" id="features-title">Todo en un lugar tranquilo</h2>
+  <p class="sub">Escriba, planifique y piense, sin entregar sus notas a un servidor.</p>
+  <ul class="grid"><li class="card"><div class="ic" aria-hidden="true">🔒</div><h3>Local y privada</h3><p>Sus notas viven en su dispositivo como archivos Markdown o en su navegador. Sin cuenta, sin rastreo.</p></li><li class="card"><div class="ic" aria-hidden="true">🔄</div><h3>Sincronización cifrada</h3><p>Sincronice sus dispositivos por la red local o por internet, con cifrado de extremo a extremo. Copia opcional en un S3 que usted controla.</p></li><li class="card"><div class="ic" aria-hidden="true">🧩</div><h3>Pizarra</h3><p>Figuras, notas adhesivas, conectores, mapas mentales y tarjetas de notas en una pizarra infinita.</p></li><li class="card"><div class="ic" aria-hidden="true">🗓️</div><h3>Tareas, calendario, Hoy</h3><p>Tareas y eventos dentro de sus notas, reunidos en una sola vista de su día.</p></li><li class="card"><div class="ic" aria-hidden="true">🎞️</div><h3>Biblioteca multimedia</h3><p>Imágenes, audio, video y PDF con vista previa, además de notas de voz.</p></li><li class="card"><div class="ic" aria-hidden="true">🔌</div><h3>Plugins</h3><p>Amplíe Arkenda con plugins aislados: paneles, comandos, widgets y más.</p></li></ul>
+</div></section>
+
+<section class="alt" id="playground" aria-labelledby="playground-title"><div class="wrap play">
+  <div>
+    <h2 class="sec" id="playground-title">Pruébelo sin instalar nada</h2>
+    <p class="sub">El área de prueba es la aplicación web real con una bóveda de ejemplo, y funciona solo en su navegador.</p>
+    <ul class="points"><li>Una bóveda de ejemplo con notas, una pizarra y tareas</li><li>Todo se queda en este navegador: puede reiniciarlo cuando quiera</li><li>Sin sincronización, sin tienda de plugins, sin red</li><li>Exporte lo que escriba como Markdown, o continúe en la aplicación</li></ul>
+    <a class="btn primary" href="../playground/">Abrir el área de prueba</a>
+  </div>
+  <div class="mini-board" aria-hidden="true">
+    <div class="banner">▶ Área de prueba · datos de ejemplo · se quedan en este navegador</div>
+    <div class="s s1">Planear el viaje</div><div class="s s2">Reservar la cabaña</div><div class="s s3">Empacar la cámara</div>
+    <div class="s card-note"><b>Viaje a Monteverde</b><span>tarjeta de nota</span></div>
+  </div>
+</div></section>
+
+<section id="plugins" aria-labelledby="plugins-title"><div class="wrap split2">
+  <div>
+    <h2 class="sec" id="plugins-title">Cree un plugin</h2>
+    <p class="sub">Un plugin es un paquete pequeño y aislado: un manifiesto, un script y los permisos que solicita. Empiece con la guía, revíselo y compártalo.</p>
+    <div class="ctas start"><a class="btn primary" href="plugins/index.html">Guía de plugins</a><a class="btn" href="plugins/getting-started.html">Primeros pasos</a></div>
+  </div>
+  <figure class="code"><figcaption>Un manifiesto de plugin</figcaption><pre lang="en"><code>{
+  &quot;schemaVersion&quot;: 2,
+  &quot;id&quot;: &quot;reading-time&quot;,
+  &quot;name&quot;: &quot;Reading time&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;apiVersion&quot;: 1,
+  &quot;minAppVersion&quot;: &quot;0.1.0&quot;,
+  &quot;description&quot;: &quot;Shows how long the open note takes to read.&quot;,
+  &quot;author&quot;: { &quot;name&quot;: &quot;Ada&quot;, &quot;url&quot;: &quot;https://example.dev&quot; },
+  &quot;publisher&quot;: &quot;ada-tools&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;repository&quot;: &quot;https://github.com/ada/reading-time&quot;,
+  &quot;categories&quot;: [&quot;writing&quot;, &quot;sidebar&quot;],
+  &quot;keywords&quot;: [&quot;reading&quot;, &quot;time&quot;],
+  &quot;platforms&quot;: [&quot;web&quot;, &quot;desktop&quot;, &quot;mobile&quot;],
+  &quot;permissions&quot;: [&quot;notes:read&quot;, &quot;commands&quot;, &quot;ui:panels&quot;],
+  &quot;contributes&quot;: {
+    &quot;sidebarPanels&quot;: [{ &quot;id&quot;: &quot;reading-time&quot;, &quot;title&quot;: &quot;Reading time&quot;, &quot;places&quot;: [&quot;right&quot;, &quot;status&quot;] }],
+    &quot;commands&quot;: [{ &quot;id&quot;: &quot;refresh&quot;, &quot;title&quot;: &quot;Reading time: refresh&quot; }]
+  },
+  &quot;entry&quot;: &quot;dist/main.js&quot;,
+  &quot;integrity&quot;: &quot;sha256-…&quot;
+}</code></pre></figure>
+</div></section>
+
+<section class="alt final" aria-labelledby="final-title"><div class="wrap">
+  <h2 class="sec" id="final-title">Sus notas merecen un hogar que sea suyo.</h2>
+  <p class="sub">Gratis. Markdown simple. Funciona sin conexión.</p>
+  <a class="btn primary" href="download.html">Descargar Arkenda</a>
+</div></section>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="index.html#features">Funciones</a></li>
+      <li><a href="download.html">Descargar</a></li>
+      <li><a href="../playground/">Pruébelo</a></li>
+      <li><a href="changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="plugins/index.html">Guía de plugins</a></li>
+      <li><a href="plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

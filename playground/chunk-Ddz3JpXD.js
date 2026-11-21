@@ -1,0 +1,1 @@
+var n=`arkenda:recent-notes`;function c(e){try{let t=JSON.parse(e?.getItem(n)??`[]`);return Array.isArray(t)?t.filter(r=>typeof r==`string`&&r!==``):[]}catch{return[]}}function a(e,t){let r=[t,...c(e).filter(o=>o!==t)].slice(0,20);try{e?.setItem(n,JSON.stringify(r))}catch{}}export{c as n,a as t};

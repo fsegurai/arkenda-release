@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Security checklist · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/security.html">
+<link rel="alternate" hreflang="es" href="security.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/security.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="security-checklist">Security checklist</h1>
+<p>Use it before you ship a plugin, and when you review someone else&#39;s. The sandbox limits the damage a
+plugin can do; this list keeps it from asking for more than it needs.</p>
+<h2 id="for-authors">For authors</h2>
+<ul>
+<li><input disabled="" type="checkbox"> The zip you ship passes <code>plugin-check</code> and installs in developer mode with no problem listed (the same
+checks).</li>
+<li><input disabled="" type="checkbox"> Every permission is used; the ones you can work without are in <code>optionalPermissions</code>.</li>
+<li><input disabled="" type="checkbox"> <code>network.hosts</code> lists only the hosts you call, exactly (no wildcard exists, and none is needed).</li>
+<li><input disabled="" type="checkbox"> Nothing you send to a host contains note text the user did not ask you to send.</li>
+<li><input disabled="" type="checkbox"> Your plugin handles <code>permission-denied</code>, <code>out-of-scope</code> and <code>network-not-available</code> without
+breaking, and keeps working without its optional permissions.</li>
+<li><input disabled="" type="checkbox"> Secrets are <code>secret</code> settings, never <code>storage</code> values or text fields.</li>
+<li><input disabled="" type="checkbox"> You honour your own privacy switches (<code>privacy</code> settings) everywhere you send or keep data.</li>
+<li><input disabled="" type="checkbox"> The HTML your Markdown blocks return is built from escaped text; the app sanitizes it, but do
+not rely on that for correctness.</li>
+<li><input disabled="" type="checkbox"> The bundle has no <code>eval</code>, remote code or obfuscated parts; its source is at <code>repository</code>.</li>
+<li><input disabled="" type="checkbox"> <code>integrity</code> matches the bundle you ship, and <code>version</code> is higher than the last release.</li>
+<li><input disabled="" type="checkbox"> Contribution ids are stable, so users&#39; renames and hidden items keep working.</li>
+</ul>
+<h2 id="for-reviewers">For reviewers</h2>
+<ul>
+<li><input disabled="" type="checkbox"> The manifest passes <code>plugin-check</code>, and its <code>publisher</code>, <code>version</code>, <code>apiVersion</code>,
+<code>permissions</code> and <code>integrity</code> match the release you review.</li>
+<li><input disabled="" type="checkbox"> Each permission is explained by what the plugin does; <code>notes:write</code> and <code>network</code> are
+justified in its description or README.</li>
+<li><input disabled="" type="checkbox"> Each host is the plugin&#39;s own service or a well-known API it names.</li>
+<li><input disabled="" type="checkbox"> The source at <code>repository</code> builds to the same bundle bytes (<code>integrity</code>).</li>
+<li><input disabled="" type="checkbox"> The plugin does not read notes it does not need, or send them anywhere without a user action.</li>
+<li><input disabled="" type="checkbox"> It degrades gracefully when a permission is revoked or a host is not approved.</li>
+<li><input disabled="" type="checkbox"> Its categories describe what it does (1 to 3), and its keywords are not spam.</li>
+</ul>
+<blockquote>
+<p><strong>Not available yet:</strong> the marketplace review itself (who reviews, how a release is signed into the
+catalog). This list is the bar it will use.</p>
+</blockquote>
+<h2 id="what-the-app-already-enforces">What the app already enforces</h2>
+<p>You do not need to check these by hand; they are covered by <a href="sandbox.html">the sandbox</a> and
+<a href="package.html">the package rules</a>:</p>
+<ul>
+<li>no access to the app&#39;s page, storage or network from plugin code;</li>
+<li>every call checked against the declared and granted permissions, at the moment it is made;</li>
+<li>views as data, Markdown HTML sanitized, themes as token values only;</li>
+<li>package files, sizes and paths checked; the bundle re-checked against <code>integrity</code> before each load;</li>
+<li>signatures, revocations and compatibility checked at install.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

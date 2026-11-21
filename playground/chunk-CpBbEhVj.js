@@ -1,0 +1,1 @@
+import{o as Ec}from"./chunk-DO6AYIHg.js";import{n as a}from"./chunk-IlkI6RgY.js";import{_ as D,r as A}from"./chunk-CibnGSF9.js";var m=new A(`ARKENDA_PLUGIN_ENABLEMENT`,{providedIn:`root`,factory:()=>D(a).store(Ec).store});export{m as t};

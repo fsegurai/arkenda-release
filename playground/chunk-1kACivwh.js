@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var i$1=()=>import(`./chunk-P_n39SGm.js`).then(e=>e.remindNote);var r=()=>import(`./chunk-P_n39SGm.js`).then(e=>e.pickTaskTime);var i=new A(`ARKENDA_NATIVE_REMINDERS`,{providedIn:`root`,factory:()=>null});export{i$1 as n,r,i as t};

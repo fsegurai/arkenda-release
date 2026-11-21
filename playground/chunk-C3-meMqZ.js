@@ -1,0 +1,1 @@
+import{kt as Uo,r as A}from"./chunk-CibnGSF9.js";var s=new A(`LOCALSEND`,{factory:()=>null});var n=Uo(!1);var c=n.asReadonly();var l=t=>n.set(t);export{l as n,s as r,c as t};

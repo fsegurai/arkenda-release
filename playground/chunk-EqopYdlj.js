@@ -1,0 +1,1 @@
+import{D as re,d as U,m as X,r as C}from"./chunk-BRqqXnv-.js";var o=`arkenda:note-list:gestures`;var a=Object.freeze({swipe:!0});var f={key:o,version:1,defaults:a,migrate:[()=>a],validate:C(X({swipe:re(U(),!0)}))};export{f as t};

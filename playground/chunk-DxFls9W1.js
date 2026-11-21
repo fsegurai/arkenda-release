@@ -1,0 +1,1 @@
+var r=()=>import(`./chunk-BEyiLLqh.js`).then(o=>o.installBoard);export{r as t};

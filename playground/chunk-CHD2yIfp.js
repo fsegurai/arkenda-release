@@ -1,0 +1,1 @@
+import{m as r}from"./chunk--hVX-Ayb.js";import{_ as D,kt as Uo,nr as oe}from"./chunk-CibnGSF9.js";var n=class a{_window=D(r);available=Uo(!1);reload(){this._window?.location.reload()}static ɵfac=function(r){return new(r||a)};static ɵprov=oe({token:a,factory:a.ɵfac,providedIn:`root`})};export{n as t};

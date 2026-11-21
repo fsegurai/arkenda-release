@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Testing a plugin · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/testing.html">
+<link rel="alternate" hreflang="es" href="testing.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/testing.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="testing-a-plugin">Testing a plugin</h1>
+<p>Check the contract with the app&#39;s own tools, test your logic against a fake <code>ctx</code>, then try the real
+thing in developer mode.</p>
+<blockquote>
+<p><strong>Not available yet:</strong> a published test harness with fake hosts. The app&#39;s own fakes
+(<code>@arkenda/kit/plugins/testing</code>: a fake sandbox and registry) are internal and not shipped. Until
+the harness exists, use the pattern below.</p>
+</blockquote>
+<h2 id="1-check-the-contract">1. Check the contract</h2>
+<p><code>plugin-check</code> is one file, <code>arkenda-plugin-check.mjs</code>, attached to every <a href="https://github.com/fsegurai/arkenda-release/releases">release</a> from 0.5.1 on: download
+the one of the app version you target and run it with Node.js 22 or later (or Bun). The install dialog in developer
+mode runs the same checks.</p>
+<pre><code class="language-sh">node arkenda-plugin-check.mjs path/to/my-plugin/package --platform web   # the app&#39;s install gate, in memory
+</code></pre>
+<p>It runs the package layout and limits, the manifest schema with its permission rules, the bundle
+integrity, signatures, revocations and compatibility, for the platform you name (the manifest&#39;s
+first platform by default). Exit code 1 means an error; warnings never fail.</p>
+<h2 id="2-check-what-you-register">2. Check what you register</h2>
+<p>The same checks the app runs are exported from <code>@arkenda/kit/plugin-api</code>; each throws or returns the
+problems, so call them in your own tests:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>For</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>parsePluginManifestV2(json)</code></td>
+<td>the manifest; <code>{ ok: true }</code> or every problem with its code and path</td>
+</tr>
+<tr>
+<td><code>validatePluginSettingsSchema(schema)</code></td>
+<td>the settings you pass to <code>registerFields</code></td>
+</tr>
+<tr>
+<td><code>checkSettingInput(field, value)</code></td>
+<td>a value against one settings field</td>
+</tr>
+<tr>
+<td><code>validatePluginTheme(id, theme)</code></td>
+<td>a theme&#39;s tokens and contrast</td>
+</tr>
+<tr>
+<td><code>validatePluginInsertItem(id, item)</code>, <code>validatePluginToolbarItem(id, item)</code></td>
+<td>editor items</td>
+</tr>
+<tr>
+<td><code>checkCompatibility(requirements, target)</code></td>
+<td>app version, API version and platform</td>
+</tr>
+<tr>
+<td><code>checkSandboxView(view)</code></td>
+<td>a view you show in a panel, widget or settings tab; <code>{ ok: true }</code> or every problem</td>
+</tr>
+</tbody></table>
+<p>Every problem of a plugin input (the manifest, the settings, the package, the catalog, a sandbox
+message or view) has the same three parts: a stable <code>code</code>, a <code>path</code> (a JSON path such as
+<code>$.contributes.commands[0].id</code>, or a file of the package) and a <code>message</code>. <code>formatPluginIssue</code>
+writes one as <code>&lt;path&gt;: &lt;message&gt; [&lt;code&gt;]</code>, the line <code>plugin-check</code> prints;
+<code>formatPluginIssues(issues)</code> writes the first three. An error a check throws carries the same list as
+<code>issues</code> (<code>PluginManifestError</code>, <code>PluginSettingsSchemaError</code>).</p>
+<h2 id="3-test-your-logic-against-a-fake-ctx">3. Test your logic against a fake <code>ctx</code></h2>
+<p>Type a small fake as <code>SandboxPluginContext</code>: the compiler then tells you when the API changes. Keep
+it asynchronous, as the real one is, and make it refuse what the real one refuses.</p>
+<pre><code class="language-ts">import type { SandboxPluginContext } from &#39;@arkenda/kit/plugin-api&#39;;
+import plugin from &#39;../src/main&#39;;
+
+const views: unknown[] = [];
+const ctx = {
+  apiVersion: 1,
+  apiMinor: 1,
+  workspace: { activeNote: async () =&gt; ({ noteId: &#39;n1&#39;, text: &#39;one two three&#39; }) },
+  views: {
+    registerSidebarPanel: async (panel: { view: unknown }) =&gt; {
+      views.push(panel.view);
+      return { update: async (view: unknown) =&gt; void views.push(view), dispose() {} };
+    },
+  },
+  commands: { register: async () =&gt; ({ dispose() {} }) },
+} as unknown as SandboxPluginContext;
+
+await plugin.activate(ctx);
+// Assert on `views`: the last one shows &quot;1 min&quot;.
+</code></pre>
+<p>Test the refusals too: make a fake call reject with <code>{ code: &#39;permission-denied&#39; }</code> and check that
+your plugin keeps working without an optional permission.</p>
+<h2 id="4-run-it-for-real">4. Run it for real</h2>
+<p>Install it as a <a href="getting-started.html#4-install-and-run">development package</a> and try:</p>
+<ul>
+<li>turning it off and on, and revoking each optional permission;</li>
+<li>a narrow notes scope (one notebook), and a note outside it;</li>
+<li>the web build and a phone width, if you list those platforms;</li>
+<li>every view at its limits (long titles, many items).</li>
+</ul>
+<h2 id="before-you-ship">Before you ship</h2>
+<p>Go through the <a href="security.html">security checklist</a>.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Arkenda plugin sandbox</title>
+<!--
+  Runs one third-party Arkenda plugin. The app loads this page in <iframe sandbox="allow-scripts">
+  (no allow-same-origin), so it has an opaque origin: no access to the app's DOM, cookies,
+  localStorage or IndexedDB. The plugin itself runs in a worker created here, and talks to the app
+  only through the MessagePort the app hands over. The policy below allows exactly this inline
+  script (by hash) and the blob: URLs it creates (the worker and the plugin module); nothing else
+  can load and nothing can connect anywhere (connect-src 'none'). Blob workers inherit this policy.
+  When the script changes, update its hash (e2e/sandbox-page.spec.ts checks it).
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-sTX3GKyIX2P8UeplHOVZkcwEHhXw/Av4+KUHolEBeWQ=' blob:; worker-src blob:; connect-src 'none'; img-src data: blob:; style-src 'none'; font-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+</head>
+<body>
+<script>
+'use strict';
+(function () {
+  /** The plugin runtime, run in a (classic) worker: the plugin's `ctx` and the RPC to the app. */
+  function arkendaSandboxWorker() {
+    'use strict';
+    var VERSION = 1;
+    var port = null;
+    var nextId = 1;
+    var pending = new Map();
+    var callbacks = new Map();
+    var plugin = null;
+    var manifest = null;
+    var createObjectURL = URL.createObjectURL.bind(URL);
+    var revokeObjectURL = URL.revokeObjectURL.bind(URL);
+    var stringify = JSON.stringify;
+    var parse = JSON.parse;
+
+    /** Network, storage and nested workers are removed before plugin code runs (the CSP blocks them too). */
+    var BLOCKED = [
+      'fetch', 'XMLHttpRequest', 'WebSocket', 'WebSocketStream', 'EventSource', 'WebTransport',
+      'importScripts', 'Worker', 'SharedWorker', 'indexedDB', 'caches', 'BroadcastChannel', 'storageFoundation',
+    ];
+    function harden() {
+      for (var i = 0; i < BLOCKED.length; i++) {
+        var name = BLOCKED[i];
+        try { delete self[name]; } catch (e) {}
+        if (name in self) {
+          try { Object.defineProperty(self, name, { value: undefined, configurable: false, writable: false }); } catch (e) {}
+        }
+      }
+    }
+
+    function SandboxError(code, message) {
+      var error = new Error(message || code);
+      error.name = 'SandboxError';
+      error.code = code;
+      return error;
+    }
+
+    /** Plain JSON only: functions and undefined fields are dropped, like JSON.stringify does. */
+    function clean(value) {
+      return value === undefined ? null : parse(stringify(value));
+    }
+
+    function send(message) {
+      port.postMessage(message);
+    }
+
+    function request(method, params) {
+      return new Promise(function (resolve, reject) {
+        var id = nextId++;
+        pending.set(id, { resolve: resolve, reject: reject });
+        try {
+          send({ v: VERSION, type: 'request', id: id, method: method, params: clean(params) });
+        } catch (error) {
+          pending.delete(id);
+          reject(error);
+        }
+      });
+    }
+
+    function disposable(handle) {
+      var done = false;
+      return {
+        dispose: function () {
+          if (done) return;
+          done = true;
+          callbacks.delete(handle);
+          request('registration.dispose', { handle: handle }).catch(function () {});
+        },
+      };
+    }
+
+    function register(method, params, callback) {
+      return request(method, params).then(function (result) {
+        callbacks.set(result.handle, callback || {});
+        return disposable(result.handle);
+      });
+    }
+
+    function registerView(method, item, fields) {
+      var params = {};
+      for (var i = 0; i < fields.length; i++) params[fields[i]] = item[fields[i]];
+      return request(method, params).then(function (result) {
+        var handle = result.handle;
+        callbacks.set(handle, { action: item.onAction });
+        var removal = disposable(handle);
+        return {
+          update: function (view) {
+            return request('view.update', { handle: handle, view: view }).then(function () {});
+          },
+          dispose: removal.dispose,
+        };
+      });
+    }
+
+    var noValue = function () {};
+
+    /** `ctx.sync` (API 1.1): only for a manifest declaring `sync`; the app checks the grant at every call. */
+    function syncArea() {
+      return Object.freeze({
+        registerSource: function (source) {
+          return request('sync.registerSource', { id: source.id, needs: source.needs }).then(function (result) {
+            var handle = result.handle;
+            // The app's control actions (start, stop, sync, remove) arrive as `view.action` on this handle.
+            callbacks.set(handle, { action: source.onControl });
+            var removal = disposable(handle);
+            return {
+              setStatus: function (status) {
+                return request('sync.setStatus', {
+                  handle: handle,
+                  state: status && status.state,
+                  detail: status && status.detail,
+                  lastSyncAt: status && status.lastSyncAt,
+                }).then(noValue);
+              },
+              dispose: removal.dispose,
+            };
+          });
+        },
+      });
+    }
+
+    function context() {
+      var declared = manifest && manifest.permissions;
+      var ctx = {
+        apiVersion: 1,
+        apiMinor: 1,
+        manifest: manifest,
+        permissions: Object.freeze({
+          granted: function () { return request('permissions.granted', null); },
+        }),
+        commands: Object.freeze({
+          register: function (command) {
+            return register('commands.register', { id: command.id }, { run: command.run });
+          },
+        }),
+        editor: Object.freeze({
+          registerInsertItem: function (item) {
+            return register('editor.registerInsertItem', {
+              id: item.id, detail: item.detail, text: item.text, cursor: item.cursor, icon: item.icon,
+              group: item.group, keywords: item.keywords,
+            });
+          },
+          registerToolbarItem: function (item) {
+            return register('editor.registerToolbarItem', {
+              id: item.id, icon: item.icon, command: item.command, text: item.text, cursor: item.cursor,
+            });
+          },
+        }),
+        appearance: Object.freeze({
+          registerTheme: function (theme) {
+            return register('appearance.registerTheme', {
+              id: theme.id, mode: theme.mode, tokens: theme.tokens, darkTokens: theme.darkTokens,
+            });
+          },
+        }),
+        markdown: Object.freeze({
+          registerCodeBlock: function (block) {
+            return register('markdown.registerCodeBlock', { id: block.id }, { render: block.render });
+          },
+        }),
+        views: Object.freeze({
+          registerSidebarPanel: function (panel) {
+            return registerView('views.registerSidebarPanel', panel, ['id', 'view', 'icon', 'places', 'defaultPlace']);
+          },
+        }),
+        settings: Object.freeze({
+          registerTab: function (tab) {
+            return registerView('settings.registerTab', tab, ['id', 'view']);
+          },
+          registerFields: function (fields, onChange) {
+            var listener = function () {
+              if (typeof onChange !== 'function') return;
+              request('settings.values', null).then(onChange).catch(function () {});
+            };
+            return register('settings.registerFields', { fields: fields }, { listener: listener });
+          },
+          values: function () { return request('settings.values', null); },
+          set: function (key, value) { return request('settings.set', { key: key, value: value }).then(noValue); },
+        }),
+        dashboard: Object.freeze({
+          registerWidget: function (widget) {
+            return registerView('dashboard.registerWidget', widget, ['id', 'view', 'defaultSize', 'minSize']);
+          },
+        }),
+        storage: Object.freeze({
+          get: function (key) { return request('storage.get', { key: key }); },
+          set: function (key, value) { return request('storage.set', { key: key, value: value }).then(noValue); },
+          delete: function (key) { return request('storage.delete', { key: key }).then(noValue); },
+        }),
+        notes: Object.freeze({
+          recent: function (limit) { return request('notes.recent', { limit: limit }); },
+          pinned: function () { return request('notes.pinned', null); },
+          get: function (noteId) { return request('notes.get', { noteId: noteId }); },
+          search: function (query, options) {
+            return request('notes.search', { query: query, limit: options && options.limit });
+          },
+          create: function (input) { return request('notes.create', input); },
+          update: function (noteId, changes) {
+            return request('notes.update', { noteId: noteId, title: changes && changes.title, body: changes && changes.body });
+          },
+          trash: function (noteId) { return request('notes.trash', { noteId: noteId }).then(noValue); },
+          onChange: function (listener) { return register('notes.subscribe', null, { listener: listener }); },
+        }),
+        knowledge: Object.freeze({
+          backlinks: function (noteId) { return request('knowledge.backlinks', { noteId: noteId }); },
+          resolveLink: function (target) { return request('knowledge.resolveLink', { target: target }); },
+          tagCounts: function () { return request('knowledge.tagCounts', null); },
+          outgoing: function (noteId) { return request('knowledge.outgoing', { noteId: noteId }); },
+          allLinks: function () { return request('knowledge.allLinks', null); },
+          tasks: function (query) {
+            var q = query || {};
+            return request('knowledge.tasks', { checked: q.checked, dueFrom: q.dueFrom, dueTo: q.dueTo, tag: q.tag, noteId: q.noteId });
+          },
+          byType: function (type) { return request('knowledge.byType', { type: type }); },
+          inRange: function (from, to) { return request('knowledge.inRange', { from: from, to: to }); },
+          resolveBlock: function (target, block, noteId) {
+            return request('knowledge.resolveBlock', { target: target, block: block, noteId: noteId });
+          },
+        }),
+        workspace: Object.freeze({
+          activeNote: function () { return request('workspace.activeNote', null); },
+          openNote: function (noteId) { return request('workspace.openNote', { noteId: noteId }); },
+          openTag: function (tag) { return request('workspace.openTag', { tag: tag }); },
+        }),
+        clipboard: Object.freeze({
+          readText: function () { return request('clipboard.readText', null); },
+          writeText: function (text) { return request('clipboard.writeText', { text: text }).then(noValue); },
+        }),
+        notifications: Object.freeze({
+          show: function (notification) { return request('notifications.show', notification).then(noValue); },
+        }),
+        network: Object.freeze({
+          fetch: function (url) { return request('network.fetch', { url: String(url) }); },
+        }),
+      };
+      if (declared && declared.indexOf('sync') >= 0) ctx.sync = syncArea();
+      return Object.freeze(ctx);
+    }
+
+    function callback(params, name) {
+      var entry = callbacks.get(params && params.handle);
+      var fn = entry && entry[name];
+      if (typeof fn !== 'function') throw SandboxError('unknown-handle', 'Nothing is registered with this handle');
+      return fn;
+    }
+
+    var calls = {
+      load: function (params) {
+        if (plugin) throw SandboxError('already-loaded', 'A plugin is already loaded');
+        manifest = Object.freeze(params.manifest);
+        var url = createObjectURL(new Blob([params.code], { type: 'text/javascript' }));
+        harden();
+        return import(url).then(function (module) {
+          revokeObjectURL(url);
+          var candidate = module && module.default;
+          if (!candidate || typeof candidate.activate !== 'function') {
+            throw SandboxError('invalid-plugin', 'The plugin module must export default { activate(ctx) }');
+          }
+          plugin = candidate;
+          return null;
+        });
+      },
+      activate: function () {
+        return Promise.resolve(plugin.activate(context())).then(function () { return null; });
+      },
+      deactivate: function () {
+        return Promise.resolve(plugin && plugin.deactivate ? plugin.deactivate() : null).then(function () { return null; });
+      },
+      'command.run': function (params) {
+        return Promise.resolve(callback(params, 'run')()).then(function () { return null; });
+      },
+      'view.action': function (params) {
+        return Promise.resolve(callback(params, 'action')(String(params.action))).then(function () { return null; });
+      },
+      'markdown.render': function (params) {
+        return Promise.resolve(callback(params, 'render')(String(params.source))).then(function (html) {
+          return typeof html === 'string' ? html : '';
+        });
+      },
+      event: function (params) {
+        callback(params, 'listener')();
+        return null;
+      },
+    };
+
+    function reply(id, ok, value) {
+      if (ok) {
+        send({ v: VERSION, type: 'reply', id: id, ok: true, value: clean(value) });
+      } else {
+        var code = value && typeof value.code === 'string' ? value.code : 'plugin-error';
+        var message = String((value && value.message) || value || 'Error').slice(0, 500);
+        send({ v: VERSION, type: 'reply', id: id, ok: false, error: { code: code, message: message } });
+      }
+    }
+
+    function onMessage(event) {
+      var message = event.data;
+      if (!message || message.v !== VERSION) return;
+      if (message.type === 'reply') {
+        var waiting = pending.get(message.id);
+        if (!waiting) return;
+        pending.delete(message.id);
+        if (message.ok) waiting.resolve(message.value);
+        else waiting.reject(SandboxError(message.error.code, message.error.message));
+      } else if (message.type === 'call') {
+        var handler = Object.prototype.hasOwnProperty.call(calls, message.method) ? calls[message.method] : null;
+        Promise.resolve()
+          .then(function () {
+            if (!handler) throw SandboxError('unknown-method', 'Unknown call ' + message.method);
+            return handler(message.params);
+          })
+          .then(
+            function (value) { reply(message.id, true, value); },
+            function (error) { reply(message.id, false, error); },
+          );
+      }
+    }
+
+    self.onmessage = function (event) {
+      var data = event.data;
+      if (port || !data || data.type !== 'arkenda-sandbox-port' || !event.ports || event.ports.length !== 1) return;
+      port = event.ports[0];
+      self.onmessage = null;
+      port.onmessage = onMessage;
+      send({ v: VERSION, type: 'ready' });
+    };
+  }
+
+  function onInit(event) {
+    var data = event.data;
+    if (event.source !== window.parent || !data || data.type !== 'arkenda-sandbox-init' || data.v !== 1) return;
+    if (!event.ports || event.ports.length !== 1) return;
+    window.removeEventListener('message', onInit);
+    var source = '(' + arkendaSandboxWorker.toString() + ')();';
+    var url = URL.createObjectURL(new Blob([source], { type: 'text/javascript' }));
+    var worker = new Worker(url, { name: 'arkenda-plugin' });
+    worker.postMessage({ type: 'arkenda-sandbox-port' }, [event.ports[0]]);
+  }
+  window.addEventListener('message', onInit);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Media · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="media.html">
+<link rel="alternate" hreflang="es" href="../es/docs/media.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/media.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="media">Media</h1>
+<p>Pictures, audio, video and other files live in your vault next to your notes. Everything here works on the
+device: nothing is sent to a service to be read, converted or recognised.</p>
+<h2 id="adding-files">Adding files</h2>
+<ul>
+<li><strong>Pick, drop or paste</strong> a file into a note (<strong>Attach a file…</strong> in the editor and on the whiteboard takes any
+kind, recognised from its contents): a picture shows in place, audio and video get a player, and any
+other file (a PDF, a zip, a spreadsheet…) becomes a <strong>card</strong>. An upload shows its progress and can be cancelled;
+a file that cannot be added says why.</li>
+<li><strong>Pasting a picture</strong> copied in another app (a screenshot, an image from a browser or a photo app) adds it to the
+note, on the desktop, the web and Android alike. On Android, Arkenda reads PNG, JPEG, WebP and GIF pictures of up
+to 16 MB from the clipboard.</li>
+<li><strong>Dropping files from your file manager</strong> works in the desktop app too, onto a note or a whiteboard. On Linux
+the app reads the dropped files itself first, so a large video takes a moment before its upload appears; a file
+larger than 2 GB is not added.</li>
+<li><strong>On a phone or tablet</strong>, the insert menu also has <strong>Take photo</strong>, <strong>Record video</strong> and <strong>Record audio</strong>, which
+open the device&#39;s camera or recorder.</li>
+<li><strong>A voice memo</strong> is recorded inside Arkenda, from quick capture&#39;s microphone button or <strong>Voice memo</strong> in the command
+palette (the web and the desktop app; see <a href="notch.html#voice-memo">the activity island</a>). It is stored like an upload
+(the library, the trash, sync and playback work the same) and added to your inbox note as a line that plays it. A
+WebM memo shows a video player for now.</li>
+<li><strong>A screenshot</strong> is taken from quick capture&#39;s camera button or <strong>Screenshot</strong> in the command palette (the desktop
+app on Linux and Windows; see <a href="notch.html#screenshot-desktop-app">the activity island</a>), cropped to a region in Arkenda
+or kept whole, stored as a PNG like an upload, and added to your inbox note as a line that shows it; <strong>Screenshot
+into this note</strong> puts it at the cursor of the open note instead.</li>
+<li><strong>A screen recording</strong> (an experiment, off by default: Settings ▸ Experimental ▸ Screen recording) is recorded inside
+Arkenda from quick capture&#39;s screen button or <strong>Record screen</strong> in the command palette (the desktop app on Linux and
+Windows; see <a href="notch.html#screen-recording-desktop-app-an-experiment">the activity island</a>): VP8 WebM, at most 1920 px
+and 30 frames a second, stopped at 30 minutes or 492 MB so it still syncs. It is stored like an upload and added to
+your inbox note as a line that plays it.</li>
+<li><strong>Video formats:</strong> MP4, MOV, WebM and MKV (Matroska), found from the file&#39;s bytes, never its name. An MKV plays
+in the note where the app&#39;s web view can decode it (the Linux desktop app plays most; on Windows and Android it
+depends on the codecs inside); where it can&#39;t, the player says it can&#39;t be streamed here and offers <strong>Open in
+system player</strong>. Arkenda 0.1.0 and 0.1.1 don&#39;t know MKV: they show such an embed as a broken picture and don&#39;t
+fetch its file from your other devices (an S3 mirror copies it as a plain file) until they are updated. An MKV added before this version stays a <code>.bin</code> file card.</li>
+<li><strong>Adding the same file again</strong> inserts a new reference to the copy already stored; it is never stored twice.</li>
+<li><strong>Image compression on upload</strong> (Settings ▸ Editor): <strong>Balanced</strong> (the default: at most 2560 px on the long
+edge), <strong>High</strong> (1600 px, smaller files) or <strong>Off</strong> (the photo as it is).</li>
+<li><strong>Location is removed from photos</strong> on upload unless you turn off <strong>Remove location from photos on upload</strong>
+(Settings ▸ Editor, on each device). A compressed photo keeps no metadata at all.</li>
+</ul>
+<h2 id="cards-open-and-save">Cards: Open and Save</h2>
+<p>A file card shows the name, type and size. <strong>Open</strong> hands the file to an app of your device (a PDF viewer, for
+example), and <strong>Save</strong> lets you choose where to put a copy. On the web, Save downloads it.</p>
+<ul>
+<li>A <strong>PDF</strong> card also has <strong>Read</strong> (see below), and on a computer or tablet <strong>Open beside</strong>.</li>
+<li>A <strong>.csv</strong> or <strong>.json</strong> card has <strong>Preview</strong>: a table or a tree, 100 rows at a time.</li>
+<li>A <strong>.zip</strong>, <strong>.tar.gz</strong>, <strong>.tgz</strong> or <strong>.tar</strong> card has <strong>Contents</strong>: the files inside, each with Preview and
+Save. Nothing inside an archive is ever run.</li>
+</ul>
+<h2 id="galleries-players-and-photos">Galleries, players and photos</h2>
+<ul>
+<li><strong>Two or more pictures</strong> in one paragraph (or on adjacent lines) become a gallery: a grid on a computer or
+tablet, a swipeable strip on a phone. A picture opens the viewer, which steps through its gallery; pinch or
+use the zoom buttons to look closer, and <strong>Copy image</strong> (⧉) puts the picture on the clipboard to paste into
+another app (on a phone too, where there is no right-click menu).</li>
+<li><strong>Timestamps:</strong> write <code>[1:23]</code> (or <code>[1:02:03]</code>) in the text and it becomes a link that jumps the nearest player
+above it to that time. Each player has <strong>Copy timestamp</strong>.</li>
+<li><strong>Capture frame</strong> on a video player saves the current frame as a picture just below the video.</li>
+<li><strong>Photo details</strong> (in the viewer and the media library) show the date taken, the camera and, when the photo
+still has it, the location.</li>
+</ul>
+<h2 id="annotating-and-redacting-a-picture">Annotating and redacting a picture</h2>
+<p><strong>Annotate</strong> (a picture&#39;s menu, or ✎ in the viewer) draws arrows, highlights, pen strokes, text and redaction
+boxes over a picture. The drawing is kept in the note, the picture itself is not changed, and undo works as for
+any edit.</p>
+<p><strong>Redaction boxes hide, they do not erase.</strong> The stored picture still holds the pixels under a box. Exports and
+Print use a new picture with the drawing burnt in, and never the original. To get rid of the hidden part, use
+<strong>Save a redacted copy</strong>: it stores a copy with the boxes burnt in and points the note at it. Then delete the
+original in the media library.</p>
+<h2 id="reading-pdfs">Reading PDFs</h2>
+<p><strong>Read</strong> opens a PDF in Arkenda&#39;s reader: zoom, a page field and <strong>Bookmarks</strong> (the PDF&#39;s own outline). On a
+computer or tablet, <strong>Open beside</strong> shows it next to the note. Pages are drawn only as you reach them, so a large
+PDF opens quickly. Password-protected PDFs are not supported yet.</p>
+<p>Select text, then <strong>Copy link to highlight</strong> (or <strong>Insert link in the note</strong>, when beside a note): the link opens
+the reader at that page with the passage marked. <strong>Copy link to page</strong> links to the page. The reader lists the
+notes that link to the PDF and their highlights.</p>
+<h2 id="a-table-of-contents">A table of contents</h2>
+<p>A line with only <code>[toc]</code> shows the note&#39;s headings as links, and follows every edit. <code>[toc:2]</code> lists only the
+first two levels. It is in the <strong>/</strong> menu as <strong>Table of contents</strong>. Exports to the web and Print keep it as a
+list; the Markdown export keeps <code>[toc]</code> as written.</p>
+<h2 id="the-media-library">The media library</h2>
+<p><strong>The media library</strong> (<strong>Media</strong> in the desktop sidebar, under <strong>More</strong> on the phone, <strong>Open the media library</strong> in the palette, or Settings ▸ Data &amp; storage ▸ Storage) lists every
+stored file with where it is used (&quot;Used in 2 places&quot;). A file&#39;s <strong>Used in N places</strong> menu in a note opens the
+library at that file, in its folder.</p>
+<ul>
+<li><strong>Folders.</strong> On the desktop the folder tree is on the left (<strong>Attachments</strong> is the top level, with every file);
+on a tablet or phone, <strong>Folders</strong> opens it as a sheet. Breadcrumbs show where you are, and a folder shows its own
+files with its folders as tiles above them; <strong>Subfolders too</strong> adds the files of the folders inside. <strong>New
+folder</strong>, and a folder&#39;s menu (<strong>⋯</strong> next to the breadcrumbs, or right-click a folder): Open, New folder inside,
+Rename…, Move to…, Download as .zip and Remove folder…. See <a href="#media-folders">Media folders</a>.</li>
+<li><strong>Grid or list.</strong> The list shows each file&#39;s folder, size, date and uses. The phone starts with the list.</li>
+<li><strong>Search</strong> looks in every folder. <strong>Filters:</strong> type, notebook (the files that notes of one notebook use),
+<strong>Unused</strong> (with its total and Select all), <strong>In the trash</strong> and size. <strong>Sort</strong> by newest, name, largest or
+<strong>Most used</strong>.</li>
+<li><strong>Select files</strong> with their checkboxes (on a phone, <strong>Select</strong> first) for the bulk bar: <strong>Move to…</strong>, <strong>Download</strong>
+(one file as itself, two or more as one <code>.zip</code> named after the folder) and <strong>Delete</strong>. On the desktop you can also
+drag files (or the ticked ones) onto a folder in the tree, a folder tile or a breadcrumb (on touch, Move to… only).
+Every move shows a notice with <strong>Undo</strong>.</li>
+<li><strong>A file&#39;s details</strong> (click it; a sheet on touch): where it is used (each note or whiteboard opens at the
+reference), its type, size and date, its folder (<strong>Change…</strong>), the notebook rule of its folder, whether it syncs
+(images up to 10 MB, other files up to 500 MB travel to your other devices; larger ones stay on this device), and
+the notebooks of the notes that use it. A file used by notes of several notebooks stays in one folder.</li>
+<li><strong>Delete</strong> is safe: an unused file goes to this device&#39;s trash, and a file still in use first lists the notes that
+use it, then lets you choose; its embeds become &quot;removed media&quot; placeholders, which <strong>Restore</strong> turns back.</li>
+</ul>
+<h2 id="media-folders">Media folders</h2>
+<p>Folders sort your files in the media library. <strong>A folder is a label, not a place on disk:</strong> every file stays
+where it is (<code>attachments/&lt;hash&gt;.&lt;ext&gt;</code>), so moving a file to a folder changes no link and no note.</p>
+<ul>
+<li><strong>Folders nest.</strong> A folder can hold files and other folders.</li>
+<li><strong>Removing a folder never deletes a file.</strong> Its files and folders go up to the folder above it (or to the top).</li>
+<li><strong>A notebook can name a folder.</strong> Media added to a note in that notebook goes to that folder. A notebook inside
+another follows its parent&#39;s folder unless it names its own.</li>
+</ul>
+<p><strong>The notebook&#39;s media folder.</strong> Right-click a notebook (on a phone, open it from Notes and long-press it) and choose
+<strong>Media folder…</strong>; the menu shows the folder it uses now, or &quot;(inherited)&quot; when it follows a parent&#39;s. Pick a folder,
+make one with <strong>New folder</strong>, or choose <strong>No folder (Attachments)</strong> to clear it, then <strong>Save</strong>. The dialog says when
+the notebook follows a parent&#39;s folder. From then on, every file you add to a note there (pasted, dropped, picked,
+inserted from the editor&#39;s media menu, added from the notch&#39;s shelf, put on a board, or a screenshot or voice memo
+saved to your Inbox note) goes to that folder, <strong>unless the file is already in a folder</strong>:
+a file belongs to one folder, so adding the same file to another notebook&#39;s note leaves it where it is. The library
+shows the rule on the folder and in a file&#39;s details.</p>
+<ul>
+<li><strong>Files already there.</strong> When the notebook&#39;s notes already use files, the dialog offers once, unticked, to put the
+files only this notebook&#39;s notes use in the new folder (files that other notebooks&#39; notes use never move). Leave
+it unticked and only new files follow the rule.</li>
+<li><strong>Moving a note.</strong> When you move a note to a notebook whose folder is a different one, Arkenda asks <strong>Move its
+media too?</strong> for the files only that note uses that are still in the old notebook&#39;s folder, and lists them.
+<strong>Move its media too</strong> puts them in the new folder; <strong>Leave it</strong> changes nothing. Either way the note&#39;s text is
+not touched. Moving a note to a notebook with no folder, or with the same one, asks nothing.</li>
+</ul>
+<p><strong>How folders sync.</strong> Folders, labels and notebook folders travel with the vault, like your statuses and snippets.
+In a browser vault they sync with the vault itself. In a folder vault they live in <code>.arkenda/media-folders.json</code>
+and, with sync on, reach your other devices too; a cloud mirror carries the file as well. Edits made on two devices
+at once merge: a rename on one and a move on the other both survive. When both change the same thing (two names
+for one folder, two folders for one file), one of them wins, the same on every device; no file is ever lost. If
+<code>media-folders.json</code> is damaged, Arkenda keeps a <code>*.corrupt-&lt;time&gt;</code> copy and, with sync on, rewrites it from
+your other devices&#39; copy; if it goes missing (deleted, or not delivered yet by a sync tool), Arkenda writes it again
+from that copy instead of treating your folders as deleted.</p>
+<h2 id="the-trash">The trash</h2>
+<p><strong>More ▸ Trash</strong> groups what you deleted by kind: notes, whiteboards and media. Press and hold an item (or use
+its menu) for Restore, Open, Select and Delete forever. On a phone, <strong>Empty trash</strong> is in the <strong>⋯</strong> menu at the top,
+and with items selected <strong>Restore</strong> and <strong>Delete forever</strong> stay at the bottom of the screen.</p>
+<ul>
+<li><strong>The trash is per device.</strong> Each device shows only what was moved to the trash on it.</li>
+<li><strong>Files in a browser vault</strong> (phones, the web) are stored in one place that every browser vault on the device
+shares, so deleting a file forever cannot free its space while another vault might use it. It leaves the trash and
+no longer shows in the media library; if a note uses it again, it shows again.</li>
+<li><strong>Moving to the trash and restoring sync; deleting forever does not.</strong> Delete forever cleans up this device
+only: a note leaves this device&#39;s trash and stays deleted (and hidden) on every device, and a file&#39;s space is
+freed on this device once no note uses it.</li>
+</ul>
+<h2 id="storage">Storage</h2>
+<ul>
+<li><strong>Keep offline</strong> (the default) keeps every file on the device. With an S3 mirror on the desktop app, <strong>Load on
+demand</strong> (Settings ▸ Sync &amp; devices ▸ Cloud mirror ▸ Media) leaves large audio and video in the mirror and streams them when you open
+them; pictures always stay.</li>
+</ul>
+<h2 id="posters-and-lengths-from-the-system">Posters and lengths from the system</h2>
+<p>Before Arkenda reads a video itself, it asks the system what it already knows: on Linux the thumbnail your file
+manager made (<code>~/.cache/thumbnails</code>), on Windows the shell&#39;s thumbnail and the video&#39;s length and size, on Android
+the media retriever&#39;s. Long videos then show their poster without Arkenda seeking into the file. What the system does
+not know, Arkenda reads as before; it waits at most 5 seconds for the system&#39;s answer.</p>
+<h2 id="linux">Linux</h2>
+<p>On Linux, the desktop app&#39;s web view can&#39;t play the app&#39;s own media links, so a folder vault&#39;s audio and video
+play from a small private web server inside the app instead. Any size plays and seeks, as on other systems.</p>
+<ul>
+<li>It starts the first time a window plays media, never at startup, and stops when the app closes.</li>
+<li>It listens on this computer only (<code>127.0.0.1</code>, a port the system picks), never on the network.</li>
+<li>Each window gets its own secret address, which stops working when that window reloads or closes. Without it
+the server answers nothing, and it only serves the media of the vault open in that window, checked against
+the vault&#39;s records like every other read.</li>
+<li>At most 32 connections at once; a player paused for more than two minutes reconnects when it resumes.</li>
+</ul>
+<p>A browser vault&#39;s media, media sealed with <strong>Encrypt media on this device</strong>, and any file when that server can&#39;t
+start still play inside the page: up to 64 MiB of any type, larger files only as fragmented MP4 or WebM.
+Convert others, for example with <code>ffmpeg -i in.mp4 -c copy -movflags frag_keyframe+empty_moov out.mp4</code>.</p>
+<p>When a file can&#39;t be streamed or decoded here, the message offers <strong>Open in system player</strong> for a folder vault&#39;s file on this
+device: the app hands the vault&#39;s own file to your system&#39;s default player, without copying it.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

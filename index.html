@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Arkenda: your notes, on your devices</title>
+<meta name="description" content="Arkenda is a local-first Markdown notes app with encrypted device sync, a whiteboard, media, todos and a calendar.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="es" href="es/index.html">
+<script src="assets/download.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Arkenda home"><img src="assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="playground/">Playground</a></li><li><a href="download.html">Download</a></li><li><a href="plugins/index.html">Plugins</a></li><li><a href="docs/index.html">Docs</a></li><li><a href="changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="es/index.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="hero"><div class="wrap">
+  <a class="pill" href="changelog.html">Version 0.5.2 · What's new</a>
+  <h1>Your notes, on your devices. Private, fast and yours.</h1>
+  <p class="lead">Arkenda is a local-first Markdown notes app with encrypted device sync, a whiteboard, media, todos and a calendar, on Windows, Linux, Android and the web.</p>
+  <div class="ctas">
+    <a class="btn primary" href="download.html" data-detect-label data-for-linux="Download for Linux" data-for-windows="Download for Windows" data-for-android="Download for Android" data-for-web="Use it in your browser">Download</a>
+    <a class="btn" href="playground/"><span aria-hidden="true">▶</span> Try it in your browser</a>
+  </div>
+  <p class="meta">Free · No account · Your files stay plain Markdown · <a href="download.html">Other platforms</a></p>
+  <figure class="window">
+    <div class="titlebar" aria-hidden="true"><i></i><i></i><i></i></div>
+    <img src="files/wiki/0.4.0/content/images/editor.png" alt="Arkenda on the desktop: the sidebar with the Inbox, the note list, tabs, the editor and the Markdown map" width="1440" height="900">
+  </figure>
+</div></div>
+
+<section id="features" aria-labelledby="features-title"><div class="wrap">
+  <h2 class="sec" id="features-title">Everything in one quiet place</h2>
+  <p class="sub">Write, plan and think, without handing your notes to a server.</p>
+  <ul class="grid"><li class="card"><div class="ic" aria-hidden="true">🔒</div><h3>Local-first, private</h3><p>Notes live on your device as plain Markdown files or in your browser. No account, no tracking.</p></li><li class="card"><div class="ic" aria-hidden="true">🔄</div><h3>Encrypted sync</h3><p>Sync your devices directly over the local network or the internet, end-to-end encrypted. Optional S3 backup you control.</p></li><li class="card"><div class="ic" aria-hidden="true">🧩</div><h3>Whiteboard</h3><p>Shapes, stickies, connectors, mind maps and note cards on an infinite board.</p></li><li class="card"><div class="ic" aria-hidden="true">🗓️</div><h3>Todos, calendar, Today</h3><p>Tasks and events right inside your notes, gathered into one view of your day.</p></li><li class="card"><div class="ic" aria-hidden="true">🎞️</div><h3>Media library</h3><p>Images, audio, video and PDFs with previews, plus voice memos.</p></li><li class="card"><div class="ic" aria-hidden="true">🔌</div><h3>Plugins</h3><p>Extend Arkenda with sandboxed plugins: panels, commands, widgets and more.</p></li></ul>
+</div></section>
+
+<section class="alt" id="playground" aria-labelledby="playground-title"><div class="wrap play">
+  <div>
+    <h2 class="sec" id="playground-title">Try it, nothing to install</h2>
+    <p class="sub">The playground is the real web app with a sample vault, running only in your browser.</p>
+    <ul class="points"><li>A sample vault with notes, a whiteboard and tasks</li><li>Everything stays in this browser: reset it any time</li><li>No sync, no plugin marketplace, no network</li><li>Export what you write as Markdown, or keep going in the app</li></ul>
+    <a class="btn primary" href="playground/">Open the playground</a>
+  </div>
+  <div class="mini-board" aria-hidden="true">
+    <div class="banner">▶ Playground · sample data · stays in this browser</div>
+    <div class="s s1">Plan the trip</div><div class="s s2">Book the cabin</div><div class="s s3">Pack the camera</div>
+    <div class="s card-note"><b>Trip to Monteverde</b><span>note card</span></div>
+  </div>
+</div></section>
+
+<section id="plugins" aria-labelledby="plugins-title"><div class="wrap split2">
+  <div>
+    <h2 class="sec" id="plugins-title">Build a plugin</h2>
+    <p class="sub">A plugin is a small sandboxed package: a manifest, a script, and the permissions it asks for. Start from the guide, check it, share it.</p>
+    <div class="ctas start"><a class="btn primary" href="plugins/index.html">Plugin guide</a><a class="btn" href="plugins/getting-started.html">Getting started</a></div>
+  </div>
+  <figure class="code"><figcaption>A plugin manifest</figcaption><pre lang="en"><code>{
+  &quot;schemaVersion&quot;: 2,
+  &quot;id&quot;: &quot;reading-time&quot;,
+  &quot;name&quot;: &quot;Reading time&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;apiVersion&quot;: 1,
+  &quot;minAppVersion&quot;: &quot;0.1.0&quot;,
+  &quot;description&quot;: &quot;Shows how long the open note takes to read.&quot;,
+  &quot;author&quot;: { &quot;name&quot;: &quot;Ada&quot;, &quot;url&quot;: &quot;https://example.dev&quot; },
+  &quot;publisher&quot;: &quot;ada-tools&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;repository&quot;: &quot;https://github.com/ada/reading-time&quot;,
+  &quot;categories&quot;: [&quot;writing&quot;, &quot;sidebar&quot;],
+  &quot;keywords&quot;: [&quot;reading&quot;, &quot;time&quot;],
+  &quot;platforms&quot;: [&quot;web&quot;, &quot;desktop&quot;, &quot;mobile&quot;],
+  &quot;permissions&quot;: [&quot;notes:read&quot;, &quot;commands&quot;, &quot;ui:panels&quot;],
+  &quot;contributes&quot;: {
+    &quot;sidebarPanels&quot;: [{ &quot;id&quot;: &quot;reading-time&quot;, &quot;title&quot;: &quot;Reading time&quot;, &quot;places&quot;: [&quot;right&quot;, &quot;status&quot;] }],
+    &quot;commands&quot;: [{ &quot;id&quot;: &quot;refresh&quot;, &quot;title&quot;: &quot;Reading time: refresh&quot; }]
+  },
+  &quot;entry&quot;: &quot;dist/main.js&quot;,
+  &quot;integrity&quot;: &quot;sha256-…&quot;
+}</code></pre></figure>
+</div></section>
+
+<section class="alt final" aria-labelledby="final-title"><div class="wrap">
+  <h2 class="sec" id="final-title">Your notes deserve a home you own.</h2>
+  <p class="sub">Free to use. Plain Markdown. Works offline.</p>
+  <a class="btn primary" href="download.html">Download Arkenda</a>
+</div></section>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="index.html"><img src="assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="download.html">Download</a></li>
+      <li><a href="playground/">Playground</a></li>
+      <li><a href="changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="plugins/index.html">Plugin guide</a></li>
+      <li><a href="plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Contributing a plugin · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/contributing.html">
+<link rel="alternate" hreflang="es" href="contributing.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/contributing.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="contributing-a-plugin">Contributing a plugin</h1>
+<p>How a plugin will reach other Arkenda users, what the review checks, and what is expected of you after
+it is published.</p>
+<h2 id="today-publishing-is-not-open-yet">Today: publishing is not open yet</h2>
+<p>The marketplace is not live. Today:</p>
+<ul>
+<li><strong>You can build and use a plugin.</strong> Install it as a development package on your own devices
+(<a href="getting-started.html#4-install-and-run">Getting started</a>).</li>
+<li><strong>Other users can install it the same way:</strong> from your <code>.zip</code> or folder, with developer mode on. It
+shows as <strong>Development</strong> and is never offered to their other devices.</li>
+<li><strong>No plugin can be signed yet.</strong> The app ships no registry key, so every signed package is refused
+(<a href="package.html#signing">Signing</a>).</li>
+</ul>
+<p>You can still <strong>submit your plugin</strong> with the
+<a href="https://github.com/fsegurai/arkenda-release/issues/new?template=5-plugin-submission.yml">Plugin submission</a>
+form. A submission registers your plugin and asks for an early look against the
+<a href="#review-checklist">review checklist</a>. It does not publish, sign or list anything, and an early look is
+best effort.</p>
+<h2 id="planned-the-process">Planned: the process</h2>
+<p>None of this is live yet; it is how publishing is designed to work, and it may still change.</p>
+<ol>
+<li><strong>You prepare a release:</strong> a package that passes the app&#39;s checks, its source at <code>repository</code>, a
+README with screenshots and a license (<a href="requirements.html">Requirements</a>).</li>
+<li><strong>You submit it</strong> with the submission form: id, version, repository, release and the reason for
+each permission.</li>
+<li><strong>A reviewer goes through the <a href="#review-checklist">review checklist</a></strong> and rebuilds your bundle from
+its source to check <code>integrity</code>.</li>
+<li><strong>You sign a release statement</strong> with your publisher key: <code>id</code>, <code>publisher</code>, <code>version</code>,
+<code>apiVersion</code>, <code>integrity</code> and the sorted <code>permissions</code> (<a href="package.html#signing">Signing</a>).</li>
+<li><strong>The registry adds the release to its signed catalog.</strong> The app then installs it as <strong>Verified</strong>.</li>
+</ol>
+<h2 id="review-checklist">Review checklist</h2>
+<p>The review uses the reviewer half of the <a href="security.html#for-reviewers">security checklist</a>, grouped here
+with the rest of the bar. Go through it yourself before you submit.</p>
+<h3 id="security">Security</h3>
+<ul>
+<li><input disabled="" type="checkbox"> The package passes the app&#39;s install checks with no error.</li>
+<li><input disabled="" type="checkbox"> <code>publisher</code>, <code>version</code>, <code>apiVersion</code>, <code>permissions</code> and <code>integrity</code> match the release.</li>
+<li><input disabled="" type="checkbox"> The source at <code>repository</code> builds to the same bundle bytes (<code>integrity</code>).</li>
+<li><input disabled="" type="checkbox"> No <code>eval</code>, remote code or obfuscated parts.</li>
+<li><input disabled="" type="checkbox"> Each host in <code>network.hosts</code> is your own service or a well-known API the plugin names.</li>
+</ul>
+<h3 id="privacy">Privacy</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Each permission is explained by what the plugin does; <code>notes:write</code> and <code>network</code> are justified
+in its description or README.</li>
+<li><input disabled="" type="checkbox"> It reads only the notes it needs, and sends none anywhere without a user action.</li>
+<li><input disabled="" type="checkbox"> Secrets are <code>secret</code> settings; the plugin honours its own privacy switches.</li>
+<li><input disabled="" type="checkbox"> It keeps working when an optional permission or a host is revoked.</li>
+</ul>
+<h3 id="performance">Performance</h3>
+<ul>
+<li><input disabled="" type="checkbox"> <code>activate</code> is short, and nothing in the plugin runs close to the time or rate limits
+(<a href="limitations.html#performance-budget">Performance budget</a>).</li>
+<li><input disabled="" type="checkbox"> Views show a state at once and update when the work is done.</li>
+</ul>
+<h3 id="ux">UX</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Titles and labels are plain English, in sentence case (<a href="ux.html">UX guidelines</a>).</li>
+<li><input disabled="" type="checkbox"> Buttons have labels that say what they do; nothing is said by colour alone.</li>
+<li><input disabled="" type="checkbox"> It reads well in light and dark themes, and at a phone width if it lists <code>mobile</code>.</li>
+<li><input disabled="" type="checkbox"> Its categories describe what it does (1 to 3), and its keywords are not spam.</li>
+<li><input disabled="" type="checkbox"> It is quiet by default: no notification for routine work.</li>
+<li><input disabled="" type="checkbox"> The README has screenshots and says where to report problems.</li>
+</ul>
+<h2 id="signing">Signing</h2>
+<p>Signing is designed but not live: the app checks the registry&#39;s signature of the catalog and your
+signature of each release, with Ed25519 keys that rotate by <code>kid</code>. How you get a publisher key is not
+decided yet. The format is in <a href="package.html#signing">Signing</a>.</p>
+<h2 id="updates">Updates</h2>
+<ul>
+<li>Raise <code>version</code> for each release; an older one is refused (<code>downgrade</code>).</li>
+<li>An update that asks for more (a new permission, host or wider access) keeps the user&#39;s current grant
+until they review the new request (<a href="permissions.html#updates">Updates</a>).</li>
+<li>Keep contribution ids and settings keys stable, and change keys through
+<a href="settings.html#migrations">migrations</a>.</li>
+</ul>
+<h2 id="revocation">Revocation</h2>
+<p>A published plugin version can be revoked through a signed revocation list: every device turns it off,
+shows a banner, and refuses to install it again (<a href="package.html#revocation">Revocation</a>). It is meant for
+versions that are harmful or broken; it will run through the registry, which is not live yet.</p>
+<h2 id="licensing">Licensing</h2>
+<ul>
+<li>Choose any license and write it as an SPDX expression in <code>license</code> (<code>MIT</code>,
+<code>Apache-2.0 OR MIT</code>) (<a href="manifest.html#license"><code>license</code></a>).</li>
+<li>The review rebuilds your bundle from the source at <code>repository</code>, so that source must be readable by
+the reviewer.</li>
+<li>Ship only what you have the right to ship: your dependencies&#39; licenses apply to the bundle you
+build.</li>
+</ul>
+<h2 id="support">Support</h2>
+<ul>
+<li>Say in your README where users report problems with your plugin (your repository&#39;s issues, for
+example). Problems with the plugin belong there, not in Arkenda&#39;s issues.</li>
+<li>Report a problem with the plugin API, or a rule in these pages that looks wrong, in
+<a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Arkenda&#39;s issues</a>.</li>
+</ul>
+<h2 id="deprecation">Deprecation</h2>
+<ul>
+<li><strong>Arkenda&#39;s API:</strong> from the first public release, a renamed or removed API keeps working for at least
+one API version after it is deprecated, and each change is in the
+<a href="versioning.html#api-changelog">API changelog</a>.</li>
+<li><strong>Your plugin:</strong> when you stop maintaining it, say so at the top of your README and in the
+description of a last release. How the marketplace will mark a plugin as unmaintained is not decided
+yet.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

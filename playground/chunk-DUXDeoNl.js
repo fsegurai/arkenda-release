@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var n=new A(`ARKENDA_GIT_PORT`);var o=null;function e(){return o}export{n,e as t};

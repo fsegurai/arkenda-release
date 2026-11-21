@@ -1,0 +1,1 @@
+import{n as s}from"./chunk-BOvaxlt2.js";import{nr as oe}from"./chunk-CibnGSF9.js";var e=class t extends s{constructor(){super(!0)}static ɵfac=function(n){return new(n||t)};static ɵprov=oe({token:t,factory:t.ɵfac,providedIn:`root`})};export{e as t};

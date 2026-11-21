@@ -1,0 +1,1 @@
+var a=/* @__PURE__ */ new WeakMap;function r(e){let t=a.get(e);return t||(t=import(`./chunk-BBGvUeN5.js`).then(({openPropertyTypes:o})=>o(e)),t.catch(()=>a.delete(e)),a.set(e,t)),t}export{r as t};

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Arkenda playground</title>
+  <base href="/arkenda-release/playground/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Try Arkenda in your browser: a sample vault that stays in this browser.">
+  <meta name="color-scheme" content="light dark">
+  <!--
+    The website's playground (0.5.0 G3): the page of the `playground` build, served by GitHub Pages at
+    /arkenda-release/playground/ (the build sets the base href). Unlike index.prod.html it links no web app
+    manifest and no home-screen icon (their scope would be the whole site), and its policy names no other host:
+    the playground makes no network requests (G2), so the weather, map tiles, video cards and previews the web
+    app allows are left out.
+    GitHub Pages sends no headers, so the policy is this <meta>. A source here cannot name a folder without
+    naming the host, so 'self' is the origin; the network guard (src/app/core/platform/network-guard.ts) adds a
+    second <meta> at start that narrows every load to the playground's own folder (the browser applies both),
+    and refuses fetch, XHR and beacons outside it.
+    style-src needs 'unsafe-inline' because Angular injects component styles at runtime. frame-src 'self' is the
+    plugin sandbox page (plugin-sandbox.html, an opaque origin with its own stricter policy). blob: and data:
+    are what the app makes itself (media, previews, exports, worker scripts). No inline script anywhere.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self' blob: data:; worker-src 'self' blob:; frame-src 'self' blob:; child-src 'self' blob:; manifest-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="theme-color" content="#6b47f5">
+<link rel="stylesheet" href="styles-S2DXILSR.css"></head>
+<body>
+  <ark-root></ark-root>
+<link rel="modulepreload" href="chunk-Cnrb1dI2.js"><link rel="modulepreload" href="chunk-CibnGSF9.js"><link rel="modulepreload" href="chunk-Blzr-pOQ.js"><link rel="modulepreload" href="chunk-CtLIq420.js"><link rel="modulepreload" href="chunk-C6By56oE.js"><link rel="modulepreload" href="chunk-ByZpXeJg.js"><link rel="modulepreload" href="chunk-IlkI6RgY.js"><link rel="modulepreload" href="chunk-BZfoq1hy.js"><link rel="modulepreload" href="chunk-Xku1qlPi.js"><link rel="modulepreload" href="chunk-CwVqbHzd.js"><script src="main-IMHIOCVI.js" type="module"></script></body>
+</html>

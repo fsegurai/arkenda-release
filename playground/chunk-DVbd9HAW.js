@@ -1,0 +1,1 @@
+import{Mr as xt,xn as ho}from"./chunk-tO2ZBJtg.js";var n={"web-page":xt};var i={share:ho};export{n,i as t};

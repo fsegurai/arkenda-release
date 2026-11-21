@@ -1,0 +1,1 @@
+var r=/[\\/:*?"<>|]+/g;function a(e,n=`file`){return[...e].filter(t=>(t.codePointAt(0)??0)>=32).join(``).replace(r,`-`).trim().replace(/^\.+/,``)||n}export{a as t};

@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var r=new A(`ARKENDA_QUICK_CAPTURE_GLOBAL`,{providedIn:`root`,factory:()=>null});export{r as t};

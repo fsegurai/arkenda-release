@@ -1,0 +1,1 @@
+import{kt as Uo,nr as oe}from"./chunk-CibnGSF9.js";Object.freeze({vault:`ark-sidebar-keeps-vault`,search:`ark-sidebar-keeps-search`});var n=class a{shown=Uo(!1);toolsInBar=Uo(!0);islandInBar=Uo(!1);static ɵfac=function(o){return new(o||a)};static ɵprov=oe({token:a,factory:a.ɵfac,providedIn:`root`})};export{n as t};

@@ -1,0 +1,1 @@
+function r(i,e,t,n){return i.register(e.shortcut??``,t,{id:e.id,label:()=>n(e.title.key),scope:e.key?.scope??`app`,notInFields:e.key?.notInFields})}export{r as t};

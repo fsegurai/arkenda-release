@@ -1,0 +1,1 @@
+import{n,t as I}from"./chunk-DEjmEhrd.js";import"./chunk-khcle4d0.js";import"./chunk-B5f5IMhD.js";import"./chunk-Blzr-pOQ.js";import"./chunk-CibnGSF9.js";import"./chunk-CtLIq420.js";export{I as installScreenRecording};

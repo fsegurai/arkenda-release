@@ -1,0 +1,1 @@
+import{l as i}from"./chunk-KK9fXK5s.js";import"./chunk-CtLIq420.js";var m={manifest:i,activate(a){a.markdown.registerFeature({name:`diagrams`,load:()=>import(`./chunk-Dnelhka0.js`).then(r=>r.default)}),a.editor.registerInsertItem({id:`mermaid`,title:`Mermaid diagram`,detail:"```mermaid",text:"```mermaid\nflowchart LR\n  A --> B\n```",cursor:33})}};export{m as default};

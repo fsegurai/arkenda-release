@@ -1,0 +1,1 @@
+function a(r){return r.normalize(`NFD`).replace(/[̀-ͯ]/g,``).toLowerCase().trim()}function s(r,i){if(!r)return 0;let n=i.indexOf(r);if(n===0)return 300;if(n>0)return(/[\s\-_/.]/.test(i[n-1]??``)?250:200)-Math.min(n,50);let t=0,o=0;for(let f of r){let e=i.indexOf(f,t);if(e<0)return null;e>t&&(o+=e-t),t=e+1}return Math.max(100-o*5,1)}export{s as n,a as t};

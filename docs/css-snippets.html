@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>CSS snippets · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="css-snippets.html">
+<link rel="alternate" hreflang="es" href="../es/docs/css-snippets.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/css-snippets.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="css-snippets">CSS snippets</h1>
+<p>CSS snippets are small style sheets that change how Arkenda looks on one device. You manage them in
+<strong>Settings ▸ Appearance ▸ CSS snippets</strong>: write a new one, import a <code>.css</code> file, edit it, turn it on or off,
+or delete it.</p>
+<h2 id="where-they-live">Where they live</h2>
+<ul>
+<li><strong>On this device only.</strong> Snippets are stored in the app&#39;s local storage, not in the vault. They are
+never synced and never exported with your notes.</li>
+<li><strong>Off by default.</strong> A new or imported snippet starts off; nothing applies until you turn it on.</li>
+<li><strong>Limits:</strong> a name of up to 80 characters, up to 64 kB of CSS per snippet, 256 kB for all snippets
+together, and 50 snippets.</li>
+<li>An older version of the app never overwrites the list a newer version saved.</li>
+</ul>
+<h2 id="how-they-apply">How they apply</h2>
+<ul>
+<li>Each snippet that is on becomes its own <code>&lt;style data-ark-snippet=&quot;…&quot;&gt;</code> element at the end of the page&#39;s
+<code>&lt;head&gt;</code>, after the app&#39;s own styles (styles that load later are moved before them). At equal
+specificity a snippet wins.</li>
+<li>The CSS is set as plain text, so no HTML is ever parsed. A snippet that contains <code>&lt;/style</code> is refused.</li>
+<li>One snippet&#39;s syntax error stays inside that snippet; the others still apply.</li>
+<li>Changes apply at once: turning a snippet on, off or editing it updates the open window.</li>
+<li><strong>Plugins never get them.</strong> Plugin panels run in sandboxed frames, which are separate documents.</li>
+</ul>
+<h2 id="safety">Safety</h2>
+<ul>
+<li><strong>No remote loads.</strong> The app&#39;s Content Security Policy decides what CSS may fetch, and snippets cannot
+change it:<ul>
+<li><code>@import</code> of another site&#39;s style sheet is refused (<code>style-src &#39;self&#39; &#39;unsafe-inline&#39;</code>).</li>
+<li>Fonts load only from the app itself or <code>data:</code> URLs (<code>font-src &#39;self&#39; data:</code>).</li>
+<li>Images in <code>url()</code> load only from the app, <code>data:</code> and <code>blob:</code> URLs, and the OpenStreetMap tiles the
+map uses (<code>img-src … https://tile.openstreetmap.org</code>). That is the only outside address CSS can reach,
+on the desktop, Android and the web build alike.</li>
+<li>CSS cannot run script.</li>
+</ul>
+</li>
+<li><strong>Start-up safety net.</strong> When the app starts with snippets on, it notes which ones. Once the app has been
+running normally for 10 seconds, or is closed normally, the note is cleared. If the app crashes or fails to
+start before that, the next start applies none, turns off every snippet that is on (they are kept) and the activity island names
+them, with a button to open the snippets settings.</li>
+<li><strong>Start without snippets on purpose.</strong> In the browser, open the app with <code>?safe-css</code> in the address (for
+example <code>https://…/?safe-css</code>). No snippet applies in that run; your snippets stay as they are and changes
+you make are saved for the next normal start. Everywhere, including the desktop and Android, press
+<strong>Ctrl+Alt+Shift+S</strong> (<strong>⌘⌥⇧S</strong> on macOS) at any time: every snippet is removed for the rest of that run,
+even when a snippet hides the whole window; your snippets stay saved, so turn the culprit off in
+Settings ▸ Appearance ▸ CSS snippets.</li>
+</ul>
+<h2 id="stable-hooks">Stable hooks</h2>
+<p>Build snippets on what is listed here. These hooks are meant to stay between versions; <strong>anything else
+(other class names, element structure, component internals) may change without notice.</strong></p>
+<h3 id="design-tokens">Design tokens</h3>
+<p>Set or read these custom properties on <code>:root</code> (or on one of the elements below). The accent colour,
+fonts and density you choose in Settings ▸ Appearance are set on <code>html</code> directly and win over a <code>:root</code>
+rule; add <code>!important</code> to override them.</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Tokens</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Colour</td>
+<td><code>--ark-color-bg</code>, <code>--ark-color-bg-subtle</code>, <code>--ark-color-bg-muted</code>, <code>--ark-color-bg-hover</code>, <code>--ark-color-bg-active</code>, <code>--ark-color-text</code>, <code>--ark-color-text-muted</code>, <code>--ark-color-text-subtle</code>, <code>--ark-color-border</code>, <code>--ark-color-border-strong</code>, <code>--ark-color-accent</code>, <code>--ark-color-accent-hover</code>, <code>--ark-color-accent-subtle</code>, <code>--ark-color-accent-contrast</code>, <code>--ark-color-elevated</code>, <code>--ark-color-chrome</code>, <code>--ark-color-chrome-subtle</code>, <code>--ark-color-selection</code>, <code>--ark-color-danger</code>, <code>--ark-color-warning</code>, <code>--ark-color-success</code></td>
+</tr>
+<tr>
+<td>Spacing</td>
+<td><code>--ark-space-1</code>, <code>--ark-space-2</code>, <code>--ark-space-3</code>, <code>--ark-space-4</code>, <code>--ark-space-5</code>, <code>--ark-space-6</code>, <code>--ark-space-8</code></td>
+</tr>
+<tr>
+<td>Radius</td>
+<td><code>--ark-radius-sm</code>, <code>--ark-radius-md</code>, <code>--ark-radius-lg</code></td>
+</tr>
+<tr>
+<td>Font</td>
+<td><code>--ark-font-sans</code>, <code>--ark-font-mono</code>, <code>--ark-font-editor</code>, <code>--ark-font-size-xs</code>, <code>--ark-font-size-sm</code>, <code>--ark-font-size-md</code>, <code>--ark-font-size-lg</code>, <code>--ark-font-size-xl</code>, <code>--ark-font-size-2xl</code>, <code>--ark-font-size-editor</code></td>
+</tr>
+</tbody></table>
+<h3 id="page-attributes">Page attributes</h3>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>html[data-theme=&#39;light&#39;]</code>, <code>html[data-theme=&#39;dark&#39;]</code></td>
+<td>An explicit light or dark choice (absent when the app follows the system; use <code>@media (prefers-color-scheme: dark)</code> then).</td>
+</tr>
+<tr>
+<td><code>html[data-layout=&#39;phone&#39;]</code>, <code>&#39;tablet&#39;</code>, <code>&#39;desktop&#39;</code></td>
+<td>The layout in use.</td>
+</tr>
+</tbody></table>
+<h3 id="elements">Elements</h3>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ark-title-bar</code></td>
+<td>The bar at the top of the window.</td>
+</tr>
+<tr>
+<td><code>ark-sidebar</code></td>
+<td>The left sidebar (notebooks, views, tags).</td>
+</tr>
+<tr>
+<td><code>ark-note-list</code></td>
+<td>The list of notes.</td>
+</tr>
+<tr>
+<td><code>ark-note-editor</code></td>
+<td>The note editor; the text area inside it is CodeMirror&#39;s <code>.cm-editor</code> (<code>.cm-content</code>, <code>.cm-line</code>).</td>
+</tr>
+<tr>
+<td><code>ark-note-preview</code></td>
+<td>The rendered preview of a note.</td>
+</tr>
+<tr>
+<td><code>ark-status-bar</code></td>
+<td>The status bar at the bottom of the window.</td>
+</tr>
+</tbody></table>
+<h3 id="example">Example</h3>
+<pre><code class="language-css">/* A wider line height and a warmer accent in the editor. */
+ark-note-editor .cm-editor {
+  line-height: 1.8;
+}
+
+:root {
+  --ark-color-accent: #c2410c;
+}
+</code></pre>
+<p>If a snippet makes the app hard to use, turn it off in Settings ▸ Appearance ▸ CSS snippets, or use the
+safety net described above.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

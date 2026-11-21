@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Worked examples · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="examples.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/examples.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/examples.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="worked-examples">Worked examples</h1>
+<p>Two built-in plugins, read as examples: word count (the smallest useful plugin) and git (settings,
+commands, a tool and a desktop-only feature). Built-in plugins run in-process with more API than a
+sandboxed plugin; each section ends with what a third-party version would declare instead.</p>
+<h2 id="word-count">Word count</h2>
+<p><strong>What it does:</strong> shows the number of words of the open note in the status bar.</p>
+<pre><code class="language-ts">// manifest.ts: in the startup bundle; the code loads only when the plugin is on.
+export const wordCountManifest: PluginManifest = {
+  id: &#39;word-count&#39;,
+  name: &#39;Word count&#39;,
+  version: &#39;1.0.0&#39;,
+  minAppVersion: &#39;0.0.0&#39;,
+  description: &#39;Shows the number of words of the open note in the status bar.&#39;,
+  author: &#39;Arkenda&#39;,
+  isBuiltIn: true,
+};
+</code></pre>
+<p>Categories: <code>writing</code>, <code>status-bar</code>.</p>
+<pre><code class="language-ts">// word-count.ts
+activate(ctx) {
+  let item: StatusBarItemHandle | null = null;
+  const show = (text: string) =&gt; {
+    const descriptor = { id: ITEM, component: WordCountStatus, inputs: { count: countWords(text) } };
+    if (item) item.update(descriptor);
+    else item = ctx.views.registerStatusBarItem(descriptor);
+  };
+  const active = ctx.workspace.activeNote();
+  if (active) show(active.text);
+  ctx.events.on(&#39;note:opened&#39;, ({ text }) =&gt; show(text));
+  ctx.events.on(&#39;note:edited&#39;, ({ text }) =&gt; show(text));
+  ctx.events.on(&#39;note:closed&#39;, () =&gt; {
+    item?.dispose();
+    item = null;
+  });
+},
+</code></pre>
+<p><strong>Why it is built this way:</strong></p>
+<ul>
+<li><strong>Tiny manifest, lazy code.</strong> Only the manifest is in the startup bundle; the count runs in a lazy
+chunk loaded the first time the plugin is on.</li>
+<li><strong>Events, not polling.</strong> It updates on <code>note:opened</code> and <code>note:edited</code>, and removes its item on
+<code>note:closed</code>, so nothing shows without a note.</li>
+<li><strong>One handle, updated.</strong> It registers the status item once and calls <code>update</code>, instead of adding a
+new item per change.</li>
+<li><strong>No settings, no permissions to explain:</strong> just the switch.</li>
+</ul>
+<p><strong>As a third-party plugin:</strong> status bar items of its own and app events are built-in only. Declare a
+tool that lives in the status bar, and refresh it from <code>notes.onChange</code> or a command:</p>
+<pre><code class="language-json">&quot;permissions&quot;: [&quot;notes:read&quot;, &quot;ui:panels&quot;],
+&quot;contributes&quot;: { &quot;sidebarPanels&quot;: [{ &quot;id&quot;: &quot;count&quot;, &quot;title&quot;: &quot;Word count&quot;, &quot;places&quot;: [&quot;status&quot;] }] }
+</code></pre>
+<h2 id="git">Git</h2>
+<p><strong>What it does:</strong> versions a folder vault with the user&#39;s installed git: source control, history,
+diffs, commit, pull, push and sync. <strong>Desktop only.</strong></p>
+<p>Categories: <code>syncing</code>, <code>integrations</code>. Off by default.</p>
+<p><strong>Activation, in order:</strong></p>
+<ol>
+<li><p><strong>Platform first.</strong> <code>platformGitPort()</code> is null outside the desktop composition, and then the
+plugin registers nothing: no dead buttons on the web.</p>
+</li>
+<li><p><strong>Settings as a schema</strong> (<code>definePluginSettings</code>), registered before anything reads them:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Group</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>auto-sync</code></td>
+<td><code>duration</code> in minutes, 0–1440, 0 turns it off</td>
+<td>Sync</td>
+</tr>
+<tr>
+<td><code>pull-on-open</code></td>
+<td><code>toggle</code></td>
+<td>Sync</td>
+</tr>
+<tr>
+<td><code>message-template</code></td>
+<td><code>text</code>, required</td>
+<td>Commits</td>
+</tr>
+<tr>
+<td><code>diff-layout</code></td>
+<td><code>select</code>: <code>unified</code> or <code>split</code></td>
+<td>Diffs</td>
+</tr>
+</tbody></table>
+<p><code>onChange</code> applies new values to the running controller; the controller writes back through
+<code>ctx.settings.set</code>.</p>
+</li>
+<li><p><strong>One tool in three places.</strong> The <code>source-control</code> panel allows <code>left</code>, <code>right</code> and <code>status</code>, and
+starts on the <code>right</code>. A status item with <code>tool: &#39;source-control&#39;</code> is its chip when the person
+moves it to the status bar; a second, <code>background</code> status item hosts its dialogs.</p>
+</li>
+<li><p><strong>Commands for every action</strong> (&quot;Git: commit all changes&quot;, &quot;Git: pull&quot;, &quot;Git: push&quot;, &quot;Git: commit
+and sync&quot;, &quot;Git: fetch&quot;, &quot;Git: open source control&quot;, &quot;Git: open vault history&quot;, &quot;Git: history of
+this note&quot;), so all of it works from the palette.</p>
+</li>
+<li><p><strong>A history provider</strong> for the note history panel, offered only while the vault is a git
+repository.</p>
+</li>
+<li><p><strong><code>deactivate</code></strong> disposes the controller; the registrations are disposed by the host.</p>
+</li>
+</ol>
+<p><strong>Why it is built this way:</strong></p>
+<ul>
+<li><strong>Nothing waits at start:</strong> the status loads when its item mounts, and the network is used only on
+the user&#39;s action or their explicit auto-sync settings.</li>
+<li><strong>Settings are declarative</strong>, so search, reset, export, profiles and scopes work without plugin
+code.</li>
+<li><strong>Commands and the tool share one controller</strong>, so the panel, the chip and the palette always agree.</li>
+</ul>
+<p><strong>As a third-party plugin:</strong> a sandboxed plugin cannot run git (no process or file access, and network
+only to approved hosts, on the desktop). The parts that carry over are the settings schema, the tool
+with <code>places</code>, and one command per action:</p>
+<pre><code class="language-json">&quot;permissions&quot;: [&quot;storage&quot;, &quot;commands&quot;, &quot;ui:panels&quot;],
+&quot;contributes&quot;: {
+  &quot;sidebarPanels&quot;: [{ &quot;id&quot;: &quot;source-control&quot;, &quot;title&quot;: &quot;Source control&quot;, &quot;places&quot;: [&quot;left&quot;, &quot;right&quot;, &quot;status&quot;], &quot;defaultPlace&quot;: &quot;right&quot; }],
+  &quot;commands&quot;: [{ &quot;id&quot;: &quot;pull&quot;, &quot;title&quot;: &quot;Git: pull&quot; }, { &quot;id&quot;: &quot;push&quot;, &quot;title&quot;: &quot;Git: push&quot; }]
+}
+</code></pre>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

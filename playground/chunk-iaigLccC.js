@@ -1,0 +1,1 @@
+import{n as l}from"./chunk-BnWd7dCC.js";function p(r,n){let t=n.split(/[?#]/,1)[0];return r.find(e=>t===e.path||t.startsWith(`${e.path}/`))??null}function a(r,n){l(()=>import(`./chunk-CiByyzbJ.js`)).then(({toggleViewLauncher:t})=>t(r,n)).catch(t=>console.error(t))}export{p as n,a as t};

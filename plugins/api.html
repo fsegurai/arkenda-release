@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>API reference · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="api.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/api.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/api.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="api-reference">API reference</h1>
+<p>Generated from <code>@arkenda/kit/plugin-api</code> (to be published as <code>@arkenda/plugin-api</code>) and its JSDoc.
+API version 1.2: <code>ctx.apiVersion</code> is <code>1</code>, <code>ctx.apiMinor</code> is <code>2</code>.</p>
+<ul>
+<li><strong>Every <code>ctx</code> call is asynchronous</strong> and answered only when the manifest declares its permission,
+the user granted it, and any contribution id is declared. A refused call rejects with an error
+whose <code>code</code> says why (<a href="sandbox.html#what-is-refused-and-why">error codes</a>).</li>
+<li><strong>Registrations return a handle</strong> (<code>Disposable</code>, or <code>SandboxViewHandle</code> for views); everything is
+disposed anyway when the plugin is turned off.</li>
+</ul>
+<h2 id="the-plugin-context-ctx">The plugin context (<code>ctx</code>)</h2>
+<p>What <code>activate(ctx)</code> receives in the sandbox (<code>SandboxPluginContext</code>), one section per area. The
+text of each area names the permission it needs.</p>
+<!-- generated:api-context --><h3 id="ctxapiversion"><code>ctx.apiVersion</code></h3>
+<pre><code class="language-ts">apiVersion: 1;
+</code></pre>
+<h3 id="ctxapiminor"><code>ctx.apiMinor</code></h3>
+<p>The additions this host supports (<code>PLUGIN_API_MINOR</code>).</p>
+<pre><code class="language-ts">apiMinor: number;
+</code></pre>
+<h3 id="ctxmanifest"><code>ctx.manifest</code></h3>
+<pre><code class="language-ts">readonly id: string;
+readonly name: string;
+readonly version: string;
+readonly permissions: readonly string[];
+</code></pre>
+<h3 id="ctxcommands"><code>ctx.commands</code></h3>
+<p><code>commands</code> — a command&#39;s title and default hotkey come from <code>contributes.commands</code> (the hotkey
+is bound only when free and not reserved; the app&#39;s and the user&#39;s keys win).</p>
+<pre><code class="language-ts">register(command: { readonly id: string; run(): void | Promise&lt;void&gt; }): Promise&lt;Disposable&gt;;
+</code></pre>
+<h3 id="ctxeditor"><code>ctx.editor</code></h3>
+<p><code>registerInsertItem</code> and <code>registerToolbarItem</code> need <code>editor</code> and take their titles from <code>contributes.insertItems</code> / <code>contributes.toolbarItems</code>.
+Data only: text up to 4 KB, an icon of <code>PLUGIN_EDITOR_ICONS</code>, or one of this plugin&#39;s commands;
+an insert item may also name its group (<code>PLUGIN_INSERT_GROUPS</code>), search keywords and a <code>detail</code>
+shown next to its title in the <code>/</code> menu.</p>
+<pre><code class="language-ts">registerInsertItem(item: {
+  readonly id: string;
+  /** At most 120 characters. */
+  readonly detail?: string;
+  readonly text: string;
+  readonly cursor?: number;
+  readonly icon?: PluginEditorIcon;
+  /** The insert menus&#39; group; `plugins` when not given. */
+  readonly group?: PluginInsertGroup;
+  /** Up to 8 extra filter words of at most 32 characters. */
+  readonly keywords?: readonly string[];
+}): Promise&lt;Disposable&gt;;
+registerToolbarItem(
+  item: { readonly id: string; readonly icon: PluginEditorIcon } &amp; (
+    | { readonly text: string; readonly cursor?: number }
+    | { readonly command: string }
+  ),
+): Promise&lt;Disposable&gt;;
+</code></pre>
+<h3 id="ctxappearance"><code>ctx.appearance</code></h3>
+<p><code>ui:themes</code> — a theme of token values only (<code>THEME_TOKENS</code>: colours, quoted font stacks, radii,
+line heights), its label from <code>contributes.themes</code>. No CSS: anything outside the token grammar,
+or text below 4.5:1 on the background, is refused with <code>invalid-params</code>.</p>
+<pre><code class="language-ts">registerTheme(theme: {
+  readonly id: string;
+  readonly mode: PluginThemeMode;
+  readonly tokens: ThemeTokens;
+  readonly darkTokens?: ThemeTokens;
+}): Promise&lt;Disposable&gt;;
+</code></pre>
+<h3 id="ctxmarkdown"><code>ctx.markdown</code></h3>
+<p><code>markdown</code> — renders fenced code blocks of the language <code>id</code> (<code>```&lt;id&gt;</code>). The returned
+HTML is sanitized and hardened by the app (no scripts, styles, frames, forms or remote images).</p>
+<pre><code class="language-ts">registerCodeBlock(block: {
+  readonly id: string;
+  render(source: string): string | Promise&lt;string&gt;;
+}): Promise&lt;Disposable&gt;;
+</code></pre>
+<h3 id="ctxviews"><code>ctx.views</code></h3>
+<p><code>ui:panels</code>. <code>icon</code> sets its tab icon, <code>places</code> (distinct <code>left</code>, <code>right</code>, <code>status</code>) where people
+may move it and <code>defaultPlace</code> (one of them) where it shows by default; the manifest&#39;s
+<code>contributes.sidebarPanels</code> values win when it declares them. Anything else (an icon outside
+<code>PLUGIN_PANEL_ICONS</code>, say) is refused with <code>invalid-params</code>.</p>
+<pre><code class="language-ts">registerSidebarPanel(
+  panel: SandboxViewRegistration &amp; {
+    readonly icon?: PluginPanelIcon;
+    readonly places?: readonly PluginToolPlace[];
+    readonly defaultPlace?: PluginToolPlace;
+  },
+): Promise&lt;SandboxViewHandle&gt;;
+</code></pre>
+<h3 id="ctxsettings"><code>ctx.settings</code></h3>
+<p><code>registerTab</code> needs <code>ui:panels</code>; <code>registerFields</code> and <code>values</code> need <code>storage</code> (the values are
+kept there). Fields are rendered by the app; <code>onChange</code> gets the values after every change.
+A settings schema too (groups, more types, scopes, migrations). A sandboxed plugin reads
+only its own values, never secrets (a secret field is entered and kept by the app alone).</p>
+<pre><code class="language-ts">registerTab(tab: SandboxViewRegistration): Promise&lt;SandboxViewHandle&gt;;
+registerFields(
+  schema: PluginSettingsSchemaInput,
+  onChange?: (values: PluginSettingValues) =&gt; void,
+): Promise&lt;Disposable&gt;;
+values(): Promise&lt;PluginSettingValues&gt;;
+/**
+ * Changes one of its own settings, checked as if the user entered it (an unknown key, a
+ * secret or a refused value is refused with `invalid-params`); `onChange` follows.
+ */
+set(key: string, value: PluginSettingValue): Promise&lt;void&gt;;
+</code></pre>
+<h3 id="ctxpermissions"><code>ctx.permissions</code></h3>
+<p>No permission needed: what the user granted it on this device right now (it can change
+at any time): the granted permissions, the approved hosts, and whether it sees every note, only
+chosen notebooks and tags, or none. A plugin keeps working without its optional permissions.</p>
+<pre><code class="language-ts">granted(): Promise&lt;{
+  readonly permissions: readonly string[];
+  readonly hosts: readonly string[];
+  readonly notes: &#39;all&#39; | &#39;chosen&#39; | &#39;none&#39;;
+}&gt;;
+</code></pre>
+<h3 id="ctxdashboard"><code>ctx.dashboard</code></h3>
+<p><code>ui:widgets</code></p>
+<pre><code class="language-ts">registerWidget(
+  widget: SandboxViewRegistration &amp; {
+    readonly defaultSize?: { readonly w: number; readonly h: number };
+    readonly minSize?: { readonly w: number; readonly h: number };
+    /** What it is about (`notes`, `tasks`, `time`, `focus`, `insights`, `other`). */
+    readonly category?: PluginWidgetCategory;
+    /** Distinct `dashboard` and `aside` (the Widgets panel) values; the dashboard without it. */
+    readonly places?: readonly PluginWidgetPlace[];
+    /** One of `places`. */
+    readonly defaultPlace?: PluginWidgetPlace;
+  },
+): Promise&lt;SandboxViewHandle&gt;;
+</code></pre>
+<h3 id="ctxstorage"><code>ctx.storage</code></h3>
+<p><code>storage</code> — this plugin&#39;s own keys, synced with the vault.</p>
+<pre><code class="language-ts">get(key: string): Promise&lt;JsonValue | null&gt;;
+set(key: string, value: JsonValue): Promise&lt;void&gt;;
+delete(key: string): Promise&lt;void&gt;;
+</code></pre>
+<h3 id="ctxnotes"><code>ctx.notes</code></h3>
+<p><code>notes:read</code> (queries, <code>onChange</code>) and <code>notes:write</code> (<code>create</code>, <code>update</code>, <code>trash</code>). Limited to
+chosen notebooks or tags, a new note goes to the first chosen notebook (else gets the first tag).</p>
+<pre><code class="language-ts">recent(limit: number): Promise&lt;readonly Omit&lt;SandboxNote, &#39;body&#39;&gt;[]&gt;;
+pinned(): Promise&lt;readonly Omit&lt;SandboxNote, &#39;body&#39;&gt;[]&gt;;
+get(noteId: string): Promise&lt;SandboxNote | null&gt;;
+/**
+ * Full-text search, best first: `query` of at most 500 characters, `limit` 1–50 hits (20 by
+ * default). No hits until the app&#39;s search index is loaded.
+ */
+search(
+  query: string,
+  options?: { readonly limit?: number },
+): Promise&lt;
+  readonly { readonly id: string; readonly score: number; readonly title: string; readonly snippet?: string }[]
+&gt;;
+onChange(listener: () =&gt; void): Promise&lt;Disposable&gt;;
+create(input: { readonly title?: string; readonly body?: string }): Promise&lt;SandboxNote&gt;;
+update(noteId: string, changes: { readonly title?: string; readonly body?: string }): Promise&lt;SandboxNote&gt;;
+trash(noteId: string): Promise&lt;void&gt;;
+</code></pre>
+<h3 id="ctxknowledge"><code>ctx.knowledge</code></h3>
+<p><code>notes:read</code></p>
+<pre><code class="language-ts">backlinks(noteId: string): Promise&lt;readonly JsonValue[]&gt;;
+resolveLink(target: string): Promise&lt;JsonValue&gt;;
+tagCounts(): Promise&lt;readonly { readonly tag: string; readonly count: number }[]&gt;;
+outgoing(noteId: string): Promise&lt;readonly JsonValue[]&gt;;
+allLinks(): Promise&lt;readonly JsonValue[]&gt;;
+tasks(query?: {
+  readonly checked?: boolean;
+  /** A date (`YYYY-MM-DD`, optionally with a time) or ms since the epoch; inclusive. */
+  readonly dueFrom?: string | number;
+  readonly dueTo?: string | number;
+  readonly tag?: string;
+  readonly noteId?: string;
+}): Promise&lt;readonly JsonValue[]&gt;;
+byType(type: string): Promise&lt;readonly JsonValue[]&gt;;
+inRange(
+  from: string | number,
+  to: string | number,
+): Promise&lt;{ readonly notes: readonly JsonValue[]; readonly tasks: readonly JsonValue[] }&gt;;
+resolveBlock(target: string, block: string, noteId?: string): Promise&lt;JsonValue&gt;;
+</code></pre>
+<h3 id="ctxworkspace"><code>ctx.workspace</code></h3>
+<p><code>notes:read</code></p>
+<pre><code class="language-ts">activeNote(): Promise&lt;{ readonly noteId: string; readonly text: string } | null&gt;;
+openNote(noteId: string): Promise&lt;boolean&gt;;
+openTag(tag: string): Promise&lt;boolean&gt;;
+</code></pre>
+<h3 id="ctxclipboard"><code>ctx.clipboard</code></h3>
+<p><code>clipboard</code> — only right after the user runs one of the plugin&#39;s commands or presses its button.</p>
+<pre><code class="language-ts">readText(): Promise&lt;string&gt;;
+writeText(text: string): Promise&lt;void&gt;;
+</code></pre>
+<h3 id="ctxsync"><code>ctx.sync</code></h3>
+<p><code>sync</code> (API 1.1; check <code>ctx.apiMinor &gt;= 1</code>), for plugins of the <code>syncing</code> category: offers a sync
+source declared in <code>contributes.syncSources</code> (its title comes from there). The user adds it per
+vault in Settings ▸ Sync &amp; devices, and pauses or removes it there; the app then calls <code>onControl</code>
+with <code>start</code>, <code>stop</code>, <code>sync</code> (one pass: &quot;Sync now&quot;, the app opened or came back) or <code>remove</code>
+(forget what you kept for this vault). On phones, sync only on <code>start</code> and <code>sync</code>: nothing runs in
+the background. The source contacts only the manifest&#39;s <code>network.hosts</code> the user approved, and
+reads or changes notes only through <code>notes</code> and its scope: registering it grants nothing. Control
+calls stop at once when the user revokes <code>sync</code>. Present only when the manifest declares <code>sync</code>.</p>
+<pre><code class="language-ts">registerSource(source: {
+  readonly id: string;
+  /** What it needs from the user, shown before it is added: `account`, `keys`, `folder`. */
+  readonly needs?: readonly PluginSyncSourceNeed[];
+  onControl(action: PluginSyncSourceAction): void | Promise&lt;void&gt;;
+}): Promise&lt;{
+  /** Shown under the source: `idle`, `syncing` or `error`, a line of at most 160 characters, the last pass. */
+  setStatus(status: {
+    readonly state: PluginSyncSourceState;
+    readonly detail?: string;
+    readonly lastSyncAt?: number;
+  }): Promise&lt;void&gt;;
+  dispose(): void;
+}&gt;;
+</code></pre>
+<h3 id="ctxnotifications"><code>ctx.notifications</code></h3>
+<p><code>notifications</code> — shown in the status bar; same user-action rule as the clipboard.</p>
+<pre><code class="language-ts">show(notification: { readonly title: string; readonly body?: string }): Promise&lt;void&gt;;
+</code></pre>
+<h3 id="ctxnetwork"><code>ctx.network</code></h3>
+<p><code>network</code> — a GET the app makes for the plugin, only to a host of <code>network.hosts</code> the user
+approved (<code>host-not-allowed</code> otherwise; <code>network-not-available</code> while none is). Desktop app only:
+on the web and phones it always answers <code>network-not-available</code>. https only, no cookies or
+credentials, redirects re-checked, no private or local address, 5 s and 256 KB at most. Fails
+with <code>network-failed</code>.</p>
+<pre><code class="language-ts">fetch(url: string): Promise&lt;{
+  readonly status: number;
+  readonly contentType: string | null;
+  /** The body as UTF-8 text. */
+  readonly body: string;
+  /** The link that answered, after redirects. */
+  readonly url: string;
+}&gt;;
+</code></pre>
+<!-- /generated:api-context --><h2 id="exports">Exports</h2>
+<p>Types, constants and checks you can use while building, grouped by area.</p>
+<!-- generated:api-exports --><h3 id="the-sandbox-context">The sandbox context</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SandboxPluginContext</code></td>
+<td>interface</td>
+<td>What a third-party plugin&#39;s <code>activate</code> receives inside its sandbox: the <code>PluginContext</code> shape, over RPC.</td>
+</tr>
+<tr>
+<td><code>SandboxViewHandle</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SandboxViewRegistration</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SandboxedPluginModule</code></td>
+<td>interface</td>
+<td>The default export of a third-party plugin&#39;s ES module (its manifest <code>entry</code>).</td>
+</tr>
+</tbody></table>
+<h3 id="views">Views</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SANDBOX_VIEW_LIMITS</code></td>
+<td>constant</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SandboxViewNode</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SandboxView</code></td>
+<td>interface</td>
+<td>What a sandboxed plugin shows in a sidebar panel, dashboard widget or settings tab: data, never markup.</td>
+</tr>
+<tr>
+<td><code>checkSandboxView(value: unknown): SchemaResult&lt;SandboxView&gt;</code></td>
+<td>function</td>
+<td>Checks a view sent by a plugin: a clean copy, or every problem found in it.</td>
+</tr>
+</tbody></table>
+<h3 id="sandbox-limits-and-errors">Sandbox limits and errors</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SANDBOX_LIMITS</code></td>
+<td>constant</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SANDBOX_SEARCH_LIMITS</code></td>
+<td>constant</td>
+<td><code>notes.search</code>: the longest query, and the most hits one call returns (20 by default).</td>
+</tr>
+<tr>
+<td><code>SandboxErrorCode</code></td>
+<td>type</td>
+<td>Why a request of the plugin was refused, or why a call failed.</td>
+</tr>
+<tr>
+<td><code>SandboxLimits</code></td>
+<td>interface</td>
+<td>Resource limits of one sandboxed plugin; exceeding one stops the plugin (<code>errored</code>).</td>
+</tr>
+<tr>
+<td><code>SandboxNote</code></td>
+<td>interface</td>
+<td>A note as a sandboxed plugin with <code>notes:read</code> sees it.</td>
+</tr>
+</tbody></table>
+<h3 id="the-manifest">The manifest</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>DataExtensionManifest</code></td>
+<td>interface</td>
+<td>Manifest of a data extension: any kind other than <code>plugin</code> (<code>theme</code>, <code>font</code>, <code>icon-pack</code>, <code>snippet-pack</code>, <code>language-pack</code>, or a kind this app does not know).</td>
+</tr>
+<tr>
+<td><code>ExtensionManifestBase</code></td>
+<td>interface</td>
+<td>The fields of every extension manifest (<code>arkenda-plugin.json</code>), schema version 2, whatever its kind.</td>
+</tr>
+<tr>
+<td><code>ExtensionManifestV2</code></td>
+<td>type</td>
+<td>Any valid v2 manifest.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_CONTRIBUTION_KINDS</code> (9 entries)</td>
+<td>constant</td>
+<td>Kinds of declarative contributions, listed in the manifest so the host knows them before loading code.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_MANIFEST_FIELDS</code></td>
+<td>constant</td>
+<td>The fields of a v2 manifest, the shapes of <code>PLUGIN_MANIFEST_SCHEMA</code> (a spec keeps them equal) and the docs&#39; requirement column: - <code>required</code>: every kind; - <code>optional</code>: every kind; - <code>code</code>: required for the <code>plugin</code> kind, an error (<code>kind-code</code>) for every other kind; - <code>codeOptional</code>: optional for the <code>plugin</code> kind, an error for every other kind.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_MANIFEST_FILE = &quot;arkenda-plugin.json&quot;</code></td>
+<td>constant</td>
+<td>File name of a third-party plugin manifest, at the root of the plugin folder or archive.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_MANIFEST_LIMITS</code></td>
+<td>constant</td>
+<td>Text limits of a v2 manifest (characters), shared by the validator and the JSON Schema.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_PANEL_ICONS</code> (12 entries)</td>
+<td>constant</td>
+<td>The icons a sandboxed plugin&#39;s sidebar panel may use on the right sidebar&#39;s tab strip: names of the app&#39;s own icon set that are registered before any plugin panel shows (the shell icons and the deferred icons).</td>
+</tr>
+<tr>
+<td><code>PLUGIN_PERMISSIONS_V2</code> (13 entries)</td>
+<td>constant</td>
+<td>What a sandboxed third-party plugin may ask for.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_PLATFORMS = [&quot;web&quot;, &quot;desktop&quot;, &quot;mobile&quot;]</code></td>
+<td>constant</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginContributes</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginContributionDeclaration</code></td>
+<td>interface</td>
+<td>One declared contribution: an id unique within its kind and a title shown to the user.</td>
+</tr>
+<tr>
+<td><code>PluginContributionKind</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginInputIssue</code></td>
+<td>interface</td>
+<td>One problem of a plugin input, in the one format authors, users and the reviewer see: a stable code, where it is (a JSON path such as <code>$.versions[0].bundleUrl</code>, or a file of a package) and a readable message.</td>
+</tr>
+<tr>
+<td><code>PluginManifestV2</code></td>
+<td>interface</td>
+<td>Manifest of a third-party plugin: the <code>plugin</code> kind (the default), the only kind that runs code.</td>
+</tr>
+<tr>
+<td><code>PluginPanelIcon</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginPermissionV2</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginPlatform</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SCHEMA_ERROR_CODES</code> (27 entries)</td>
+<td>constant</td>
+<td>Stable codes of schema errors (manifest v2, catalog v1, revocation list v1).</td>
+</tr>
+<tr>
+<td><code>SchemaErrorCode</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>SchemaIssue</code></td>
+<td>type</td>
+<td>One problem of a document checked by a plugin schema: a <code>PluginInputIssue</code> with a schema code.</td>
+</tr>
+<tr>
+<td><code>SchemaResult</code></td>
+<td>type</td>
+<td>The checked document, or every problem found in it.</td>
+</tr>
+<tr>
+<td><code>formatPluginIssue(issue: PluginInputIssue): string</code></td>
+<td>function</td>
+<td><code>&lt;path&gt;: &lt;message&gt; [&lt;code&gt;]</code>: one problem as one line, the same for authors, users and the reviewer.</td>
+</tr>
+<tr>
+<td><code>formatPluginIssues(issues: readonly PluginInputIssue[], max = 3): string</code></td>
+<td>function</td>
+<td>The first <code>max</code> problems as one text (<code>; </code> between them), naming how many more there are.</td>
+</tr>
+<tr>
+<td><code>isPluginKindManifest(manifest: ExtensionManifestV2): manifest is PluginManifestV2</code></td>
+<td>function</td>
+<td>Whether a manifest is of the <code>plugin</code> kind, the only one that runs code.</td>
+</tr>
+<tr>
+<td><code>isPluginPanelIcon(value: unknown): value is PluginPanelIcon</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is one of <code>PLUGIN_PANEL_ICONS</code> (own names only, no prototype keys).</td>
+</tr>
+<tr>
+<td><code>isPluginToolPlaces(value: unknown): value is readonly PluginToolPlace[]</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is a non-empty list of distinct <code>PluginToolPlace</code> values.</td>
+</tr>
+<tr>
+<td><code>isPluginWidgetPlaces(value: unknown): value is readonly PluginWidgetPlace[]</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is a non-empty list of distinct <code>PluginWidgetPlace</code> values.</td>
+</tr>
+<tr>
+<td><code>parsePluginManifestV2(value: unknown): SchemaResult&lt;ExtensionManifestV2&gt;</code></td>
+<td>function</td>
+<td>Strictly checks a v2 manifest (<code>arkenda-plugin.json</code>): every field required by the schema must be present and valid, and unknown fields are errors at any depth.</td>
+</tr>
+</tbody></table>
+<h3 id="permissions">Permissions</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PLUGIN_NETWORK_HOSTS_MAX = 20</code></td>
+<td>constant</td>
+<td>Most hosts one manifest may declare.</td>
+</tr>
+<tr>
+<td><code>isPluginNetworkHost(value: unknown): value is string</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is a host a plugin may declare (see the module&#39;s rules).</td>
+</tr>
+</tbody></table>
+<h3 id="kinds-categories-and-surfaces">Kinds, categories and surfaces</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>EXTENSION_KINDS = [&quot;plugin&quot;, &quot;theme&quot;, &quot;font&quot;, &quot;icon-pack&quot;, &quot;snippet-pack&quot;, &quot;language-pack&quot;]</code></td>
+<td>constant</td>
+<td>Extension kinds.</td>
+</tr>
+<tr>
+<td><code>ExtensionKind</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PLUGIN_CATEGORIES_MAX = 3</code></td>
+<td>constant</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PLUGIN_CATEGORIES_MIN = 1</code></td>
+<td>constant</td>
+<td>How many categories a manifest declares, at least and at most.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_CATEGORIES</code> (36 entries)</td>
+<td>constant</td>
+<td>The governed categories, each in one family.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_CATEGORY_IDS</code> (36 entries)</td>
+<td>constant</td>
+<td>The ids of <code>PLUGIN_CATEGORIES</code>, in order.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_FAMILIES = [&quot;writing&quot;, &quot;organizing&quot;, &quot;media&quot;, &quot;seeing&quot;, &quot;connecting&quot;, &quot;automating&quot;, &quot;appearance&quot;, &quot;utilities&quot;]</code></td>
+<td>constant</td>
+<td>The families of the taxonomy, in browsing order.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_KEYWORDS_MAX = 10</code></td>
+<td>constant</td>
+<td>Free keywords of a manifest, for search: at most this many…</td>
+</tr>
+<tr>
+<td><code>PLUGIN_KEYWORD_MAX = 32</code></td>
+<td>constant</td>
+<td>…of at most this many characters each.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_OTHER = &quot;other&quot;</code></td>
+<td>constant</td>
+<td>What an unknown category, family or kind is shown and treated as.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_SURFACES = [&quot;sidebar&quot;, &quot;status-bar&quot;, &quot;toolbar&quot;, &quot;widgets&quot;, &quot;sync&quot;]</code></td>
+<td>constant</td>
+<td>Where an extension shows, derived from what its manifest really contributes (never declared).</td>
+</tr>
+<tr>
+<td><code>PluginCategory</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginFamily</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginOther</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSurface</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>derivedSurfaces(contributes: PluginContributes | undefined): readonly PluginSurface[]</code></td>
+<td>function</td>
+<td>The surfaces a manifest&#39;s contributions reach, in <code>PLUGIN_SURFACES</code> order: a sidebar panel&#39;s places (both sidebars when it declares none), toolbar items, dashboard widgets and sync sources (Settings ▸ Sync &amp; devices).</td>
+</tr>
+<tr>
+<td><code>extensionKindOf(manifest: { readonly kind?: unknown }): ExtensionKind | PluginOther</code></td>
+<td>function</td>
+<td>The kind of a manifest as shown: <code>plugin</code> when left out, <code>other</code> when unknown.</td>
+</tr>
+<tr>
+<td><code>isPluginCategory(value: unknown): value is PluginCategory</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is one of the governed categories.</td>
+</tr>
+<tr>
+<td><code>pluginCategoryOf(value: unknown): PluginCategory | PluginOther</code></td>
+<td>function</td>
+<td>A declared category as shown: itself when governed, <code>other</code> when unknown (e.g.</td>
+</tr>
+<tr>
+<td><code>pluginFamilyOf(category: unknown): PluginFamily | PluginOther</code></td>
+<td>function</td>
+<td>The family of a category; <code>other</code> for an unknown one.</td>
+</tr>
+<tr>
+<td><code>pluginFamilyOfCategories(categories: readonly unknown[] | undefined): PluginFamily | PluginOther</code></td>
+<td>function</td>
+<td>The family an extension is browsed under: that of its first governed category, else <code>other</code>.</td>
+</tr>
+</tbody></table>
+<h3 id="settings">Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PLUGIN_DURATION_UNITS = [&quot;seconds&quot;, &quot;minutes&quot;, &quot;hours&quot;]</code></td>
+<td>constant</td>
+<td>The unit a duration is entered and stored in.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_SCHEMA_FIELD_TYPES</code> (13 entries)</td>
+<td>constant</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PLUGIN_SETTING_SCOPES = [&quot;vault&quot;, &quot;device&quot;, &quot;vault-device&quot;]</code></td>
+<td>constant</td>
+<td>Where a value is kept: - <code>vault</code>: in the vault (the plugin&#39;s storage), so it travels with the vault to other devices; - <code>device</code>: on this device only, for every vault; - <code>vault-device</code>: on this device only, for this vault.</td>
+</tr>
+<tr>
+<td><code>PluginSchemaFieldInput</code></td>
+<td>type</td>
+<td>A field as a plugin writes it: <code>scope</code> defaults to <code>vault</code> (<code>device</code> for a secret), limits have defaults.</td>
+</tr>
+<tr>
+<td><code>PluginSchemaField</code></td>
+<td>type</td>
+<td>A checked field of a schema.</td>
+</tr>
+<tr>
+<td><code>PluginSettingCondition</code></td>
+<td>interface</td>
+<td>A field shows only while another field&#39;s value is one of <code>equals</code>.</td>
+</tr>
+<tr>
+<td><code>PluginSettingErrorCode</code></td>
+<td>type</td>
+<td>Why a value was refused, for a translated message (<code>pluginApi.settings.errors.&lt;code&gt;</code>).</td>
+</tr>
+<tr>
+<td><code>PluginSettingError</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSettingScope</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSettingValue</code></td>
+<td>type</td>
+<td>A setting&#39;s value: secrets never appear among the values (see <code>PluginSettingsForm.secretState</code>).</td>
+</tr>
+<tr>
+<td><code>PluginSettingsExport</code></td>
+<td>interface</td>
+<td>A plugin&#39;s settings as exported (secrets never included).</td>
+</tr>
+<tr>
+<td><code>PluginSettingsGroup</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSettingsMigration</code></td>
+<td>interface</td>
+<td>One upgrade step of stored values, to version <code>to</code>.</td>
+</tr>
+<tr>
+<td><code>PluginSettingsSchemaInput</code></td>
+<td>type</td>
+<td>What a plugin passes: <code>version</code>, <code>fields</code>, and optionally <code>groups</code> and <code>migrations</code>.</td>
+</tr>
+<tr>
+<td><code>PluginSettingsSchema</code></td>
+<td>interface</td>
+<td>A checked schema.</td>
+</tr>
+<tr>
+<td><code>checkSettingInput(field: PluginSchemaField, raw: unknown): PluginSettingCheck</code></td>
+<td>function</td>
+<td>Checks a value entered for <code>field</code> and normalizes it (a colour lower-cased, a folder without a trailing slash, list items trimmed).</td>
+</tr>
+<tr>
+<td><code>definePluginSettings&lt;const T extends PluginSettingsSchemaInput&gt;(schema: T): T</code></td>
+<td>function</td>
+<td>Types a schema for authors (no runtime change): <code>const schema = definePluginSettings({ … })</code>, then <code>ctx.settings.registerFields(schema)</code>.</td>
+</tr>
+<tr>
+<td><code>validatePluginSettingsSchema(input: unknown): PluginSettingsSchema</code></td>
+<td>function</td>
+<td>Checks what a plugin registers: a schema object <code>{ version, fields, groups?, migrations? }</code>.</td>
+</tr>
+</tbody></table>
+<h3 id="themes-editor-items-and-hotkeys">Themes, editor items and hotkeys</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PLUGIN_EDITOR_ICONS</code> (25 entries)</td>
+<td>constant</td>
+<td>The icons a plugin&#39;s editor item may use: names of the app&#39;s icon set (registered with the editor toolbar).</td>
+</tr>
+<tr>
+<td><code>PLUGIN_INSERT_GROUPS = [&quot;basic&quot;, &quot;lists&quot;, &quot;media&quot;, &quot;embeds&quot;, &quot;plugins&quot;, &quot;snippets&quot;]</code></td>
+<td>constant</td>
+<td>The groups of the editor&#39;s insert menus a plugin&#39;s insert item may join (<code>plugins</code> by default).</td>
+</tr>
+<tr>
+<td><code>PLUGIN_INSERT_KEYWORDS_MAX = 8</code></td>
+<td>constant</td>
+<td>At most this many search keywords per insert item, each 1 to <code>PLUGIN_INSERT_KEYWORD_MAX</code> characters.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_INSERT_KEYWORD_MAX = 32</code></td>
+<td>constant</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PLUGIN_ITEM_TEXT_MAX_BYTES = 4096</code></td>
+<td>constant</td>
+<td>Largest text an insert or toolbar item inserts, in UTF-8 bytes.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_ITEM_TITLE_MAX = 64</code></td>
+<td>constant</td>
+<td>Longest title of a theme, insert item or toolbar item.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_THEME_MODES = [&quot;light&quot;, &quot;dark&quot;, &quot;both&quot;]</code></td>
+<td>constant</td>
+<td>Which colour scheme a theme is for; <code>both</code> themes may give a separate set for dark (<code>darkTokens</code>).</td>
+</tr>
+<tr>
+<td><code>PluginEditorIcon</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginInsertGroup</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginInsertItem</code></td>
+<td>interface</td>
+<td>An entry of the editor&#39;s insert catalog (<code>/</code> menu, &quot;+&quot; menu, toolbar insert menu).</td>
+</tr>
+<tr>
+<td><code>PluginSettingOption</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSettingValues</code></td>
+<td>type</td>
+<td>The current value of every field, by key: booleans, numbers, texts, lists of texts (multi-select, string list) and key-value pairs.</td>
+</tr>
+<tr>
+<td><code>PluginThemeInput</code></td>
+<td>interface</td>
+<td>What a plugin gives <code>appearance.registerTheme</code>.</td>
+</tr>
+<tr>
+<td><code>PluginThemeMode</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginToolbarItem</code></td>
+<td>type</td>
+<td>A button a plugin offers for the editor toolbar (hidden until the user shows it in Settings ▸ Editor): it inserts <code>text</code>, or runs one of the plugin&#39;s own commands.</td>
+</tr>
+<tr>
+<td><code>THEME_COLOR_TOKENS</code> (22 entries)</td>
+<td>constant</td>
+<td>The colour tokens of <code>_tokens.scss</code> a theme may set.</td>
+</tr>
+<tr>
+<td><code>THEME_FONT_TOKENS = [&quot;--ark-font-sans&quot;, &quot;--ark-font-mono&quot;, &quot;--ark-font-editor&quot;]</code></td>
+<td>constant</td>
+<td>Font family tokens: a stack of quoted installed fonts and generic families.</td>
+</tr>
+<tr>
+<td><code>THEME_LENGTH_TOKENS = [&quot;--ark-radius-sm&quot;, &quot;--ark-radius-md&quot;, &quot;--ark-radius-lg&quot;]</code></td>
+<td>constant</td>
+<td>Corner radii, as a length.</td>
+</tr>
+<tr>
+<td><code>THEME_MIN_TEXT_CONTRAST = 4.5</code></td>
+<td>constant</td>
+<td>WCAG 2 AA for text: what a theme&#39;s text must reach on its background.</td>
+</tr>
+<tr>
+<td><code>THEME_NUMBER_TOKENS = [&quot;--ark-line-height&quot;, &quot;--ark-line-height-editor&quot;]</code></td>
+<td>constant</td>
+<td>Unitless line heights (the UI&#39;s and the editor&#39;s writing style).</td>
+</tr>
+<tr>
+<td><code>THEME_TOKENS</code> (30 entries)</td>
+<td>constant</td>
+<td>Every token name a theme may set; anything else is refused.</td>
+</tr>
+<tr>
+<td><code>ThemeTokens</code></td>
+<td>type</td>
+<td>A theme&#39;s token values, by token name.</td>
+</tr>
+<tr>
+<td><code>canonicalHotkey(key: string): string</code></td>
+<td>function</td>
+<td>The key in a canonical form (<code>mod-shift-k</code>): Ctrl/Meta read as Mod, modifiers sorted.</td>
+</tr>
+<tr>
+<td><code>isPluginHotkey(key: unknown): key is string</code></td>
+<td>function</td>
+<td>Whether <code>key</code> is a hotkey a sandboxed plugin may declare (no plain typing keys, no repeats).</td>
+</tr>
+<tr>
+<td><code>isReservedHotkey(key: string): boolean</code></td>
+<td>function</td>
+<td>Whether a plugin may never bind <code>key</code> (reserved by the app).</td>
+</tr>
+<tr>
+<td><code>parseThemeColor(value: string): Rgba | null</code></td>
+<td>function</td>
+<td>Parses a colour of the theme grammar: <code>#rgb</code>, <code>#rgba</code>, <code>#rrggbb</code>, <code>#rrggbbaa</code>, <code>rgb()</code>/<code>rgba()</code> and <code>hsl()</code>/<code>hsla()</code> (comma or space separated, optional <code>/ alpha</code>).</td>
+</tr>
+<tr>
+<td><code>parseThemeTokens(value: unknown, scheme: &#39;light&#39; | &#39;dark&#39;): ThemeTokens</code></td>
+<td>function</td>
+<td>Checks one set of tokens: allowlisted names, the grammar of each value, then the contrast.</td>
+</tr>
+<tr>
+<td><code>validatePluginInsertItem(pluginId: string, input: unknown): PluginInsertItem</code></td>
+<td>function</td>
+<td>Checks an insert item; the returned item&#39;s id is namespaced with <code>pluginId</code>.</td>
+</tr>
+<tr>
+<td><code>validatePluginTheme(pluginId: string, input: unknown): PluginTheme</code></td>
+<td>function</td>
+<td>Checks a theme; the returned theme&#39;s id is namespaced with <code>pluginId</code>.</td>
+</tr>
+<tr>
+<td><code>validatePluginToolbarItem(pluginId: string, input: unknown): PluginToolbarItem</code></td>
+<td>function</td>
+<td>Checks a toolbar item; the returned item&#39;s id is namespaced with <code>pluginId</code>, and so is its <code>command</code> (a plugin can only run its own commands).</td>
+</tr>
+</tbody></table>
+<h3 id="versions-and-compatibility">Versions and compatibility</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CompatibilityRequirements</code></td>
+<td>interface</td>
+<td>What a plugin needs: a v1 or v2 manifest, or a catalog release.</td>
+</tr>
+<tr>
+<td><code>CompatibilityTarget</code></td>
+<td>interface</td>
+<td>The app checking the plugin.</td>
+</tr>
+<tr>
+<td><code>PluginCompatibilityIssue</code></td>
+<td>type</td>
+<td>Why a plugin cannot run here: the reasons of <code>PluginIncompatibility</code>, plus a newer plugin API.</td>
+</tr>
+<tr>
+<td><code>checkCompatibility(plugin: CompatibilityRequirements, target: CompatibilityTarget): readonly PluginCompatibilityIssue[]</code></td>
+<td>function</td>
+<td>Every reason the plugin cannot run on <code>target</code>, in a stable order; empty when it can.</td>
+</tr>
+</tbody></table>
+<h3 id="in-process-plugins-and-places">In-process plugins and places</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ActiveNote</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>ArkendaPlugin</code></td>
+<td>interface</td>
+<td>The code of a plugin, loaded lazily the first time it is enabled.</td>
+</tr>
+<tr>
+<td><code>Disposable</code></td>
+<td>interface</td>
+<td>Something that can be undone: a registration, a subscription, a resource.</td>
+</tr>
+<tr>
+<td><code>MarkdownFeatureName</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PLUGIN_API_MINOR = 2</code></td>
+<td>constant</td>
+<td>Additions to <code>PLUGIN_API_VERSION</code> that change nothing for the plugins written before them (optional fields only) raise this number; a plugin can check <code>ctx.apiMinor</code> before using one.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_API_VERSION = 1</code></td>
+<td>constant</td>
+<td>Version of the <code>PluginContext</code> API; bumped on breaking changes.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_TOOL_PLACES = [&quot;left&quot;, &quot;right&quot;, &quot;status&quot;]</code></td>
+<td>constant</td>
+<td>Every <code>PluginToolPlace</code>, in the order the host lists them.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_WIDGET_CATEGORIES = [&quot;notes&quot;, &quot;tasks&quot;, &quot;time&quot;, &quot;focus&quot;, &quot;insights&quot;, &quot;other&quot;]</code></td>
+<td>constant</td>
+<td>What a widget is about; the widget pickers group widgets by it (<code>other</code> when left out).</td>
+</tr>
+<tr>
+<td><code>PLUGIN_WIDGET_PLACES = [&quot;dashboard&quot;, &quot;aside&quot;]</code></td>
+<td>constant</td>
+<td>Every <code>PluginWidgetPlace</code>, in the order the host lists them.</td>
+</tr>
+<tr>
+<td><code>PluginCommand</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginContext</code></td>
+<td>interface</td>
+<td>What a plugin can do.</td>
+</tr>
+<tr>
+<td><code>PluginDashboardWidget</code></td>
+<td>interface</td>
+<td>A dashboard widget.</td>
+</tr>
+<tr>
+<td><code>PluginKnowledge</code></td>
+<td>interface</td>
+<td>Read-only queries on the knowledge index of the vault: wikilinks and backlinks, block references, tags, tasks, resource types and dates (plan 3.4 F3/F4).</td>
+</tr>
+<tr>
+<td><code>PluginNotes</code></td>
+<td>interface</td>
+<td>Read-only queries on the notes of the vault (metadata only, never the bodies).</td>
+</tr>
+<tr>
+<td><code>PluginPanelPlacement</code></td>
+<td>type</td>
+<td>The sidebar a panel shows in: the left one (views, notebooks, tags) or the right one.</td>
+</tr>
+<tr>
+<td><code>PluginSettingsTab</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSidebarPanel</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginStatusBarItem</code></td>
+<td>interface</td>
+<td>Framework-agnostic view descriptors.</td>
+</tr>
+<tr>
+<td><code>PluginStorage</code></td>
+<td>interface</td>
+<td>Key-value storage of one plugin, persisted in the vault (it syncs between devices).</td>
+</tr>
+<tr>
+<td><code>PluginToolAction</code></td>
+<td>interface</td>
+<td>A quick action shown above a tool&#39;s view in its status bar popover.</td>
+</tr>
+<tr>
+<td><code>PluginToolPlace</code></td>
+<td>type</td>
+<td>Where a tool (a sidebar panel) can live: the left sidebar, the right sidebar, or the status bar (a chip whose click opens the same view in a popover).</td>
+</tr>
+<tr>
+<td><code>PluginWidgetCategory</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginWidgetPlace</code></td>
+<td>type</td>
+<td>Where a widget can live: the dashboard, or the Widgets panel of the sidebars (<code>aside</code>).</td>
+</tr>
+<tr>
+<td><code>isPluginToolPlace(value: unknown): value is PluginToolPlace</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is one of <code>PLUGIN_TOOL_PLACES</code>.</td>
+</tr>
+<tr>
+<td><code>isPluginWidgetCategory(value: unknown): value is PluginWidgetCategory</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is one of <code>PLUGIN_WIDGET_CATEGORIES</code>.</td>
+</tr>
+<tr>
+<td><code>isPluginWidgetPlace(value: unknown): value is PluginWidgetPlace</code></td>
+<td>function</td>
+<td>Whether <code>value</code> is one of <code>PLUGIN_WIDGET_PLACES</code>.</td>
+</tr>
+</tbody></table>
+<h3 id="sync-sources">Sync sources</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PLUGIN_SYNC_SOURCE_ACTIONS = [&quot;start&quot;, &quot;stop&quot;, &quot;sync&quot;, &quot;remove&quot;]</code></td>
+<td>constant</td>
+<td>What the app asks of a source: - <code>start</code>: the user added it to the open vault (or it was added and the plugin started): sync now, and keep in sync while the app is open; - <code>stop</code>: the user paused it, or took it out of the vault: stop syncing, keep what you know; - <code>sync</code>: one pass now (the user pressed &quot;Sync now&quot;, or the app opened or came back to the foreground).</td>
+</tr>
+<tr>
+<td><code>PLUGIN_SYNC_SOURCE_NEEDS = [&quot;account&quot;, &quot;keys&quot;, &quot;folder&quot;]</code></td>
+<td>constant</td>
+<td>What a source needs from the user (shown before it is added).</td>
+</tr>
+<tr>
+<td><code>PLUGIN_SYNC_SOURCE_STATES = [&quot;idle&quot;, &quot;syncing&quot;, &quot;error&quot;]</code></td>
+<td>constant</td>
+<td>How the source is doing, as the plugin reports it (<code>paused</code> and <code>unavailable</code> are the app&#39;s).</td>
+</tr>
+<tr>
+<td><code>PluginSyncSourceAction</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSyncSourceHandle</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSyncSourceNeed</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSyncSourceState</code></td>
+<td>type</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSyncSourceStatus</code></td>
+<td>interface</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>PluginSyncSource</code></td>
+<td>interface</td>
+<td>A sync source of an in-process plugin (<code>PluginContext.sync.registerSource</code>).</td>
+</tr>
+</tbody></table>
+<h3 id="signing-and-integrity">Signing and integrity</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ReleaseStatement</code></td>
+<td>interface</td>
+<td>What a publisher signs for each release: binds the bundle bytes and the permissions to the version.</td>
+</tr>
+<tr>
+<td><code>canonicalJson(value: unknown): string</code></td>
+<td>function</td>
+<td>Serializes a JSON value deterministically, so that signing and verifying hash the same bytes.</td>
+</tr>
+<tr>
+<td><code>computeIntegrity(bytes: Uint8Array&lt;ArrayBuffer&gt; | ArrayBuffer): Promise&lt;string&gt;</code></td>
+<td>function</td>
+<td>The <code>sha256-&lt;base64&gt;</code> integrity of a bundle, as written in the manifest and the catalog.</td>
+</tr>
+<tr>
+<td><code>releaseStatementOf(manifest: PluginManifestV2): ReleaseStatement</code><br><code>releaseStatementOf(plugin: CatalogPlugin, release: CatalogRelease): ReleaseStatement</code></td>
+<td>function</td>
+<td>The release statement of a manifest, or of a catalog plugin release; both give the same statement.</td>
+</tr>
+</tbody></table>
+<h3 id="other-live-activityts">Other (live-activity.ts)</h3>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Kind</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PluginLiveActivityAction</code></td>
+<td>interface</td>
+<td>A button of a plugin&#39;s activity; <code>run</code> calls the plugin&#39;s own flow.</td>
+</tr>
+<tr>
+<td><code>PluginLiveActivityHandle</code></td>
+<td>interface</td>
+<td>How the plugin keeps its activity up to date; disposing it (or disabling the plugin) drops it.</td>
+</tr>
+<tr>
+<td><code>PluginLiveActivityKind</code></td>
+<td>type</td>
+<td>A countdown (<code>timer</code>) or a piece of work (<code>job</code>): a plugin cannot claim a recording&#39;s or a sync&#39;s rank.</td>
+</tr>
+<tr>
+<td><code>PluginLiveActivityPatch</code></td>
+<td>type</td>
+<td>A change to a plugin&#39;s activity: anything but its id and kind.</td>
+</tr>
+<tr>
+<td><code>PluginLiveActivity</code></td>
+<td>interface</td>
+<td>One live activity of a plugin (<code>ctx.activities.publish</code>, API 1.2), checked before it shows.</td>
+</tr>
+</tbody></table>
+<!-- /generated:api-exports --><p>The &quot;In-process plugins and places&quot; exports describe built-in plugins (<code>PluginContext</code>), which run
+inside the app; third-party plugins get <code>SandboxPluginContext</code> above. Changes to this API are listed
+in <a href="versioning.html#api-changelog">Versioning and compatibility</a>.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

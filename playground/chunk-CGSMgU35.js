@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var i=new A(`ARKENDA_LINK_TITLES`,{providedIn:`root`,factory:()=>null});export{i as t};

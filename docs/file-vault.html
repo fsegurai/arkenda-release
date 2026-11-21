@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Folder vaults (desktop) · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="file-vault.html">
+<link rel="alternate" hreflang="es" href="../es/docs/file-vault.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/file-vault.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="folder-vaults-desktop">Folder vaults (desktop)</h1>
+<p>On the desktop app, a vault can be a folder on your disk. The folder is the source of truth:
+your notes are plain <code>.md</code> files you can open, edit, move, sync or version with any other tool,
+and Arkenda follows those changes.</p>
+<p>Open one with <strong>Open folder…</strong> in the vault switcher (sidebar) or in <strong>Manage vaults</strong>. Folders
+you opened before are listed there too.</p>
+<h2 id="choosing-a-vault">Choosing a vault</h2>
+<p>The vault switcher (the vault&#39;s name at the top of the sidebar) is the vault picker, the same on
+every platform: the vaults known on this device, most recently opened first, and three ways to
+another vault. One that this device can&#39;t offer stays in the list with the reason.</p>
+<ul>
+<li><strong>New vault…</strong> creates an empty vault by name and opens it. On the desktop and the web it is
+stored in the app (the browser&#39;s storage on the web); in the Android and iOS apps it is a folder
+of Markdown files in Arkenda&#39;s own folder (on iPhone and iPad it shows in the Files app).</li>
+<li><strong>Open a folder…</strong> opens a folder of Markdown files: the folder picker on the desktop, the
+system&#39;s folder picker on Android. iOS offers only Arkenda&#39;s own folder; the web has no folders.</li>
+<li><strong>Join from a paired device…</strong> opens Settings ▸ Sync &amp; devices with the code entry: show a
+pairing code on the device that has your notes and enter it here. Its notes arrive by sync in a
+new vault on this device; the vault that is open is not changed.</li>
+</ul>
+<p>On phones the picker fills the screen. Press and hold a vault (or use its <strong>⋯</strong> button) to rename
+it or remove it from the list; removing it never deletes its notes. A vault stored in the app also
+keeps a copy of its note list (titles, tags, notebooks, dates; never the notes&#39; text) in the
+browser&#39;s storage of this device, so a large vault shows its list while it is still loading. That
+list is read-only until the vault is open; the copy is never synced or exported, and removing the
+vault from the list deletes it. Folder vaults don&#39;t keep one. The first time the Android or
+iOS app starts, the picker opens by itself; close it to keep writing in the vault that is already
+open. When a vault can&#39;t be opened, the picker is on that page too.</p>
+<h2 id="how-the-folder-maps-to-notes">How the folder maps to notes</h2>
+<table>
+<thead>
+<tr>
+<th>On disk</th>
+<th>In Arkenda</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A folder (nested folders too)</td>
+<td>A notebook (nested notebooks)</td>
+</tr>
+<tr>
+<td>A <code>.md</code> file</td>
+<td>A note; the file name (without <code>.md</code>) is the title</td>
+</tr>
+<tr>
+<td><code>.trash/</code> at the root</td>
+<td>The trash; a trashed note keeps its folder path inside it</td>
+</tr>
+<tr>
+<td><code>attachments/</code> at the root</td>
+<td>Images and files you add to notes (<code>&lt;sha-256&gt;.&lt;ext&gt;</code>)</td>
+</tr>
+<tr>
+<td><code>.arkenda/</code></td>
+<td>Arkenda&#39;s own data (see below); never shown as notes</td>
+</tr>
+</tbody></table>
+<p>Hidden entries (<code>.git</code>, <code>.obsidian</code>, <code>.DS_Store</code>…) and <code>node_modules</code> are ignored.</p>
+<p>Renaming a note renames its file, and moving it to another notebook moves the file. When a name
+is taken, Arkenda adds a number (<code>Note (2).md</code>). Names stay valid on Windows, macOS and Linux: it
+removes characters such as <code>/ \ : * ? &quot; &lt; &gt; |</code>, a leading dot and reserved names such as <code>CON</code>.</p>
+<h3 id="frontmatter">Frontmatter</h3>
+<p>Notes keep their metadata in YAML frontmatter, only when they need it:</p>
+<pre><code class="language-markdown">---
+tags: [work, ideas]
+pinned: true
+created: 2025-03-01T09:30:00.000Z
+id: 4f1c…
+---
+# The note body
+</code></pre>
+<p>The keys Arkenda reads (the Properties panel in the right sidebar lists them under &quot;Used by
+Arkenda&quot;, with what each one does, and its &quot;Keys Arkenda understands&quot; reference repeats this table):</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tags</code> (or <code>tag</code>)</td>
+<td>The note&#39;s tags, as a list or one per line.</td>
+<td><code>tags: [work, ideas]</code></td>
+</tr>
+<tr>
+<td><code>pinned</code></td>
+<td><code>true</code> keeps the note at the top of lists.</td>
+<td><code>pinned: true</code></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>The note&#39;s status: the id of one from Settings ▸ Statuses.</td>
+<td><code>status: in-progress</code></td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td>When the note was created.</td>
+<td><code>created: 2026-03-01T09:30:00Z</code></td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>A stable identity across renames and moves outside Arkenda (letters, digits, <code>-</code>, <code>_</code>).</td>
+<td><code>id: project-plan</code></td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>What the note is: <code>note</code>, <code>event</code>, <code>whiteboard</code> or <code>pomodoro-log</code>.</td>
+<td><code>type: event</code></td>
+</tr>
+<tr>
+<td><code>start</code>, <code>end</code></td>
+<td>When an event starts and ends: a day or a date and time; the note shows on the calendar.</td>
+<td><code>start: 2026-11-02T14:00</code></td>
+</tr>
+<tr>
+<td><code>due</code></td>
+<td>A deadline: a day or a date and time; the note shows on the calendar.</td>
+<td><code>due: 2026-11-05</code></td>
+</tr>
+<tr>
+<td><code>allDay</code></td>
+<td><code>true</code> for an event that takes whole days.</td>
+<td><code>allDay: true</code></td>
+</tr>
+</tbody></table>
+<p><code>title</code>, <code>notebook</code>, <code>updated</code> and <code>trashed</code> are used only by Arkenda&#39;s export and import
+(archives); in a vault the file name and its folder decide a note&#39;s title and notebook. Any other key
+is yours: Arkenda never changes it, and the Properties panel lists it under &quot;Your properties&quot;.</p>
+<ul>
+<li><code>tags</code> (or <code>tag</code>), <code>pinned</code> and <code>created</code> are written only when they have a value to keep:
+an unpinned, untagged note has no frontmatter.</li>
+<li><code>id</code> keeps a note&#39;s identity across renames, moves and copies made outside the app. Arkenda
+does not add it on its own; you can add your own (any unique value). Without it, Arkenda still
+recognizes moved and renamed notes from what it remembers on this device and from their content.</li>
+<li>Arkenda changes only these keys. Your other keys, their order, comments, quoting, line endings
+(CRLF) and a byte-order mark are kept byte for byte.</li>
+<li>When the frontmatter cannot be changed safely (malformed YAML, flow-style mappings), Arkenda
+leaves the file alone, keeps the change on this device and shows a warning.</li>
+<li>When the frontmatter is not valid YAML at all, Arkenda ignores every key in it (the note opens
+without its tags, status or id), never changes the file, and says so: a vault warning names the
+file, and the Properties panel explains it.</li>
+</ul>
+<h2 id="what-arkenda-writes-and-when">What Arkenda writes, and when</h2>
+<ul>
+<li><strong>Your edits</strong>: about 0.75 s after you stop typing, when you leave the note or the editor loses
+focus, and when you close the window. The editor shows whether the note is saved.</li>
+<li><strong>Every write is atomic</strong>: Arkenda writes a temporary file, flushes it to disk, then renames it
+over the note, so no other program ever sees half a file.</li>
+<li><strong>Every save checks the file first</strong>: a save only goes over the version of the file it was
+based on. If the file changed meanwhile, nothing is overwritten (see Conflicts).</li>
+<li><strong>Before overwriting</strong>, the previous text is kept as a version on this device.</li>
+<li><strong>Unsaved edits survive a crash</strong>: they are kept in a journal on this device and restored the
+next time you open the note (&quot;Restored unsaved changes&quot;).</li>
+<li><strong>Deleting a notebook</strong> never deletes files: its notes move to the trash.</li>
+<li><strong>Show in folder</strong> (in a note&#39;s menu, on the desktop) opens your file manager at the note&#39;s file, selected.</li>
+<li><strong>Deleting a note forever</strong> (from the trash) moves its file to your system&#39;s trash on Linux and Windows, so
+you can still restore it from there. On Android, and where the system has no trash for that drive, the file is
+deleted.</li>
+</ul>
+<h3 id="arkenda"><code>.arkenda/</code></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vault.json</code></td>
+<td>The vault id (the same on every computer that opens the folder) and format version</td>
+</tr>
+<tr>
+<td><code>plugins.json</code>, <code>plugin-data/&lt;plugin id&gt;.json</code></td>
+<td>Which plugins are enabled, and their settings</td>
+</tr>
+<tr>
+<td><code>installed-plugins.json</code></td>
+<td>Plugins installed in this vault</td>
+</tr>
+<tr>
+<td><code>attachments.json</code></td>
+<td>Original names of the files in <code>attachments/</code></td>
+</tr>
+<tr>
+<td><code>media-folders.json</code></td>
+<td>Media folders, which folder each file is in, and each notebook&#39;s folder (see <a href="media.html#media-folders">Media</a>); written only once you use them</td>
+</tr>
+</tbody></table>
+<p>These files travel with the folder, so plugin settings follow the vault to another computer.
+A damaged file is never overwritten: Arkenda keeps a <code>*.corrupt-&lt;time&gt;</code> copy and starts from
+defaults.</p>
+<p>Arkenda also keeps a few things <strong>on this device only</strong> (not in the folder): an index to list a
+large vault instantly, the unsaved-edits journal and the note versions.</p>
+<h2 id="changes-made-outside-arkenda">Changes made outside Arkenda</h2>
+<p>Arkenda watches the folder. Changes from other editors, sync tools or <code>git checkout</code> appear
+within a second or so; a burst of thousands of changes is applied in one pass.</p>
+<ul>
+<li>A note open in the editor and not edited in Arkenda updates in place.</li>
+<li>A note edited on both sides is merged when the edits touch different lines.</li>
+</ul>
+<h3 id="conflicts">Conflicts</h3>
+<p>When your unsaved edits and the change on disk touch the same lines, the editor shows a conflict
+banner. Nothing is lost while it is shown. Choose:</p>
+<ul>
+<li><strong>Keep mine</strong>: write your text over the file.</li>
+<li><strong>Take disk version</strong>: load the file and drop your edits.</li>
+<li><strong>Save mine as copy</strong>: keep your text as a new note &quot;<em>Title</em> (conflict <em>date time</em>)&quot; and load the file.</li>
+<li><strong>Compare</strong>: see both texts side by side first.</li>
+</ul>
+<p>A trashed or deleted note becomes read-only in the editor; your buffer stays visible so you can
+copy it.</p>
+<h2 id="when-the-folder-is-unavailable">When the folder is unavailable</h2>
+<p>If the folder is unplugged, moved, renamed or its permissions change, Arkenda keeps working from
+what it already knows and shows the problem in the vault problems indicator. Edits that
+cannot be written stay in the unsaved-edits journal and are retried; the editor says so. If the folder watcher stops, Arkenda rescans
+every minute and whenever the window gets focus.</p>
+<p>Use <strong>Reconnect folder</strong> there once the folder is back; no restart is needed.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Desktop only.</strong> Folder vaults need the desktop app. In the browser, Arkenda keeps the vault
+in the browser&#39;s storage (IndexedDB) and can be exported as a portable archive; turning an
+export into a folder vault is not in the app yet. Read-only browser snapshots and sharing of folder vaults come later.</li>
+<li><strong>One folder vault per app process.</strong> Opening a folder in a second window replaces the folder
+of the first window; use one window per folder vault for now.</li>
+<li><strong>Only <code>.md</code> files are notes.</strong> Other files in the folder are left untouched and not shown.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,1 @@
+import{kt as Uo}from"./chunk-CibnGSF9.js";var t=Uo(!1);function n(){return t.set(!0),()=>t.set(!1)}export{t as n,n as t};

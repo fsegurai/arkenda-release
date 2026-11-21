@@ -1,0 +1,1 @@
+import{D as re,d as U,m as X,r as C}from"./chunk-BRqqXnv-.js";var i=Object.freeze({hideTitles:!1});var s={key:`arkenda:activity-island`,version:1,defaults:i,migrate:[()=>i],validate:C(X({hideTitles:re(U(),!1)}))};export{s as t};

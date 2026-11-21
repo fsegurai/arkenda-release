@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The sandbox · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="sandbox.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/sandbox.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/sandbox.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="the-sandbox">The sandbox</h1>
+<p>Each enabled third-party plugin runs isolated from the app, talks to it only through checked messages,
+and is stopped when it breaks a limit. Built-in plugins run in-process and are not sandboxed.</p>
+<h2 id="how-it-is-isolated">How it is isolated</h2>
+<ul>
+<li><strong>A sandboxed frame:</strong> a hidden <code>&lt;iframe sandbox=&quot;allow-scripts&quot;&gt;</code> (no <code>allow-same-origin</code>) loads
+<code>plugin-sandbox.html</code>, so the plugin has an opaque origin: no access to the app&#39;s page, cookies,
+<code>localStorage</code> or IndexedDB.</li>
+<li><strong>A worker inside it:</strong> your code runs in a worker. The page&#39;s content security policy allows only
+its own script (by hash) and <code>blob:</code> code, with <code>connect-src &#39;none&#39;</code>; <code>fetch</code>, <code>XMLHttpRequest</code>,
+<code>WebSocket</code> and the other network, storage and worker APIs are deleted before your code runs.</li>
+<li><strong>One channel:</strong> the app and the sandbox talk only through a <code>MessagePort</code>, with versioned,
+schema-checked JSON messages.</li>
+<li><strong>Checked code:</strong> before loading, the app re-checks the bundle&#39;s bytes against the installed
+<code>integrity</code>, and that the plugin is still installed and not revoked.</li>
+</ul>
+<h2 id="limits">Limits</h2>
+<!-- generated:sandbox-limits --><p><code>SANDBOX_LIMITS</code></p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>maxMessageBytes</code></td>
+<td>256 KB</td>
+<td>Largest message from the sandbox, in UTF-16 code units of its JSON.</td>
+</tr>
+<tr>
+<td><code>callTimeoutMs</code></td>
+<td>5 s</td>
+<td>How long the sandbox has to answer a call (command, button, Markdown block).</td>
+</tr>
+<tr>
+<td><code>activationTimeoutMs</code></td>
+<td>10 s</td>
+<td>How long loading the sandbox, the plugin code and <code>activate</code> may take.</td>
+</tr>
+<tr>
+<td><code>requestsPerSecond</code></td>
+<td>50</td>
+<td>Requests the plugin may send per second on average…</td>
+</tr>
+<tr>
+<td><code>requestBurst</code></td>
+<td>100</td>
+<td>…and in a burst.</td>
+</tr>
+<tr>
+<td><code>maxRegistrations</code></td>
+<td>100</td>
+<td>Registrations (commands, views, Markdown blocks, listeners) one plugin may hold at once.</td>
+</tr>
+</tbody></table>
+<p><code>SANDBOX_VIEW_LIMITS</code></p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>maxNodes</code></td>
+<td>200</td>
+<td>Nodes in one view, nested ones included.</td>
+</tr>
+<tr>
+<td><code>maxDepth</code></td>
+<td>3</td>
+<td>Lists inside lists.</td>
+</tr>
+<tr>
+<td><code>maxText</code></td>
+<td>1,000</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>maxLabel</code></td>
+<td>120</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p><code>SANDBOX_SEARCH_LIMITS</code>: <code>notes.search</code>: the longest query, and the most hits one call returns (20 by default).</p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>query</code></td>
+<td>500</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>hits</code></td>
+<td>50</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>defaultHits</code></td>
+<td>20</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p><code>SANDBOX_NOTE_LIMITS</code>: The note fields a plugin (or an MCP client) may send: id, title and body lengths.</p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>id</code></td>
+<td>128</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>200</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>body</code></td>
+<td>204,800</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<!-- /generated:sandbox-limits --><p>Clipboard and notification calls work only within 3 s after the user runs one of your commands or
+presses one of your buttons (<code>gesture-required</code> otherwise).</p>
+<h2 id="when-a-plugin-is-stopped">When a plugin is stopped</h2>
+<p>A plugin that throws in <code>activate</code>, hangs, floods requests, holds too many registrations or sends a
+malformed or oversized message is stopped:</p>
+<ol>
+<li>its sandbox is removed and everything it registered disappears;</li>
+<li>Settings ▸ Extensions ▸ Plugins shows it as stopped, with the reason;</li>
+<li>turning it on again retries it.</li>
+</ol>
+<p>Turning a plugin off, or uninstalling it, calls <code>deactivate</code>, then removes its sandbox and everything
+it registered. A panel or widget that throws while it is drawn shows &quot;could not be shown&quot; with Retry;
+the rest of the window keeps working.</p>
+<p>A running development package shows a warning in the status bar and in Settings.</p>
+<h2 id="what-is-refused-and-why">What is refused, and why</h2>
+<p>A refused call rejects with an error whose <code>code</code> says why:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>permission-denied</code></td>
+<td>The manifest does not declare the permission, or the user has not granted it (or revoked it).</td>
+</tr>
+<tr>
+<td><code>not-declared</code></td>
+<td>The contribution id is not in the manifest&#39;s <code>contributes</code>.</td>
+</tr>
+<tr>
+<td><code>invalid-params</code></td>
+<td>The arguments break a rule: a view over its limits, an unknown field, an icon outside the list…</td>
+</tr>
+<tr>
+<td><code>out-of-scope</code></td>
+<td>The note is outside the notebooks and tags the user chose for your plugin.</td>
+</tr>
+<tr>
+<td><code>network-not-available</code></td>
+<td>No host is approved, or this is not the desktop app.</td>
+</tr>
+<tr>
+<td><code>host-not-allowed</code></td>
+<td>The link, or a redirect, is not on an approved host.</td>
+</tr>
+<tr>
+<td><code>network-failed</code></td>
+<td>The request failed; the message starts with <code>timeout</code>, <code>too-large</code>, <code>blocked</code>, <code>unreachable</code>, <code>too-many-redirects</code> or <code>failed</code>.</td>
+</tr>
+<tr>
+<td><code>gesture-required</code></td>
+<td>Clipboard and notifications need a user action first (3 s).</td>
+</tr>
+<tr>
+<td><code>already-registered</code></td>
+<td>The id is already registered by your plugin.</td>
+</tr>
+<tr>
+<td><code>unknown-handle</code></td>
+<td>The view or registration was disposed.</td>
+</tr>
+<tr>
+<td><code>too-many-registrations</code></td>
+<td>Over <code>maxRegistrations</code>.</td>
+</tr>
+<tr>
+<td><code>unknown-method</code></td>
+<td>No such call in this API version.</td>
+</tr>
+<tr>
+<td><code>unavailable</code></td>
+<td>The app cannot serve it here (the plugin is stopping, or the feature is missing on this platform).</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>The app could not answer, or the answer was too large.</td>
+</tr>
+</tbody></table>
+<h2 id="why-these-rules">Why these rules</h2>
+<ul>
+<li><strong>No markup, no network, no storage of its own:</strong> a plugin can only reach what the user granted,
+and the app can show and revoke exactly that.</li>
+<li><strong>Timeouts and rate limits:</strong> a slow or looping plugin must never freeze the editor.</li>
+<li><strong>Data views:</strong> text is always text, so a plugin cannot inject HTML into the app, and its UI looks
+like the app&#39;s.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

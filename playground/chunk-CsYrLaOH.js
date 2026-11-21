@@ -1,0 +1,1 @@
+import{kt as Uo,nr as oe}from"./chunk-CibnGSF9.js";var n=class e{source=Uo(null);static ɵfac=function(r){return new(r||e)};static ɵprov=oe({token:e,factory:e.ɵfac,providedIn:`root`})};export{n as t};

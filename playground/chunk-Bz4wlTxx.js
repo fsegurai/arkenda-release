@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var t=new A(`SHARE_SHEET`,{providedIn:`root`,factory:()=>null});export{t};

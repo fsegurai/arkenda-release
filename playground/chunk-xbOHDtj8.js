@@ -1,0 +1,1 @@
+import{r as A}from"./chunk-CibnGSF9.js";var o=new A(`ARKENDA_ATTACHMENT_FILE_OPENER`);export{o as t};
