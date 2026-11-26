@@ -1,0 +1,1 @@
+var t=()=>import(`./chunk-9NX-ZhH-.js`).then(o=>o.installBoard);export{t};

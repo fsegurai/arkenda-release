@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The activity island · Arkenda</title>
+<meta name="description" content="Guías para usar Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../docs/notch.html">
+<link rel="alternate" hreflang="es" href="notch.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../docs/notch.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Todas las guías</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="the-activity-island">The activity island</h1>
+<p>The activity island is a small dark pill at the top centre of Arkenda&#39;s window. It shows what Arkenda is
+doing right now — a sync, a focus timer, an export — what asks for you — a device that wants to pair —
+and what is next today — an event about to start. You act on it without looking for the right pane. When
+nothing runs, it is not there. The tasks due today or overdue never open the island: they are a small count
+badge beside the search field (see <a href="#next-up">Next up</a>). Under it opens <a href="#quick-capture">quick capture</a>, a
+one-line field that files what you type in your inbox note.</p>
+<h2 id="where-it-is">Where it is</h2>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>The island</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>The desktop app with Arkenda&#39;s title bar</td>
+<td>In the bar&#39;s centre, in place of the search field. Search stays one click away, as the magnifier beside it, and with its key.</td>
+</tr>
+<tr>
+<td>The desktop app with the system&#39;s title bar, the web, a tablet</td>
+<td>At the top edge of the window, centred.</td>
+</tr>
+<tr>
+<td>A phone</td>
+<td>Nothing in the window. On Android, the same activities can show as an ongoing notification: see <a href="#on-android-a-notification-an-experiment">On Android: a notification</a>.</td>
+</tr>
+<tr>
+<td>Outside Arkenda (the desktop app on Windows and Linux with X11, an experiment)</td>
+<td>At the top centre of the screen, over other apps: see <a href="#the-notch-outside-the-app-desktop-app-an-experiment">The notch outside the app</a>.</td>
+</tr>
+</tbody></table>
+<p>If you hide the search field from the title bar (<strong>Settings ▸ Workspace ▸ Window</strong>), or the bar is too
+narrow and folds it, the island moves to the top edge of the window.</p>
+<h2 id="what-it-shows">What it shows</h2>
+<p>When several things run, the most urgent one shows, and <strong>+N</strong> says how many others there are:</p>
+<ol>
+<li>a <strong>failure</strong> (a sync or a job that went wrong), with its reason;</li>
+<li>a <strong>recording</strong> (a <a href="#voice-memo">voice memo</a>), with the time elapsed;</li>
+<li>a <strong>request</strong> that waits for you (a device asking to pair), and an event that starts within 5 minutes;</li>
+<li>a <strong>timer</strong> (the focus timer of the Pomodoro plugin), counting down;</li>
+<li>a <strong>sync</strong> (and the first sync of a vault, with how many notes are done);</li>
+<li>a <strong>job</strong>: an export, an import, an S3 mirror pass, a git commit, pull, push or backup;</li>
+<li><strong>Next up</strong>: today&#39;s next event, once it is less than an hour away.</li>
+</ol>
+<p>A sync, a mirror pass or a git run that takes less than a second does not show at all. Something that finishes well
+shows a check for two seconds, then the island shrinks.</p>
+<h2 id="opening-it">Opening it</h2>
+<p>Point at the pill, click or tap it, or reach it with <strong>Tab</strong>: the island opens and lists everything that
+runs, each with its buttons:</p>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Buttons</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sync, first sync</td>
+<td><strong>Devices and sync</strong> opens the settings page, where sync is paused or resumed.</td>
+</tr>
+<tr>
+<td>Focus timer</td>
+<td><strong>Pause</strong> or <strong>Resume</strong>, <strong>+5 min</strong> (the phase ends five minutes later; also &quot;Add 5 minutes&quot; in the timer&#39;s own menu), and <strong>Stop</strong> (the timer&#39;s reset).</td>
+</tr>
+<tr>
+<td>Export, import</td>
+<td><strong>Cancel</strong> while it runs; <strong>Dismiss</strong> after a failure (the page in <strong>Settings ▸ Data</strong> says what went wrong).</td>
+</tr>
+<tr>
+<td>Git (the Git plugin)</td>
+<td>Nothing while it runs (git cannot be stopped from Arkenda); after a failure, git&#39;s reason, <strong>Details</strong> (the source control panel) and <strong>Dismiss</strong>.</td>
+</tr>
+<tr>
+<td>S3 mirror</td>
+<td><strong>Details</strong> opens <strong>Settings ▸ Storage</strong>.</td>
+</tr>
+<tr>
+<td>Pairing request</td>
+<td><strong>Accept</strong> (the codes match), <strong>Decline</strong>, <strong>Codes differ</strong> (the same as in <strong>Settings ▸ Devices</strong>), and <strong>Review</strong> (<strong>Settings ▸ Devices</strong>).</td>
+</tr>
+<tr>
+<td>Next up</td>
+<td>Each event and task of its list opens its note (a task at its line); <strong>Today</strong> opens Today.</td>
+</tr>
+<tr>
+<td>Voice memo</td>
+<td><strong>Stop</strong> (files it) and <strong>Discard</strong>; after a failed save, <strong>Retry</strong> and <strong>Discard</strong>.</td>
+</tr>
+</tbody></table>
+<p><strong>Escape</strong>, or moving the pointer away, closes it.</p>
+<p>An export or an import started in <strong>Settings ▸ Data</strong> keeps going when you leave the page: it stays in the island
+with its progress and <strong>Cancel</strong>, and the page shows it again when you come back. An import asks you to review what it
+adds once it has read the file, wherever you are; moving to another page closes that question without importing.</p>
+<h2 id="next-up">Next up</h2>
+<p>With <strong>Todos</strong> or <strong>Calendar</strong> on (both are by default; their switches are in <strong>Settings ▸ Layout</strong>), the island tells you
+what is next today, from the same events and tasks as <strong>Today</strong>:</p>
+<ul>
+<li><strong>Next event in 12 min</strong> in the island once today&#39;s next event (one with a time; all-day events stay on
+Today) is less than an hour away. Within 5 minutes it moves ahead of a running focus timer. It is the only
+thing of Next up that opens the island.</li>
+<li>The open tasks due today or overdue are a small <strong>count badge</strong> (☐ 3), never the island: in the desktop
+app&#39;s title bar right after the search field (the search field stays a search field); where the island sits
+at the top edge of the window (the web, a tablet, a hidden or folded search field), beside where the island
+shows. It has no badge on a phone. Its name for a screen reader is &quot;Tasks due: 3&quot;; it shows a count only.</li>
+</ul>
+<p>The island&#39;s event shows only when nothing else runs, and the island counts it among the others when something
+does. Open it, or click the badge (or reach it with <strong>Tab</strong> and press <strong>Enter</strong>), for the same list: today&#39;s
+next events with their times, then the overdue tasks and today&#39;s, each opening its note. With both turned
+off, neither is there, and none of their code loads.</p>
+<h2 id="incoming-requests">Incoming requests</h2>
+<p>When a device asks to pair with this one over the network (the desktop app, <strong>Visible on this network</strong>), the
+island shows <strong>Pairing request</strong> with a dot, ahead of a timer, wherever you are. Open it to see the device&#39;s name,
+on a line of its own, and the 6-digit code, large and apart from any text, so a device&#39;s name cannot pass for
+it: accept only if the other device shows the same code, or choose <strong>Codes differ</strong>. The request is the same one
+<strong>Settings ▸ Devices</strong> shows; answering it in either place answers both. A button answers only the request it
+is shown with: if that request was withdrawn or another one came in the meantime, the click does nothing.</p>
+<p>There is nothing to accept for shared notes (you join a share by entering its code on your device), and sync
+never stops on a conflict that needs you (devices merge their changes; a note changed on disk asks in its own
+editor), so neither shows here.</p>
+<h2 id="quick-capture">Quick capture</h2>
+<p>Jot a line without opening a note. Quick capture opens a one-line field at the top centre, under the island:</p>
+<ul>
+<li><strong>Its key</strong>, once you set one: <strong>Settings ▸ Keyboard ▸ App ▸ Quick capture</strong> has none until you choose it, and
+offers <strong>Use Ctrl+Shift+Space</strong> (<strong>⇧⌘Space</strong> on a Mac); any other key works too, checked against the other
+shortcuts like every key there. Some systems keep <code>Ctrl+Space</code>-like keys for switching the input method: pick
+another one if nothing opens.</li>
+<li><strong>The command palette</strong>: <strong>Quick capture</strong> (it shows your key, when it has one). On a phone, which has no keys and
+no island, this is the way in, and the field opens at the top of the screen.</li>
+</ul>
+<p>Type the line and press <strong>Enter</strong>: it is added at the end of your <strong>inbox note</strong>, the same note Today&#39;s quick add
+writes to (named &quot;Inbox&quot; unless you chose another on Todos, this device only; it is created with your line when it
+does not exist yet). A line is added as a list item (<code>- your line</code>); a line you write as a list item or a task
+(<code>- [ ] call the venue</code>) is kept as you wrote it, so a task shows in Todos and Today. Nothing else in the note
+changes. The island then shows <strong>✓ Captured</strong> for two seconds (a phone shows a short message at the bottom), and
+the keyboard goes back to where it was.</p>
+<p><strong>Escape</strong>, the <strong>×</strong> button or <strong>Enter</strong> on an empty line close the field and write nothing. Clicking elsewhere
+closes an empty field; a line you typed stays until you press Enter or Escape. If saving fails, the field stays open
+with your line and says so.</p>
+<h3 id="voice-memo">Voice memo</h3>
+<p>Say it instead of typing it. Quick capture&#39;s <strong>microphone</strong> button, or <strong>Voice memo</strong> in the command palette, records
+from your microphone inside Arkenda (the browser or the system asks you to allow the microphone the first time):</p>
+<ul>
+<li>While it records, quick capture shows a red dot, the time elapsed, <strong>Stop and save</strong> and <strong>Discard</strong>, and so does the
+island (<strong>Voice memo 0:12</strong>), wherever you go in the app. <strong>Escape</strong> or <strong>×</strong> close the field; the recording goes on
+in the island. On a phone-sized window, which has no island, the field stays open until you stop or discard.</li>
+<li><strong>Stop and save</strong> stores the recording with your other media (the media library lists it, the same recording is
+never stored twice) and adds one line at the end of your inbox note, <code>- ![Voice memo 14:32](attachments/…)</code>, which
+plays in the preview. The island shows <strong>✓ Captured</strong>.</li>
+<li><strong>Discard</strong> writes nothing. If saving fails, the recording stays in memory with <strong>Retry</strong> and <strong>Discard</strong> in the
+field and in the island; it is never dropped without telling you.</li>
+<li>A memo stops by itself after <strong>30 minutes</strong>, or at 499 MB (just under the largest audio file that syncs to your
+other devices), and is saved. If the microphone is unplugged, what was recorded so far is saved.</li>
+<li>The microphone is released as soon as the recording stops, is discarded or fails, and when you leave or close the
+page (a recording that has not been saved then is lost).</li>
+<li>If the microphone is refused, missing or used by another app, the field says so.</li>
+</ul>
+<p>Where it works: the web (a browser with <code>MediaRecorder</code>) and the desktop app on Linux and Windows. In the desktop app,
+Arkenda allows its own microphone request only right after you click to record, from its own pages; it never grants
+the camera, and screen capture only to the screen recording below. When a recording ends, the desktop webview forgets the grant (Linux), and Windows never
+saves it, so a later request from the page is asked again and refused. While a recording runs, the page already holds
+the microphone. Not yet on the phone app. Recordings are WebM (Opus) where the browser can
+make them (Chromium, the Linux desktop app), else MP4.</p>
+<h3 id="screenshot-desktop-app">Screenshot (desktop app)</h3>
+<p>Capture the screen into a note. Quick capture&#39;s <strong>camera</strong> button, or <strong>Screenshot</strong> in the command palette, takes a
+screenshot of the whole screen (every monitor):</p>
+<ul>
+<li><strong>Linux with Wayland</strong>: the system&#39;s own screenshot window opens and asks you every time (the desktop portal); it
+may also let you pick a window or an area there. Closing it takes nothing and says nothing.</li>
+<li><strong>Linux with X11</strong> and <strong>Windows</strong>: Arkenda&#39;s window steps aside for a moment while the screen is read, then comes
+back.</li>
+</ul>
+<p>The screenshot then opens over the whole window, where you choose what to keep:</p>
+<ul>
+<li><strong>Drag</strong> to select a region, or use the keyboard: the first <strong>arrow key</strong> selects the middle of the screen, the
+arrow keys move the region, <strong>Shift</strong>+arrows resize it, and with <strong>Alt</strong> they move one pixel at a time. <strong>Tab</strong>
+stays inside the overlay.</li>
+<li><strong>Enter</strong> or <strong>Save region</strong> keeps the region (Enter keeps the whole screen when nothing is selected), <strong>Whole
+screen</strong> keeps all of it, and <strong>Escape</strong> or <strong>Cancel</strong> keep nothing: nothing is stored.</li>
+</ul>
+<p>What you keep is stored with your other media as a PNG (the media library lists it, the same picture is never stored
+twice) and one line is added at the end of your inbox note, <code>- ![Screenshot 14:32](attachments/…)</code>; the island shows
+<strong>✓ Captured</strong>. With a note open and its editor focused, <strong>Screenshot into this note</strong> in the command palette puts the
+picture at the cursor instead, as an inserted file does (if that note was closed meanwhile, the inbox note gets it).
+If saving fails, the picture stays in memory with <strong>Retry</strong> and <strong>Discard</strong> in the island; it is never dropped without
+telling you, and a new screenshot waits until you choose.</p>
+<p>If the system offers no way to capture the screen (no portal, no X server), refuses it, or the screen is larger than
+64 megapixels, a message says so. Screenshots are offered in the desktop app on Linux and Windows only: not on the
+web, the phone or (on hold) macOS. Arkenda reads only the file the portal answered for this screenshot, and deletes it
+afterwards only when the portal saved it in the temporary folder; a copy your system keeps in your pictures stays.</p>
+<h3 id="screen-recording-desktop-app-an-experiment">Screen recording (desktop app, an experiment)</h3>
+<p>Turn on <strong>Settings ▸ Experimental ▸ Screen recording</strong> (this device only, off by default). Quick capture then has a
+<strong>screen</strong> button, and the command palette <strong>Record screen</strong>:</p>
+<ul>
+<li>The system asks which screen or window to share, every time (on Linux the desktop portal&#39;s window; on Windows the
+webview&#39;s own). Closing it records nothing and says so.</li>
+<li>While it records, the island shows a red dot, the time elapsed and the size so far (<strong>Screen · 12.4 MB</strong>), with
+<strong>Stop</strong> and <strong>Discard</strong>, wherever you go in the app. Stopping the share from the system (its own <strong>Stop sharing</strong>)
+stops the recording too, and saves it.</li>
+<li><strong>Stop</strong> stores the recording with your other media (the media library lists it) and adds one line at the end of
+your inbox note, <code>- ![Screen recording 14:32](attachments/…)</code>, which plays in the preview. The island shows
+<strong>✓ Captured</strong>. <strong>Discard</strong> writes nothing. If saving fails, the recording stays in memory with <strong>Retry</strong> and
+<strong>Discard</strong> in the island.</li>
+<li>A recording stops by itself after <strong>30 minutes</strong>, or at 492 MB (8 MB under the largest video that syncs to your other
+devices), and is saved. It is a WebM (VP8) of at most 1920 pixels on its longer side and 30 frames a second, at about
+15 MB a minute.</li>
+<li>The screen is released as soon as the recording stops, is discarded or fails, and when you leave or close the page
+(a recording that has not been saved then is lost).</li>
+<li>If the screen is refused, the share is cancelled, or the system cannot capture the screen, a message says which.</li>
+</ul>
+<p>How it records: the page draws each frame of the shared screen onto a hidden canvas and records the canvas (the Linux
+webview writes an empty file when it records the screen directly). Drawing costs some CPU while it records. While
+Arkenda&#39;s window is hidden or minimized the frame rate may drop.</p>
+<p>Arkenda allows its own screen request only within 2 minutes of your click (the time you may spend in the system&#39;s
+window), once, from its own pages: on Linux through the webview&#39;s permission request, on Windows through WebView2&#39;s
+<code>ScreenCaptureStarting</code> event (written against its sources, not yet run on Windows). Any other screen request is
+refused. Offered in the desktop app on Linux and Windows only: not on the web, the phone (Android would need a native
+screen capture plugin) or (on hold) macOS.</p>
+<h3 id="from-any-app-desktop-app-an-experiment">From any app (desktop app, an experiment)</h3>
+<p>Turn on <strong>Settings ▸ Experimental ▸ Quick capture from any app</strong> (this device only, off by default) and give quick
+capture a key: the key then also works while another app has the focus. It brings Arkenda&#39;s main window forward and
+opens quick capture there. The key is registered with the system only while both are on, and released as soon as
+either goes off, the main window reloads or closes, or Arkenda quits.</p>
+<p><strong>Settings ▸ Keyboard</strong> says under quick capture&#39;s row whether the key works from other apps, and why not when it
+does not: another app or the system already holds that key (try another one), or the key has no <code>Ctrl</code>, <code>⌘</code> or
+<code>Alt</code>. On <strong>Linux with Wayland</strong> the system may pass the key to Arkenda only while an X11 app has the focus, and
+without X11 support it cannot be registered at all; the row says so. Arkenda does not use the desktop portal for
+global keys yet.</p>
+<h2 id="the-notch-outside-the-app-desktop-app-an-experiment">The notch outside the app (desktop app, an experiment)</h2>
+<p>Turn on <strong>Settings ▸ Experimental ▸ Activity notch outside the app</strong> (this device only, off by default) to see the
+island while another app has the focus: a small dark pill at the top centre of the screen Arkenda&#39;s main window is
+on, a few pixels below its top edge (below a top panel on Linux).</p>
+<ul>
+<li>It shows the same thing as the island in the app (the most urgent activity and <strong>+N</strong> for the others) and is not
+there while nothing runs.</li>
+<li><strong>Point at it</strong> and rest a moment (about a third of a second): it opens with the same list and buttons as the
+island in the app, and <strong>Quick capture</strong>, which brings Arkenda&#39;s main window forward and opens
+<a href="#quick-capture">quick capture</a> there. Move the pointer away and it closes. A line of a list (an event, a task)
+opens its note in the main window, which comes forward; the other buttons (Pause, Stop, Cancel…) act without
+bringing it forward.</li>
+<li><strong>Clicks go through it</strong> while it is closed: the app under it gets them. It never takes the keyboard.</li>
+<li><strong>While you drag a window</strong> it gets out of the way (Windows 11 opens its Snap layouts bar at the same place) and
+comes back when you let go. On Windows this works for every app&#39;s windows; on Linux with X11 for Arkenda&#39;s own
+only; on Linux with Wayland it stays where it is.</li>
+<li>It follows the main window to another monitor, and moves when monitors are added, removed or rearranged (on
+Wayland it opens on the main window&#39;s monitor and stays there until the experiment is turned off and on again).</li>
+<li><strong>Privacy:</strong> closed, it shows no note text, as in the app. A note&#39;s title reaches it only while it is open and
+<strong>Hide note titles in the activity island</strong> is off; it then shows, as in the app, only while you point at its line.
+Where the system allows it (Windows) it is left out of screenshots and screen recordings.</li>
+<li>It closes when you turn the experiment off, and with Arkenda&#39;s main window.</li>
+</ul>
+<p><strong>Where it works:</strong> the desktop app on <strong>Windows</strong>, on <strong>Linux with X11</strong>, and on <strong>Linux with Wayland</strong> on <strong>KDE
+Plasma</strong> and <strong>wlroots desktops</strong> (Sway, Hyprland, labwc, river…) when the <strong>gtk-layer-shell</strong> package is installed.
+A Wayland app cannot place its own window or keep it above the others; those desktops offer a layer for panels and
+overlays (<code>wlr-layer-shell</code>), which the notch uses. <strong>GNOME</strong> does not offer it, so on GNOME with Wayland nothing is
+shown and the island inside Arkenda stays. Some X11 window managers put full-screen windows above it. Not on the
+web, a phone or (on hold) macOS.</p>
+<p><strong>On Linux with Wayland, install gtk-layer-shell</strong> (the GTK 3 library, version 0.6 or later; Arkenda loads it only
+when the notch is turned on, and starts without it):</p>
+<table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Arch, Manjaro, CachyOS</td>
+<td><code>sudo pacman -S gtk-layer-shell</code></td>
+</tr>
+<tr>
+<td>Debian, Ubuntu</td>
+<td><code>sudo apt install libgtk-layer-shell0</code></td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td><code>sudo dnf install gtk-layer-shell</code></td>
+</tr>
+</tbody></table>
+<p>Then turn the experiment off and on again. If it cannot be shown, turning it on says why: <strong>needs gtk-layer-shell</strong>
+(the library is missing), <strong>this desktop doesn&#39;t support it</strong> (GNOME, or another compositor without the layer
+protocol), or that it could not be shown. On Wayland the notch opens when the pointer rests on it, from the pointer
+events the compositor sends it (no app can read the pointer&#39;s position there), and only the pill takes clicks while
+it is closed.</p>
+<h3 id="the-drop-shelf">The drop shelf</h3>
+<p><strong>Drag files onto the notch</strong> (from a file manager or the desktop) to file them without switching to Arkenda. While
+the drag is over it, the notch turns into two drop targets:</p>
+<ul>
+<li><strong>Open note:</strong> the files are added to the note open in Arkenda&#39;s main window when you drop them (switching tabs
+while they are saved does not move them): at the cursor when its editor is open (as a drop in the editor would),
+otherwise as the note&#39;s last lines. Shown only while a note is open. A note you can only read (a shared note you
+were given to read, or a file Arkenda can no longer write) is never changed: the files go into a new note, and the
+island says so.</li>
+<li><strong>New note:</strong> a new note holds the files, titled after the first file&#39;s name (or <strong>Dropped files</strong>), created
+where quick capture creates the inbox note. Control and text-direction characters are left out of the title, and
+a long name is cut to the 200 characters a title takes.</li>
+</ul>
+<p>Images show as images, audio and video as players and any other file as a card, as for any upload, with the same
+size limits; a file already in the vault gets another reference to the one stored copy. The island shows
+<strong>Dropped files · Saving…</strong>, then <strong>Captured</strong>; if they could not be saved, it keeps them with <strong>Retry</strong> and
+<strong>Discard</strong>. The main window is not brought forward. Folders, links and anything that is not a file are ignored.</p>
+<p><strong>When it takes a drop:</strong></p>
+<ul>
+<li>Only while the notch is shown, that is while something runs (a sync, a timer, a recording…). With nothing
+running the notch is hidden and cannot receive a drop.</li>
+<li><strong>Windows and Linux with X11:</strong> closed, the notch lets the pointer through, so hold the dragged files on the pill
+for about a third of a second: it opens, and the next move of the pointer reaches it (the drop targets then show).</li>
+<li><strong>Linux with Wayland</strong> (KDE, wlroots): the pill takes the drag at once.</li>
+<li>Drop on one of the two targets: a drop beside them does nothing. The files are read within a minute of the drop
+(they must still be the same files); after that, drop them again.</li>
+<li>On Wayland, holding the dragged files still over the notch for more than a second and a half hides the targets
+until the pointer moves again (Arkenda cannot see the pointer there, so it ends a drag it no longer hears from).</li>
+</ul>
+<p><strong>What it can do:</strong> it is a second, small window that loads only the island (no editor, no vault, no sync). It gets
+its own permissions, which let it receive the activities, report its size, send a click on one of them back to the
+main window, and ask for quick capture; nothing else: no files, no vault, no keys, no network. Files dropped on it
+never reach its page: Arkenda keeps them for the main window, which reads and stores them as it does its own drops. A click runs only if
+the activity it was shown with is still the same one (as in the app).</p>
+<h2 id="on-android-a-notification-an-experiment">On Android: a notification (an experiment)</h2>
+<p>Turn on <strong>Settings ▸ Experimental ▸ Activity in a notification</strong> (the Android app, this device only, off by
+default) to see what Arkenda is doing while you use other apps, as one ongoing notification.</p>
+<ul>
+<li>The first time you turn it on, Android 13 and later ask whether Arkenda may post notifications. Arkenda asks
+once: if you refuse, a note says so, and you can allow notifications for Arkenda later in the system&#39;s
+settings (the notification then shows without turning the experiment off and on).</li>
+<li>It shows the most urgent activity, ranked as the island ranks them, and <strong>+N</strong> for the others: a focus timer
+counting down, a recording counting up, an export or another job with its progress bar, a sync, a request.
+Nothing is there while nothing runs; it goes away when the last activity ends and when you turn the experiment
+off.</li>
+<li>On <strong>Android 12 and later</strong>, up to <strong>two buttons</strong> act on it without opening Arkenda: <strong>Pause</strong> or <strong>Resume</strong>,
+<strong>Stop</strong>, <strong>Discard</strong>, <strong>Cancel</strong>. On the lock screen, a button asks you to unlock first. A button runs only if
+it belongs to the activity the notification shows (a newer one under the same name is left alone). Buttons that
+need Arkenda on screen (Accept a pairing, Review, Details) are not there: <strong>tap the notification</strong> to open
+Arkenda. <strong>Below Android 12</strong> there are no buttons at all, because Android cannot make them ask to unlock
+first there: tap the notification to open Arkenda instead.</li>
+<li><strong>On Android 16</strong> it asks to be shown as a <strong>Live Update</strong>: a chip in the status bar with the time or the
+percent. Android decides whether it shows (it can be turned off per app in the system settings).</li>
+<li>It is updated at most once a second (Android limits how often an app updates a notification); the timer&#39;s
+and the recording&#39;s time are drawn by Android itself.</li>
+<li><strong>Privacy:</strong> it never shows a note&#39;s title (not even the note a focus timer is for), whatever <strong>Hide note
+titles in the activity island</strong> says, because a lock screen that shows all notification content would show it
+too. It never shows a pairing&#39;s device name or code either: only the activity&#39;s name (&quot;Focus&quot;, &quot;Export&quot;), its
+time or progress, and its value. On a locked phone that hides sensitive content, it shows only the activity&#39;s
+name.</li>
+</ul>
+<p>The notification is drawn by Arkenda&#39;s own Android plugin; the look is the system&#39;s. Not on iOS (on hold).</p>
+<h2 id="privacy">Privacy</h2>
+<p>The closed island never shows the text of a note: only names, counts, times and percentages (&quot;Next event
+in 12 min&quot;, &quot;Pairing request&quot;); the tasks-due badge shows a count only. The open island shows a note&#39;s title (the note a focus timer is for,
+an event&#39;s) or a task&#39;s text only while you point at its line. To never
+show titles, turn on <strong>Settings ▸ General ▸ Privacy ▸ Hide note titles in the activity island</strong> (this
+device only). The <a href="#on-android-a-notification-an-experiment">Android notification</a> never shows titles,
+whatever this switch says.</p>
+<h2 id="for-plugins">For plugins</h2>
+<p>An in-process plugin shows its own activity with <code>ctx.activities.publish</code> (plugin API 1.2): a <code>timer</code> or a
+<code>job</code>, with up to three buttons that call the plugin&#39;s own flows. Sandboxed plugins do not get it. See
+<code>PluginLiveActivity</code> in <a href="../plugins/api.html">the plugin API</a>.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

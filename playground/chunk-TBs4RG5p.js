@@ -1,0 +1,1 @@
+function t(e){return e.type===`upsert`&&e.kind===`body`}function r(e){let o=e;return typeof o.readVersioned==`function`&&typeof o.saveVersioned==`function`}export{t as n,r as t};

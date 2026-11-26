@@ -1,0 +1,1 @@
+import{gt as ss,v as Lc}from"./chunk-DgHBViFN.js";import{n as a}from"./chunk-CtoaY7p9.js";import{a as A,b as D}from"./chunk-BIXle6fk.js";var P=new A(`ARKENDA_PLUGIN_GRANTS`,{providedIn:`root`,factory:()=>D(a).store(Lc).store});var I=new A(`ARKENDA_PLUGIN_ACTIVITY`,{providedIn:`root`,factory:()=>new ss});var c=new A(`ARKENDA_PLUGIN_NETWORK`);export{P as n,c as r,I as t};

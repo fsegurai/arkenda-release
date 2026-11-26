@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Getting started · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="getting-started.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/getting-started.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/getting-started.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="getting-started">Getting started</h1>
+<p>Build a &quot;Reading time&quot; plugin: a sidebar panel that shows how long the open note takes to read.</p>
+<h2 id="quick-path">Quick path</h2>
+<ol>
+<li>Download <code>arkenda-plugin-starter.zip</code> and <code>arkenda-plugin-check.mjs</code> from the <a href="https://github.com/fsegurai/arkenda-release/releases">release</a> of the app version
+you target, and unzip the template: the project below, ready to build.</li>
+<li>Build the bundle into <code>package/</code> at the manifest&#39;s <code>entry</code>, and put its hash in <code>integrity</code>.</li>
+<li>Check the package with <code>plugin-check</code> (step 3); installing it in developer mode lists the same problems.</li>
+<li>Install it in developer mode, turn it on, and grant its permissions.</li>
+<li>After each change: build, update <code>integrity</code>, install again.</li>
+</ol>
+<h2 id="1-the-starter-template">1. The starter template</h2>
+<p><code>arkenda-plugin-starter.zip</code> holds this project, with <code>scripts/integrity.mjs</code> for step 2 and a <code>package.json</code> whose
+<code>build</code> and <code>check</code> scripts run steps 2 and 3. Or create it by hand:</p>
+<pre><code class="language-text">reading-time/              ← your project: any layout and tooling
+  src/main.ts
+  package.json             ← your build tooling (never shipped)
+  package/                 ← the plugin package: what you check, zip and install
+    arkenda-plugin.json
+    dist/main.js           ← built; the only code in the package
+</code></pre>
+<p>The package holds only the manifest, <code>release.json</code> (when signed), the entry bundle and allowed
+assets (<a href="package.html#files">files</a>); anything else, such as sources or <code>package.json</code>, is refused as
+<code>file-not-allowed</code>. Keep them outside <code>package/</code>.</p>
+<p><code>package/arkenda-plugin.json</code> (<a href="manifest.html#fields">every field</a>):</p>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;id&quot;: &quot;reading-time&quot;,
+  &quot;name&quot;: &quot;Reading time&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;apiVersion&quot;: 1,
+  &quot;minAppVersion&quot;: &quot;0.1.0&quot;,
+  &quot;description&quot;: &quot;Shows how long the open note takes to read.&quot;,
+  &quot;author&quot;: { &quot;name&quot;: &quot;Ada&quot;, &quot;url&quot;: &quot;https://example.dev&quot; },
+  &quot;publisher&quot;: &quot;ada-tools&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;repository&quot;: &quot;https://github.com/ada/reading-time&quot;,
+  &quot;categories&quot;: [&quot;writing&quot;, &quot;sidebar&quot;],
+  &quot;keywords&quot;: [&quot;reading&quot;, &quot;time&quot;],
+  &quot;platforms&quot;: [&quot;web&quot;, &quot;desktop&quot;, &quot;mobile&quot;],
+  &quot;permissions&quot;: [&quot;notes:read&quot;, &quot;commands&quot;, &quot;ui:panels&quot;],
+  &quot;contributes&quot;: {
+    &quot;sidebarPanels&quot;: [{ &quot;id&quot;: &quot;reading-time&quot;, &quot;title&quot;: &quot;Reading time&quot;, &quot;places&quot;: [&quot;right&quot;, &quot;status&quot;] }],
+    &quot;commands&quot;: [{ &quot;id&quot;: &quot;refresh&quot;, &quot;title&quot;: &quot;Reading time: refresh&quot; }]
+  },
+  &quot;entry&quot;: &quot;dist/main.js&quot;,
+  &quot;integrity&quot;: &quot;sha256-…&quot;
+}
+</code></pre>
+<p><code>src/main.ts</code>: the default export has <code>activate(ctx)</code> and, optionally, <code>deactivate()</code>:</p>
+<pre><code class="language-ts">import type { SandboxedPluginModule } from &#39;@arkenda/kit/plugin-api&#39;;
+
+const plugin: SandboxedPluginModule = {
+  async activate(ctx) {
+    const panel = await ctx.views.registerSidebarPanel({
+      id: &#39;reading-time&#39;,
+      view: { blocks: [{ kind: &#39;text&#39;, text: &#39;Counting…&#39; }] },
+      onAction: async (action) =&gt; {
+        if (action === &#39;refresh&#39;) await refresh();
+      },
+    });
+    async function refresh() {
+      const note = await ctx.workspace.activeNote();
+      const minutes = Math.ceil((note?.text.split(/\s+/).length ?? 0) / 200);
+      await panel.update({
+        blocks: [
+          { kind: &#39;text&#39;, text: `${minutes} min`, tone: &#39;strong&#39; },
+          { kind: &#39;button&#39;, label: &#39;Refresh&#39;, action: &#39;refresh&#39; },
+        ],
+      });
+    }
+    await ctx.commands.register({ id: &#39;refresh&#39;, run: refresh });
+    await refresh();
+  },
+};
+
+export default plugin;
+</code></pre>
+<p>The types live in this repository (<code>projects/kit/plugin-api</code>); they are not published to npm yet.
+Copy them or point a path alias at them. Types are optional: plain JavaScript works too.</p>
+<h2 id="2-build-and-hash">2. Build and hash</h2>
+<p>Any bundler works, as long as the result is <strong>one ES module with no imports</strong>:</p>
+<pre><code class="language-sh">bun build src/main.ts --outfile package/dist/main.js --format esm --minify
+</code></pre>
+<p>Then write the bundle&#39;s hash into <code>integrity</code>, as <code>sha256-</code> and the base64 of its SHA-256:</p>
+<pre><code class="language-sh">echo &quot;sha256-$(openssl dgst -sha256 -binary package/dist/main.js | base64)&quot;
+</code></pre>
+<p><code>computeIntegrity(bytes)</code> from <code>@arkenda/kit/plugin-api</code> gives the same value.</p>
+<h2 id="3-check">3. Check</h2>
+<p><code>arkenda-plugin-check.mjs</code> (from the release) checks a package the way that version of the app does. It needs
+Node.js 22 or later (or Bun) and nothing else:</p>
+<pre><code class="language-sh">node arkenda-plugin-check.mjs package                        # the package folder, as the app reads it
+node arkenda-plugin-check.mjs reading-time.zip               # or the zip of package/ you will ship
+node arkenda-plugin-check.mjs package/arkenda-plugin.json    # or the manifest alone
+</code></pre>
+<p>Each problem prints a <code>rule:</code> link into these docs. An unsigned package is a warning: it installs
+only in developer mode.</p>
+<h2 id="4-install-and-run">4. Install and run</h2>
+<ol>
+<li>Settings ▸ Extensions ▸ Plugins ▸ <strong>Marketplace</strong>: turn on <strong>Developer mode</strong> (this device only).</li>
+<li><strong>Install development package…</strong> and pick the <code>package/</code> folder (or <strong>Install from file…</strong> with
+the zip: unsigned, it installs only while developer mode is on).</li>
+<li>Review what it asks for, then <strong>Install</strong>.</li>
+<li>Turn it on in the <strong>Installed</strong> tab and grant its permissions.</li>
+</ol>
+<p>A development package shows as <strong>Development</strong> everywhere and is never offered to your other
+devices.</p>
+<h2 id="5-reload-after-a-change">5. Reload after a change</h2>
+<p>Build, update <code>integrity</code>, and install the same version again: it replaces the installed one. An
+older version is refused (<code>downgrade</code>); raise <code>version</code> when you ship.</p>
+<h2 id="next">Next</h2>
+<ul>
+<li><a href="examples.html">Worked examples</a>: how the built-in plugins are put together.</li>
+<li><a href="surfaces.html">Surfaces</a>: every place your plugin can show.</li>
+<li><a href="testing.html">Testing a plugin</a> before you ship.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

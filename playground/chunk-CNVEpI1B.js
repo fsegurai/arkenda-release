@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var r=new A(`NATIVE_EXPORT`);export{r as t};

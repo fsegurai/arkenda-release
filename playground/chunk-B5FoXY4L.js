@@ -1,0 +1,1 @@
+var o=class extends Error{constructor(r,e){super(e);this.code=r;this.name=`DomainError`}code};export{o as t};

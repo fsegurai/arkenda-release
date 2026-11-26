@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var t=new A(`SHARE_SHEET`,{providedIn:`root`,factory:()=>null});export{t};

@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Settings · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/settings.html">
+<link rel="alternate" hreflang="es" href="settings.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/settings.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="settings">Settings</h1>
+<p>A plugin declares its settings as data; Arkenda renders them on the plugin&#39;s page (the <strong>Options</strong>
+gear on its card, shown while the plugin is on). A plugin never renders its own settings HTML.</p>
+<p><strong>No settings, just a switch:</strong> a plugin without settings shows only its on/off switch. Add settings
+only for choices people really need to make.</p>
+<h2 id="quick-path">Quick path</h2>
+<pre><code class="language-ts">import { definePluginSettings } from &#39;@arkenda/kit/plugin-api&#39;;
+
+const schema = definePluginSettings({
+  version: 1,
+  fields: [
+    { key: &#39;interval&#39;, type: &#39;duration&#39;, unit: &#39;minutes&#39;, min: 0, max: 120, step: 5, default: 15, label: &#39;Check every&#39; },
+    { key: &#39;mode&#39;, type: &#39;select&#39;, options: [{ value: &#39;fast&#39;, label: &#39;Fast&#39; }, { value: &#39;safe&#39;, label: &#39;Safe&#39; }], default: &#39;safe&#39;, label: &#39;Mode&#39; },
+  ],
+});
+await ctx.settings.registerFields(schema, (values) =&gt; apply(values)); // needs `storage`
+const values = await ctx.settings.values(); // every field; defaults where unset; never secrets
+</code></pre>
+<p><code>definePluginSettings</code> only types the schema. <code>ctx.settings.set(key, value)</code> changes a value, checked
+as if the user entered it (never a secret).</p>
+<h2 id="field-types">Field types</h2>
+<!-- generated:setting-field-types --><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Value</th>
+<th>Extra keys</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>toggle</code></td>
+<td>a boolean</td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>privacy</code></td>
+<td>a boolean, shown first in a framed &quot;Privacy&quot; section</td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>select</code></td>
+<td>one option&#39;s value</td>
+<td><code>options</code>, <code>default</code></td>
+</tr>
+<tr>
+<td><code>multi-select</code></td>
+<td>a list of option values</td>
+<td><code>options</code>, <code>default</code></td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td>a number</td>
+<td><code>min</code>, <code>max</code>, <code>step</code>, <code>default</code></td>
+</tr>
+<tr>
+<td><code>duration</code></td>
+<td>a number in <code>seconds</code>, <code>minutes</code> or <code>hours</code></td>
+<td><code>min</code>, <code>max</code>, <code>step</code>, <code>default</code>, <code>unit</code></td>
+</tr>
+<tr>
+<td><code>text</code></td>
+<td>text, up to 500 characters</td>
+<td><code>placeholder</code>, <code>maxLength</code>, <code>default</code>, <code>minLength</code>, <code>allowed</code></td>
+</tr>
+<tr>
+<td><code>string-list</code></td>
+<td>a list of texts</td>
+<td><code>default</code>, <code>maxLength</code>, <code>maxItems</code>, <code>minLength</code>, <code>allowed</code></td>
+</tr>
+<tr>
+<td><code>key-value</code></td>
+<td>an object of text keys and text values</td>
+<td><code>default</code>, <code>maxItems</code>, <code>maxLength</code></td>
+</tr>
+<tr>
+<td><code>color</code></td>
+<td><code>#rrggbb</code></td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>hotkey</code></td>
+<td>Ctrl/Cmd or Alt with a letter or digit, or F1–F12; the app&#39;s own keys are refused</td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>folder</code></td>
+<td>a path inside the vault (<code>&#39;&#39;</code> for the vault itself)</td>
+<td><code>default</code></td>
+</tr>
+<tr>
+<td><code>secret</code></td>
+<td>kept in the OS keychain; see <a href="#secrets">Secrets</a></td>
+<td><code>maxLength</code></td>
+</tr>
+</tbody></table>
+<!-- /generated:setting-field-types --><p><strong>On every field:</strong> <code>key</code> (lowercase letters, digits, <code>-</code>, <code>_</code>), <code>label</code>, <code>description</code>, <code>group</code>,
+<code>required</code>, <code>scope</code>, <code>visibleWhen</code> (<code>{ key, equals }</code>: an earlier field&#39;s value, or a list of values)
+and <code>capability</code> (an <a href="overview.html#capability-ids">app capability id</a> such as <code>platform:desktop</code> or
+<code>git</code>: elsewhere the field is greyed, with the reason).</p>
+<p><strong>Groups:</strong> <code>groups: [{ id, label, advanced? }]</code>; an <code>advanced</code> group stays folded until opened.</p>
+<p><strong>Text rules</strong> (<code>text</code>, and each item of <code>string-list</code>): <code>maxLength</code>, <code>minLength</code> and <code>allowed</code>, a
+literal set of characters every character must come from (<code>&#39;0123456789abcdef&#39;</code>). Settings take no
+regular expressions: one would run on the app&#39;s main thread, and some take minutes on a short text.
+A schema with <code>pattern</code> is refused (<code>invalid-params</code> in the sandbox).</p>
+<p><strong>Privacy switches</strong> let users limit what your plugin does (&quot;Never send telemetry&quot;, &quot;Work offline
+only&quot;). They are stored like any other setting: honour them in your code. They never replace a
+permission.</p>
+<h2 id="scopes">Scopes</h2>
+<p>Each field has a <code>scope</code>:</p>
+<!-- generated:setting-scopes --><ul>
+<li><code>vault</code> (the default): in the vault (the plugin&#39;s storage), so it travels with the vault to other devices.</li>
+<li><code>device</code>: on this device only, for every vault.</li>
+<li><code>vault-device</code>: on this device only, for this vault.</li>
+</ul>
+<!-- /generated:setting-scopes --><h2 id="secrets">Secrets</h2>
+<p>A <code>secret</code> field (scope <code>device</code> or <code>vault-device</code>, never required) is kept only in the OS keychain
+of the desktop and mobile apps (Android&#39;s Keystore, iOS&#39;s keychain): never in plain storage, never
+synced, never exported. On the web it reads &quot;not available here&quot;. A sandboxed plugin never reads a secret: the user enters it and the
+app keeps it. Built-in plugins read theirs with <code>ctx.settings.secret(key)</code>.</p>
+<h2 id="migrations">Migrations</h2>
+<p><code>version</code> is a whole number you raise when a key or its values change. Each <code>migrations</code> step runs in
+order (<code>to</code> a version) and can rename keys, drop keys and map old values to new ones:</p>
+<pre><code class="language-ts">migrations: [{ to: 2, rename: { checkEvery: &#39;interval&#39; }, map: { mode: { quick: &#39;fast&#39; } } }],
+</code></pre>
+<p>Stored values are upgraded once; nothing the schema does not name is thrown away. A value a newer
+version of your plugin wrote is kept as it is.</p>
+<h2 id="what-users-can-do">What users can do</h2>
+<ul>
+<li><strong>Reset, export and import:</strong> each changed field shows &quot;Changed&quot; with Reset; the page offers Reset
+all, Export (the changed values and the schema version as JSON, never secrets) and Import (only
+valid values of known fields; an export of a newer version is refused).</li>
+<li><strong>Search:</strong> Settings search finds each setting by its label and description, and opens the
+plugin&#39;s page at that field (<code>/settings/plugins/&lt;id&gt;#setting-&lt;key&gt;</code>).</li>
+<li><strong>Profiles:</strong> named sets of enabled plugins and their options on this device. A switch applies the
+<code>device</code> and <code>vault-device</code> values it keeps (never <code>vault</code> values, secrets or grants); your
+<code>onChange</code> receives them like any other change.</li>
+<li><strong>Turning off</strong> keeps the settings; uninstalling asks whether to remove them too.</li>
+</ul>
+<h2 id="limits">Limits</h2>
+<!-- generated:settings-limits --><p><code>PLUGIN_SETTINGS_LIMITS</code></p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fields</code></td>
+<td>64</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td>16</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td>32</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td>80</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>300</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>migrations</code></td>
+<td>32</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>renames</code></td>
+<td>64</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td>100</td>
+<td>Most items of a string list or key-value field.</td>
+</tr>
+<tr>
+<td><code>secret</code></td>
+<td>1,024</td>
+<td>Longest secret (it goes to the OS keychain).</td>
+</tr>
+<tr>
+<td><code>allowed</code></td>
+<td>256</td>
+<td>Most characters of an <code>allowed</code> set.</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>10,000</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>entries</code></td>
+<td>1,000</td>
+<td>Most items read from a list or object value (a default, a stored or imported value, a migration map).</td>
+</tr>
+</tbody></table>
+<!-- /generated:settings-limits -->
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

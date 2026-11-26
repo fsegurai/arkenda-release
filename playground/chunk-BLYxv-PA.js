@@ -1,0 +1,1 @@
+import{t as i}from"./chunk-Dqaz9p1z.js";import"./chunk-CtLIq420.js";var o={manifest:i,activate(t){t.markdown.registerFeature({name:`emoji`,load:()=>import(`./chunk-Cjj8wSL3.js`).then(a=>a.createShortcodeTable())})}};export{o as default};

@@ -1,0 +1,1 @@
+import{t as a}from"./chunk-CtkwAdUv.js";var U=6e4;function b(r,n,l,t=URL){let o=t.createObjectURL(n),e=r.createElement(`a`);e.href=o,e.download=a(l),e.rel=`noopener`,e.click(),setTimeout(()=>t.revokeObjectURL(o),U)}export{b as t};

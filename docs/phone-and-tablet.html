@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Phones and tablets · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="phone-and-tablet.html">
+<link rel="alternate" hreflang="es" href="../es/docs/phone-and-tablet.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/phone-and-tablet.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="phones-and-tablets">Phones and tablets</h1>
+<p>Arkenda picks one of three layouts from the window&#39;s width and the kind of pointer:</p>
+<table>
+<thead>
+<tr>
+<th>Window</th>
+<th>Layout</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Up to 720 px wide (a phone, or a narrow window)</td>
+<td><strong>Phone:</strong> one screen at a time, with a bar of destinations at the bottom.</td>
+</tr>
+<tr>
+<td>721 to 1023 px wide, on a touch screen (a tablet held upright)</td>
+<td><strong>Tablet:</strong> the list and the note side by side, the sidebar and Details as drawers; see <a href="#tablets">Tablets</a>.</td>
+</tr>
+<tr>
+<td>721 to 1023 px wide, with a mouse or a trackpad</td>
+<td><strong>Computer:</strong> a window that wide with a mouse keeps the desktop layout, see <a href="desktop-layout.html">The desktop layout</a>.</td>
+</tr>
+<tr>
+<td>1024 px wide and more</td>
+<td><strong>Computer</strong>, also on a tablet on its side; see <a href="#on-its-side-1024-px-wide-and-more">On its side</a>.</td>
+</tr>
+</tbody></table>
+<p>The desktop app on a computer always counts as a mouse, even on a touch screen. Keys are in
+<a href="keyboard-shortcuts.html">Keyboard shortcuts</a>; on a phone or a tablet, the gestures below do the same jobs.</p>
+<h2 id="the-bottom-bar">The bottom bar</h2>
+<table>
+<thead>
+<tr>
+<th>Destination</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Notes</strong></td>
+<td>Your views, notebooks and tags, then a list, then a note.</td>
+</tr>
+<tr>
+<td><strong>Today</strong></td>
+<td>The day: a week strip, the day&#39;s events and your tasks; see <a href="#today">Today</a>. Shown while Todos or Calendar is on (both are by default; Settings ▸ Layout); otherwise the bar has three destinations.</td>
+</tr>
+<tr>
+<td><strong>Search</strong></td>
+<td>The palette, full screen: notes by default, <code>&gt;</code> for commands, <code>#</code> for tags.</td>
+</tr>
+<tr>
+<td><strong>More</strong></td>
+<td>Kanban and Whiteboards (while their experiments are on), Calendar (while it is on), the dashboard, Devices and sync, the trash and Settings; see <a href="#settings">Settings</a>.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Notes</strong> returns to where you were in it. Tap it again while you are in Notes to go back to its top level.</li>
+<li><strong>Scrolling</strong> a list down hides the bar to give the list more room; scrolling up, or reaching the top, brings it
+back. The bar also hides while the on-screen keyboard is up, in zen mode and inside a note (back and the note&#39;s
+band take you out of it; see <a href="#a-note">A note</a>).</li>
+<li>Todos and Calendar became regular features in 0.5.2: Today and their entries in More stay where they were.</li>
+</ul>
+<h2 id="the--button">The + button</h2>
+<p>A floating <strong>+</strong> sits above the bar:</p>
+<ul>
+<li>on <strong>Notes</strong> (its top level and the lists, not an open note), it makes a new note in the list you are in;</li>
+<li>on <strong>Today</strong>, it makes a new task (the quick add of your tasks) while Todos is on, and a new note otherwise.</li>
+</ul>
+<p>It is not shown on More or with the keyboard up, and while the bar is hidden by a scroll it folds to its icon.
+Press and hold <strong>+</strong> to make the other one: a note from Today, or a task from Notes (while Todos is on).</p>
+<h2 id="today">Today</h2>
+<p>Today is one scroll for the day, each part shown while its feature (Todos, Calendar) is on:</p>
+<ul>
+<li><strong>The week strip</strong> at the top, starting on your language&#39;s first day of the week; a dot marks a day with an event
+or an open task. <strong>Swipe it sideways</strong> to move a week; <strong>pull it down</strong> to open the month and pick any day.
+A picked day shows that day, with <strong>Today</strong> to come back.</li>
+<li><strong>The day&#39;s events</strong> (Calendar), all-day ones first. Tap one to open its note. Moving and resizing events stay in
+More ▸ Calendar, with the month and the week.</li>
+<li><strong>Your tasks</strong> (Todos): overdue, due today and the next seven days (on another day, that day&#39;s tasks). Tick one to
+finish it; tap its text to open its note at the task&#39;s line, in Notes.</li>
+<li><strong>+</strong> adds a task due on the day shown to your inbox note.</li>
+</ul>
+<h2 id="a-note">A note</h2>
+<p>A note on a phone keeps one band at the top and gives the rest of the screen to the text: there is no bottom bar,
+no status bar and no row of tabs inside a note.</p>
+<ul>
+<li><strong>The band</strong> holds, from left to right: <strong>←</strong> (back to the note&#39;s list), the <strong>title</strong> (tap it to rename the
+note; Enter or tapping elsewhere keeps the new name, Escape keeps the old one), who else is in the note, the
+<strong>sync dot</strong>, the view button (the text or its preview) and <strong>…</strong>.</li>
+<li><strong>The sync dot</strong> shows sync&#39;s state as in the list header (green: up to date; the accent colour with a halo:
+syncing; grey: off; red: needs you); tap it for the <strong>status sheet</strong> (see <a href="#the-status-sheet">The status sheet</a>).</li>
+<li><strong>…</strong> opens the note&#39;s menu as a sheet: <strong>Details</strong>, <strong>Open tabs</strong>, Rename, Pin, the status, Move, the tags,
+Export, Share and the trash, plus what your plugins add. On Android, <strong>Export ▸ PDF</strong> opens Android&#39;s print
+dialog: choose <strong>Save as PDF</strong> there, or a printer. On an iPhone or iPad, PDF is not available yet.</li>
+<li><strong>Details</strong> opens as a sheet from the bottom of the screen, with a handle at its top. Under its title come the
+tabs of the right sidebar&#39;s panels, then the note&#39;s details (status, notebook, tags, when it was made and last
+changed, the word count), then the chosen panel (outline, backlinks and the others), and it ends with what a computer shows in its status bar: where the
+notes are stored, the <strong>Update available — Reload</strong> notice, the folder&#39;s problems, sync&#39;s state with its
+details, and your status bar items. <strong>Edit tags…</strong> in the menu opens Details at the tag field.</li>
+<li>Close Details by swiping it down, tapping above it, with <strong>Escape</strong> or with <strong>back</strong>. While it is open the
+keyboard stays inside it; when it closes, the focus goes back to <strong>…</strong>.</li>
+<li><strong>Open tabs</strong> lists the notes you have open as tabs: tap one to switch to it, or <strong>Close tab</strong> to close the one
+you are in (a pinned tab stays). The tab keys work as on a computer with a keyboard attached.</li>
+</ul>
+<h3 id="reading-and-editing">Reading and editing</h3>
+<ul>
+<li><strong>A note you open shows its preview</strong>, so the keyboard never jumps over what you came to read. <strong>A new note</strong>
+opens ready to type, with the cursor in the text and the keyboard up, the first time you open it, however it was
+made: the <strong>+</strong>, <strong>New note</strong> in the palette or with its key, a notebook&#39;s menu, a <code>[[</code> link or a plugin.</li>
+<li><strong>The view button</strong> in the band, or <strong>Ctrl+Alt+P</strong> with a keyboard attached, switches between the text and its
+preview. On a phone this is only for the note you are in: the next note opens in preview again, and the mode
+you chose on your computer or tablet is left as it was. A phone has no side-by-side view.</li>
+<li><strong>The formatting bar</strong> sits right above the keyboard while you type, and is gone when the keyboard goes down or
+in preview. It has the same tools as a computer&#39;s toolbar, in your order (Settings ▸ Editor ▸ Toolbar
+buttons, chosen on a computer or a tablet: a phone does not list that page), with your hidden tools left out
+and your plugins&#39; buttons at the end; swipe it sideways for the rest. At its end,
+<strong>…</strong> lists every tool in a sheet, and <strong>✓</strong> ends editing: the keyboard goes down and the note shows its preview.
+In a narrow window used with a mouse (the phone layout on a computer) there is no on-screen keyboard, so the
+bar stays in its place above the text.</li>
+<li><strong>Links</strong> to web pages and mail addresses open in your browser or mail app on Android, never inside Arkenda.
+The picture and media viewer, the annotation editor and the PDF reader keep clear of the system&#39;s status bar,
+navigation bar and notch.</li>
+<li><strong>Menus</strong> of the bar (Text style, Lists, Callout, more formatting) open as sheets from the bottom of the screen.</li>
+<li><strong>Selecting text</strong> (press and hold a word, then drag the handles) shows the phone&#39;s own Cut, Copy and Paste
+menu above the selection and a small formatting pill below it (above it when the selection is near the
+bottom); both work, and neither covers the text. Turn the pill off in Settings ▸ Editor
+(<strong>Show formatting on selection</strong>), as on a computer.</li>
+<li>Find, the outline, zen mode, the <strong>/</strong> menu and the <strong>[[</strong> note suggestions work as on a computer.</li>
+<li><strong>Read aloud</strong> (in the note&#39;s <strong>…</strong> menu and the palette) reads the selection, or the whole note, with Android&#39;s
+text-to-speech, using only the voices installed on the phone (never one that needs the internet), with a small
+player bar above the bottom edge: <strong>Pause</strong>, <strong>Play</strong> and <strong>Stop</strong>. Add a voice in Android&#39;s <strong>Settings ▸
+Accessibility ▸ Text-to-speech output</strong> if Arkenda says there is none for its language.</li>
+<li><strong>Share as file</strong> (in the note&#39;s <strong>…</strong> menu and the palette) hands the note to another app through Android&#39;s
+share sheet, as <code>&lt;title&gt;.md</code> (its Markdown, with its front matter). A file attached to a note has a <strong>Share</strong>
+button on its card in the preview too.</li>
+<li><strong>Share into Arkenda:</strong> in another app, choose <strong>Share</strong> and then Arkenda. Arkenda asks where it goes: your
+<strong>Inbox</strong> (Enter), a <strong>New note</strong> (named after the subject, the first line or the file), or <strong>Append to a note…</strong>
+(at its end; a note you can only read is refused); <strong>Cancel</strong> (Escape) adds nothing. A text becomes an item (in
+the Inbox) or its lines; a web or mail link becomes a link named after the page&#39;s title (Arkenda never opens
+it); pictures (PNG, JPEG, WebP or GIF, up to 10 at a time and 16 MB each) are stored like any attachment. A short
+message says where it went and what was not added. A share sent while Arkenda is closed is asked once Arkenda
+has opened your notes; several are asked one after another.</li>
+<li><strong>The text</strong> is a little larger on a phone than on a computer: 16.5 px with a line height of 1.6, 20 px from
+each edge, in the text and in its preview. A size or line height you choose in Settings ▸ Editor is used
+instead, on the phone too (choosing the default again, 15 px at 1.5, gives the phone&#39;s 16.5 px at 1.6).</li>
+</ul>
+<h2 id="the-status-sheet">The status sheet</h2>
+<p>A phone has no status bar. What it would show is one tap away, on every screen with a list header: the
+<strong>sync dot</strong> at the end of the note list&#39;s header, of the Notes top level (Browse) and of a note&#39;s band.</p>
+<ul>
+<li><strong>Tap the dot</strong> to open the status sheet from the bottom of the screen: where the notes are stored, the
+<strong>Update available — Reload</strong> notice, the folder&#39;s problems (tap them for the list and <strong>Reconnect</strong>), sync&#39;s
+state (tap it for what went wrong when it is red), and your status bar items and tools in your order. It is the
+same status bar Details shows, moved into the sheet while it is open, so a timer or another item keeps running.</li>
+<li><strong>A small badge</strong> on the dot means something needs you: a new version is ready to load, or the folder has
+problems. The dot&#39;s name says which, for screen readers too.</li>
+<li>Without sync, the dot is grey and still opens the sheet.</li>
+<li>Close the sheet by swiping it down, tapping above it, with <strong>Escape</strong> or with <strong>back</strong>. While it is open the
+keyboard stays inside it; when it closes, the focus goes back to the dot.</li>
+</ul>
+<h2 id="lists">Lists</h2>
+<ul>
+<li><strong>Row heights follow the layout:</strong> Settings ▸ Appearance ▸ Density ▸ Note list rows (compact, comfortable,
+spacious) gives a phone 56 / 66 / 76 px rows and a tablet 52 / 60 / 68 px, so a row is never under 44 px; a
+computer with a mouse keeps 48 / 56 / 64 px. Turning the device or resizing keeps the note at the top of the list
+where it was.</li>
+<li><strong>Swipe a note right</strong> to pin it (or unpin a pinned note).</li>
+<li><strong>Swipe a note left</strong> to show <strong>Move</strong> and <strong>Delete</strong>; a long swipe left deletes at once. Delete moves the note
+to the trash, and <strong>Undo</strong> in the message at the bottom brings it back for a few seconds. The note stays in the
+trash until you empty it either way.</li>
+<li><strong>Press and hold</strong> a note (or a notebook, a tag, a tab) for its menu, as a sheet from the bottom of the screen:
+the same items as a right-click on a computer.</li>
+<li><strong>Pull the list down</strong> from its top, on the Notes list or the Notes top level, to sync now. The line at the top
+says what happens: syncing and when it is done, or that sync is off on this device or no other device is paired
+yet. On a folder vault it also reads the changes made outside Arkenda, as Refresh does.</li>
+<li>To turn the swipes off (if you swipe by accident), use <strong>Settings ▸ Note list ▸ Gestures ▸ Swipe actions on note
+rows</strong>. The setting is per device.</li>
+<li><strong>Tasks, the calendar, the board, the whiteboards and the dashboard</strong> use the same touch sizes: rows, cards, day
+cells and their buttons are at least 44 px. On the board, press and hold a card for <strong>Move to…</strong> (a sheet on a
+phone, a popover on a tablet); the board shows one lane at a time on a phone.</li>
+</ul>
+<h2 id="settings">Settings</h2>
+<p>On a phone, Settings opens as a full-screen sheet over what you were doing (on a tablet, as a large window over the
+app, as on a computer); <strong>×</strong> at its top closes it. Inside it, Settings is a list you go into and back out of:</p>
+<ul>
+<li><strong>Settings</strong> (in More) is the list: the search at the top, then the groups (Basics, Workspace, Shortcuts,
+Extensions, Sync &amp; devices, Data &amp; storage), each section with one line saying what it holds, and About at the
+foot. Tap a section to open it as its own page; the back arrow at its top goes back to the list.</li>
+<li>A search result opens its section scrolled to the setting.</li>
+<li>Every page fits the screen: rows stack, and every button, switch, field and colour swatch is a 44 px target.</li>
+<li>On a phone, each card&#39;s title sits above the card, a page&#39;s tabs are one row you swipe sideways, and
+<strong>Reset this page</strong> is at the end of the page.</li>
+<li>What a phone has no use for is not listed there; the search still finds it, greyed (&quot;Not available on this
+device&quot;):<ul>
+<li><strong>Keyboard</strong> (a tablet can have a keyboard, so it is listed there);</li>
+<li>in <strong>Editor</strong>: the toolbar buttons (the phone&#39;s formatting bar is docked above the keyboard), the tabs, the
+reading width, scroll sync and the Markdown map (Editor ▸ Markdown extensions is on the phone too);</li>
+<li>in <strong>Workspace</strong>: Layout presets, Panels &amp; status bar and Widgets placement;</li>
+<li>in <strong>General</strong>: the activity island&#39;s titles (a phone shows no island).</li>
+</ul>
+</li>
+<li>A tablet lists everything but the status bar items (it has no status bar).</li>
+<li>Sections that need the desktop app (the window, the window effect, the S3 mirror on the web) are not listed where
+they cannot work.</li>
+<li>An old link to a setting (from a note, a message or the palette) still opens the right page and setting.</li>
+</ul>
+<h2 id="note-links">Note links</h2>
+<p>On Android, an <code>arkenda://note/&lt;id&gt;</code> link tapped in another app (the address MCP clients get for a note) opens
+that note in Arkenda. Markdown files from other apps do not open in Arkenda on the phone.</p>
+<p><strong>Launcher shortcuts:</strong> touch and hold Arkenda&#39;s icon on the home screen for <strong>New note</strong> and <strong>Quick capture</strong>
+(drag one onto the home screen to keep it there). Each opens Arkenda and does what the + button&#39;s entries do.</p>
+<h2 id="going-back">Going back</h2>
+<ul>
+<li><strong>Android:</strong> the back button or gesture first closes what is open (a menu, a sheet, the search, a drawer,
+Details), then goes back through the screens you visited (a note, its list, the Notes top level; in Settings, a
+section, its group, the list, then Settings closes over the screen you opened it from).
+From the Notes top level it leaves the app.</li>
+<li><strong>Swipe from the left edge</strong> to go back the same way, without ever leaving the app. On Android with gesture
+navigation, the system&#39;s own edge gesture is the back gesture above.</li>
+<li><strong>In a browser:</strong> the browser&#39;s back button goes back through the same screens. In Search, the ← at the start
+of the field closes it.</li>
+</ul>
+<h2 id="sync-in-the-background">Sync in the background</h2>
+<p>On the Android app, <strong>Save battery</strong> (Settings ▸ Sync &amp; devices ▸ Connection ▸ Battery, on by default) pauses sync
+while Arkenda is in the background, so the phone does not warn about battery use; your edits are still saved, and
+sync catches up as soon as you open Arkenda again. Turn it off to keep syncing in the background. See
+<a href="sync.html#sync-in-the-background-phones">Sync in the background</a>.</p>
+<h2 id="media">Media</h2>
+<p>Pictures, audio, video and other files work as on a computer. <strong>Take photo</strong>, <strong>Record video</strong> and <strong>Record audio</strong>
+in the insert menu (the formatting bar&#39;s <strong>…</strong>, or <strong>/</strong>) open the camera or recorder. Galleries become a swipeable
+strip, PDFs open full screen in the reader, and the media library and the trash are under <strong>More</strong>; press and hold
+an item for its menu. In the trash, <strong>Empty trash</strong> is in the <strong>⋯</strong> menu at the top. See <a href="media.html">Media</a> for
+everything else.</p>
+<p>Every page on a phone (Settings, the media library, the trash, More, Today, Inbox, Todos, Calendar and the others)
+has the same margins, its title with at most one button beside it, and its tabs or filters in one row you swipe
+sideways.</p>
+<h2 id="the-activity-island">The activity island</h2>
+<p>On a tablet, while something runs (a sync, the focus timer, an export), a small pill at the top edge of the
+screen shows it; tap it for its buttons. A phone shows nothing there. On Android, turn on <strong>Settings ▸
+Experimental ▸ Activity in a notification</strong> to see the same activity as an ongoing notification, outside
+Arkenda too: a timer or a recording with its time, a job with its progress, and up to two buttons (Pause,
+Stop, Discard…); on Android 16 it can show as a chip in the status bar. See
+<a href="notch.html#on-android-a-notification-an-experiment">On Android: a notification</a>.</p>
+<h2 id="tablets">Tablets</h2>
+<h3 id="upright-721-to-1023-px-wide-touch">Upright (721 to 1023 px wide, touch)</h3>
+<ul>
+<li><strong>The list and the note</strong> sit side by side. Drag the line between them to resize the list; drag it all the
+way to the left to fold the list away (or use the key for it), and ☰ <strong>All notes</strong> above the note shows it
+again.</li>
+<li><strong>The sidebar</strong> (views, notebooks, tags, statuses, Settings) opens as a drawer over the list: tap <strong>☰</strong> at the
+start of the list header, or swipe in from the left edge. Choosing something in it closes it.</li>
+<li><strong>Details</strong> (the right sidebar: outline, backlinks and the other panels) opens as a drawer from the right:
+tap its button at the end of the note&#39;s tab row.</li>
+<li>Close a drawer by tapping outside it, with <strong>Escape</strong>, or with <strong>back</strong> (Android&#39;s back button or gesture).
+While a drawer is open, the keyboard stays inside it; when it closes, the focus goes back to where it was.</li>
+<li><strong>There is no status bar.</strong> The <strong>sync dot</strong> in the list header shows sync&#39;s state (green: up to date;
+the accent colour with a halo: syncing; grey: off; red: needs you); tap it for <strong>Devices and sync</strong>, or, when it
+is red, for Details, where the sync line opens what went wrong (and <strong>Dismiss</strong>).</li>
+<li><strong>The bottom of Details</strong> holds everything the status bar shows on a computer: where the notes are stored, the
+<strong>Update available — Reload</strong> notice, the folder&#39;s problems (with <strong>Reconnect folder</strong>), sync&#39;s state with its
+details, the <strong>word count</strong> and the other items, and the tools you placed in the status bar (tap one to open it).
+It is the same bar, moved into Details while Details is open, so nothing in it starts twice.</li>
+<li><strong>Press and hold</strong> a note, a notebook, a tag or a tab for its menu, as a popover next to it (on a phone it is
+a sheet). A note&#39;s text keeps the system&#39;s own press and hold, for selecting text.</li>
+<li>Buttons are at least 44 px, for fingers: in the list header and the drawers, and in the note&#39;s tab row (the
+tabs and their close buttons, the view buttons, ☰, <strong>…</strong> and the Details button, the row being 44 px high) and
+in its formatting toolbar (every tool and menu, <strong>⋯</strong> and <strong>Details</strong>). The toolbar then fits fewer tools in a
+row; the rest are under <strong>⋯</strong>, as on a narrow window. The same holds on the settings pages and in Tasks, the
+calendar, the board, the whiteboards and the dashboard.</li>
+<li><strong>Settings</strong> is the same list and pages as on a phone (see <a href="#settings">Settings</a>), with everything listed but the
+status bar items.</li>
+<li>On Android with gesture navigation the left edge belongs to the system&#39;s back gesture, so there <strong>☰</strong> opens
+the sidebar.</li>
+</ul>
+<h3 id="on-its-side-1024-px-wide-and-more">On its side (1024 px wide and more)</h3>
+<p>A tablet in landscape gets the computer&#39;s layout: the sidebar, the list and the note. On a touch screen
+(a phone or a tablet, not the desktop app) three things change:</p>
+<ul>
+<li>the sidebar <strong>starts as its icon rail</strong>, to leave room for the note; tap ☰ on the rail to show the whole
+sidebar over the note, or the expand button under it (or the sidebar key) to keep it open until the app
+starts again;</li>
+<li>the note area splits into <strong>two panes at most</strong>. A layout with more panes, saved on a computer, is
+kept: the tablet shows the main pane and the one you were in;</li>
+<li>the note&#39;s tab row and formatting toolbar have the upright tablet&#39;s 44 px buttons.</li>
+</ul>
+<p>A computer window of the same width, used with a mouse, is unchanged. On a device with both (a 2-in-1 in a
+browser), the sidebar follows the pointer you use: switching to touch puts it on its rail, unless you expanded it
+yourself since the app started; switching back to the mouse shows it again, unless you collapsed it.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The package and release · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/package.html">
+<link rel="alternate" hreflang="es" href="package.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/package.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="the-package-and-release">The package and release</h1>
+<p>A package is a <code>.zip</code> (or, in developer mode, a folder) holding the manifest, one bundle and a few
+assets. Arkenda reads it without running it, checks every file, and installs it only when it passes.</p>
+<h2 id="layout">Layout</h2>
+<pre><code class="language-text">reading-time/
+  arkenda-plugin.json   ← the manifest, at the root or inside one top folder
+  dist/main.js          ← the manifest&#39;s `entry`, the only code allowed
+  release.json          ← signed packages only
+  README.md, styles.css, icon.png …   ← optional assets
+</code></pre>
+<ul>
+<li>A package whose files all sit in one top folder is read from inside that folder.</li>
+<li><code>arkenda-plugin.json</code> must be there and be JSON (<code>missing-manifest</code>, <code>manifest-not-json</code>).</li>
+<li>The file named by <code>entry</code> must be there (<code>missing-entry</code>).</li>
+<li><code>release.json</code>, when present, must be JSON and exactly <code>{ &quot;catalog&quot;: …, &quot;revocations&quot;?: … }</code>
+(<code>release-not-json</code>, <code>release-file-invalid</code>).</li>
+<li>A manifest of another kind than <code>plugin</code> (a theme, a font…) is refused with <code>not-a-plugin</code>: only
+plugins can be installed in this version.</li>
+</ul>
+<h2 id="files">Files</h2>
+<p>Allowed: the manifest, <code>release.json</code>, the entry and assets with one of these extensions:
+<code>.css</code>, <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.webp</code>, <code>.gif</code>, <code>.woff2</code>, <code>.md</code>, <code>.txt</code> (<code>PLUGIN_ASSET_EXTENSIONS</code>).
+Anything else is refused (<code>file-not-allowed</code>), including any other <code>.js</code>, <code>.mjs</code> or <code>.json</code> file.</p>
+<p>Also refused:</p>
+<ul>
+<li>paths that are absolute or contain <code>..</code>, <code>\</code>, a drive letter or a control character (<code>unsafe-path</code>);</li>
+<li>symbolic links (<code>symlink</code>);</li>
+<li>two names that differ only by case (<code>duplicate</code>).</li>
+</ul>
+<p><code>__MACOSX/</code> and <code>.DS_Store</code> are skipped.</p>
+<h2 id="zip">Zip</h2>
+<p>Plain zip with deflate (or stored) files. Refused: no zip directory (<code>not-a-zip</code>); zip64, split or
+encrypted archives, or another compression method (<code>unsupported-zip</code>); a file whose bytes do not
+match its size or checksum (<code>corrupt</code>).</p>
+<h2 id="limits">Limits</h2>
+<!-- generated:package-limits --><p><code>PLUGIN_PACKAGE_LIMITS</code>: Size limits of a plugin package, checked before and while it is unpacked.</p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>maxPackageBytes</code></td>
+<td>5 MB</td>
+<td>The <code>.zip</code> file, or the sum of the files of a folder.</td>
+</tr>
+<tr>
+<td><code>maxUnpackedBytes</code></td>
+<td>5 MB</td>
+<td>Every file once unpacked; a zip declaring more is refused before anything is inflated.</td>
+</tr>
+<tr>
+<td><code>maxFiles</code></td>
+<td>64</td>
+<td>Files in the package, folders not counted.</td>
+</tr>
+<tr>
+<td><code>maxAssetBytes</code></td>
+<td>1 MB</td>
+<td>One asset (any file other than the manifest, <code>release.json</code> and the entry).</td>
+</tr>
+<tr>
+<td><code>maxPathLength</code></td>
+<td>200</td>
+<td>Characters of a path inside the package.</td>
+</tr>
+</tbody></table>
+<!-- /generated:package-limits --><p>A zip that declares more than the unpacked limit is refused before anything is inflated.</p>
+<h2 id="integrity">Integrity</h2>
+<p>The manifest&#39;s <code>integrity</code> is <code>sha256-</code> plus the base64 SHA-256 of the entry&#39;s bytes. The install
+refuses a bundle that does not match (<code>bundle-mismatch</code>), and the app checks the bytes again each
+time it loads the plugin into the sandbox.</p>
+<h2 id="signing">Signing</h2>
+<p>Signed packages carry <code>release.json</code> and show as <strong>Verified</strong>. Three documents are signed:</p>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Signed by</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Catalog (allowlist)</td>
+<td>Registry key</td>
+<td>Every reviewed plugin and release, plus publisher keys.</td>
+</tr>
+<tr>
+<td>Revocation list (denylist)</td>
+<td>Registry key</td>
+<td>Plugin versions every device must disable.</td>
+</tr>
+<tr>
+<td>Release statement</td>
+<td>Publisher key</td>
+<td><code>id</code>, <code>publisher</code>, <code>version</code>, <code>apiVersion</code>, <code>integrity</code>, sorted <code>permissions</code>.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Algorithm:</strong> Ed25519 through WebCrypto. A signature is <code>{ &quot;kid&quot;, &quot;sig&quot; }</code> (<code>sig</code>: base64 of 64
+bytes).</li>
+<li><strong>Bytes signed:</strong> the canonical JSON (RFC 8785, <code>canonicalJson</code>) of the document without its
+<code>signature</code> field.</li>
+<li><strong>Key rotation:</strong> each trusted key has a <code>kid</code> and an optional <code>notAfter</code> date, after which it is
+refused.</li>
+<li><strong>Document types:</strong> each document carries a <code>type</code> (<code>arkenda-plugin-catalog</code>,
+<code>arkenda-plugin-revocations</code>, <code>arkenda-plugin-release</code>); a signature never verifies a document of
+another type.</li>
+<li><strong>The install gate</strong> (<code>verifyRelease</code>): the catalog signature, the publisher signature of the
+release (with that publisher&#39;s keys from the catalog only), the bundle against <code>integrity</code>, the
+revocation list, then compatibility. The installed manifest must match its catalog release
+exactly (<code>publisher</code>, <code>version</code>, <code>apiVersion</code>, <code>permissions</code>, <code>integrity</code>); the fields the publisher
+does not sign (<code>entry</code>, <code>contributes</code>, <code>platforms</code>…) are covered by the registry&#39;s signature of the
+catalog.</li>
+</ul>
+<p><strong>Development packages</strong> have no <code>release.json</code>. They install only with developer mode on (per
+device, off by default), show as <strong>Development</strong>, and are never offered to your other devices.</p>
+<blockquote>
+<p><strong>Not available yet:</strong> the app ships no registry key, so every signed package is refused today.
+Use development packages until the registry exists.</p>
+</blockquote>
+<h2 id="revocation">Revocation</h2>
+<p>A revocation list names plugin versions with a small semver subset: <code>*</code>, <code>1.2.3</code>, <code>^1.2.3</code>,
+<code>~1.2.3</code>, <code>&gt;=1.2.3</code>, <code>&lt;1.2.3</code>, space-separated comparators that must all match, and <code>||</code>
+alternatives. Build suffixes (<code>+build</code>) are ignored. A pre-release (<code>2.0.0-beta.1</code>) is revoked when
+either reading of it matches (as its release or as just below it): the kill switch errs on the safe
+side.</p>
+<p>At startup, and each time the Installed tab opens, installed plugins are checked against the device&#39;s
+last verified revocation list: a revoked plugin is turned off, shown with a banner, and cannot be
+installed again (<code>revoked</code>).</p>
+<h2 id="installing">Installing</h2>
+<p>Settings ▸ Extensions ▸ Plugins ▸ Marketplace ▸ <strong>Install from file…</strong> (a <code>.zip</code>), or <strong>Install
+development package…</strong> (a folder, in developer mode). Arkenda verifies the package, then shows a
+review: every permission and what it means, the hosts it may ask for, and what it adds. Permissions
+are granted later, when the user turns it on.</p>
+<ul>
+<li>The bundle is stored on this device only, keyed by <code>id@version</code>.</li>
+<li>The installed list and the on/off flag sync with the vault; other devices must fetch and verify
+the bundle themselves, and show &quot;Not downloaded on this device&quot; until then.</li>
+<li>The same or a newer version replaces the installed one; an older one is refused (<code>downgrade</code>).</li>
+<li>A built-in plugin&#39;s id cannot be installed (<code>built-in</code>).</li>
+<li><strong>Uninstall</strong> turns the plugin off, removes it from the installed list and its storage on every
+device, and deletes its bundle from this device. Built-in plugins can only be turned off.</li>
+</ul>
+<h2 id="publishing">Publishing</h2>
+<blockquote>
+<p><strong>Not available yet.</strong> The marketplace, its registry (<code>registry.arkenda.dev</code>, a placeholder), the
+review process and release statements signed by publishers are planned, not live. Today a plugin
+reaches users only as a development package they install themselves.</p>
+</blockquote>
+<h2 id="error-codes">Error codes</h2>
+<p>Every code the app and <code>plugin-check</code> report for a package, and the
+section that explains it:</p>
+<!-- generated:package-errors --><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Codes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="#limits">Limits</a></td>
+<td><code>too-large</code>, <code>too-many-files</code>, <code>unpacked-too-large</code>, <code>file-too-large</code></td>
+</tr>
+<tr>
+<td><a href="#zip">Zip</a></td>
+<td><code>not-a-zip</code>, <code>unsupported-zip</code>, <code>corrupt</code></td>
+</tr>
+<tr>
+<td><a href="#files">Files</a></td>
+<td><code>unsafe-path</code>, <code>symlink</code>, <code>duplicate</code>, <code>file-not-allowed</code></td>
+</tr>
+<tr>
+<td><a href="#layout">Layout</a></td>
+<td><code>missing-manifest</code>, <code>manifest-not-json</code>, <code>missing-entry</code>, <code>release-not-json</code>, <code>release-file-invalid</code></td>
+</tr>
+<tr>
+<td><a href="#signing">Signing</a></td>
+<td><code>unsigned</code>, <code>catalog-invalid</code>, <code>catalog-signature</code>, <code>not-in-catalog</code>, <code>version-not-in-catalog</code>, <code>publisher-mismatch</code>, <code>api-version-mismatch</code>, <code>permissions-mismatch</code>, <code>integrity-mismatch</code>, <code>publisher-signature</code></td>
+</tr>
+<tr>
+<td><a href="#integrity">Integrity</a></td>
+<td><code>bundle-mismatch</code></td>
+</tr>
+<tr>
+<td><a href="#revocation">Revocation</a></td>
+<td><code>revocations-invalid</code>, <code>revoked</code></td>
+</tr>
+<tr>
+<td><a href="versioning.html#compatibility">Compatibility</a> (versioning.md)</td>
+<td><code>incompatible</code></td>
+</tr>
+<tr>
+<td><a href="manifest.html#kind">Kind</a> (manifest.md)</td>
+<td><code>not-a-plugin</code></td>
+</tr>
+<tr>
+<td><a href="#installing">Installing</a></td>
+<td><code>built-in</code>, <code>downgrade</code>, <code>unexpected</code></td>
+</tr>
+</tbody></table>
+<!-- /generated:package-errors --><p>Manifest errors link to the <a href="manifest.html#fields">manifest reference</a>.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

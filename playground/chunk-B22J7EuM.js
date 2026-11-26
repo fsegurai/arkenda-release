@@ -1,0 +1,1 @@
+var a=/* @__PURE__ */ new Map;function i(r,e){let n=`${r}|${JSON.stringify(e)}`,m=a.get(n);if(m)return m;let t;try{t=new Intl.DateTimeFormat(r,e)}catch{t=new Intl.DateTimeFormat(void 0,e)}return a.set(n,t),t}export{i as t};

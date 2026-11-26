@@ -1,0 +1,1 @@
+var r=[`app`,`sync`,`vault`,`media`,`search`,`editor`,`plugins`,`storage`,`update`,`shell`];function o(e){return JSON.stringify(e).length}export{r as n,o as t};

@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Novedades · Arkenda</title>
+<meta name="description" content="Qué cambió en cada versión de Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="../changelog.html">
+<link rel="alternate" hreflang="es" href="changelog.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Inicio de Arkenda"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../playground/">Pruébelo</a></li><li><a href="download.html">Descargar</a></li><li><a href="plugins/index.html">Plugins</a></li><li><a href="docs/index.html">Guías</a></li><li><a href="changelog.html" aria-current="page">Novedades</a></li></ul></nav>
+  <a class="lang" href="../changelog.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="-changelog">📦 Changelog</h1>
+<p>All notable changes to this project will be documented in this file.
+This project adheres to <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a> and
+<a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<p>Downloads for every version are on the <a href="https://github.com/fsegurai/arkenda-release/releases">release page</a>.</p>
+<blockquote>
+<p><strong>Legend</strong> — 🧪 an experiment: off by default, turn it on per device in <strong>Settings ▸ Experimental</strong> ·
+🧩 a built-in plugin: off by default, turn it on in <strong>Settings ▸ Plugins</strong> · 🖥️ desktop app only ·
+📱 phone and tablet</p>
+</blockquote>
+<hr>
+<h2 id="053---2026-11-26">[0.5.3] - 2026-11-26</h2>
+<p>Notes get comments: on a selection, a section, a whole note, a whiteboard element or a media file, with replies,
+resolving and search, synced with the vault and shared with the people you choose. Editor themes and Markdown maps
+leave Experimental: 33 editor themes in a searchable gallery, and maps with several places, routes and areas, a place
+picker, and nothing sent to OpenStreetMap until you load a map. Settings opens as a popup over your notes and no
+longer jumps as you change it.</p>
+<h3 id="-new">✨ New</h3>
+<ul>
+<li><strong>Comments</strong> — comment on selected text (the <strong>Comment</strong> button of the selection toolbar, in the editor and the
+preview, or <code>Ctrl+Shift+M</code>), on a section (the <strong>+</strong> beside a heading), on the whole note, on a whiteboard element
+or on an image, recording or file. Threads live in the note&#39;s <strong>Comments</strong> panel (Open, Resolved, Orphaned) with
+replies, edits, resolving and reopening; they sit beside the note, never inside its Markdown, and sync with the
+vault. Search finds comments and opens the note at the thread, replies to your comments show in the activity island,
+a share can give the <strong>Commenter</strong> role (read and comment, no edits), and a web export can add a Comments section.
+See the <a href="docs/comments.html">Comments guide</a>.</li>
+<li><strong>Editor themes are a feature</strong> — 33 themes for the Markdown editor (18 new: Catppuccin, Dracula, Nord, One Dark,
+Rosé Pine Dawn, Solarized, Tokyo Night and more), each passing Arkenda&#39;s contrast rules as its maker defines it, in
+a gallery in <strong>Settings ▸ Appearance ▸ Editor theme</strong>: search, <strong>High contrast</strong>, <strong>Warm</strong> and <strong>Cool</strong> filters,
+favourites, recently used, a large live preview and keyboard navigation; on a phone, a list with a preview sheet.
+GitHub stays the default pair, and the switch at the top turns the themes off.</li>
+<li><strong>Maps are a feature</strong> — a <code>map</code> block holds several places (<code>lat, lon, label</code> lines, each label its marker&#39;s
+popup) with the view fitted to them, <code>route: true</code> for a line through them, <code>circle:</code> and <code>polygon:</code> areas and a
+<code>height:</code>. A map can be expanded over the window, opened in OpenStreetMap, read by a screen reader, and dims in
+dark mode. <strong>Insert ▸ Map</strong> opens a place picker: click or tap to drop places, label or remove them, type
+coordinates, then insert the block. Each map waits for a click (<strong>Load map</strong>) before contacting OpenStreetMap,
+unless <strong>Load maps automatically</strong> is on in Settings ▸ Editor ▸ Markdown extensions ▸ Maps; exports write a map&#39;s
+places as text. See the <a href="docs/maps.html">Maps guide</a>.</li>
+<li><strong>Settings as a popup</strong> — Settings opens over the note you were on (a full-screen sheet on a phone), and closing
+it brings you back where you were; <code>/settings/&lt;section&gt;</code> links still open the right page.</li>
+<li>🖥️ <strong>Share on Windows</strong> — a note&#39;s <strong>Share as file…</strong> and a card&#39;s <strong>Share</strong> open Windows&#39; own share window.</li>
+<li>🖥️ <strong>Windows Firewall</strong> — on Windows, Settings tells when the firewall blocks device sync and offers <strong>Allow in
+firewall</strong> (with the system&#39;s permission prompt) or the firewall&#39;s own page.</li>
+</ul>
+<h3 id="-changes">🔧 Changes</h3>
+<ul>
+<li><strong>Settings without jumps</strong> — changing an option no longer makes the page flicker or jump: section moves skip the
+transition, the page fades in alone, and every surface keeps its place (checked by a new layout test).</li>
+<li><strong>Long notes with lists, timelines and maps render off the main thread</strong> — numbered lists, timelines and maps
+now render in the background worker like the other Markdown extensions.</li>
+</ul>
+<h3 id="-removed">🗑️ Removed</h3>
+<ul>
+<li><strong>Markdown comments extension</strong> — the experimental <code>&lt;aside&gt;</code> comments extension is retired in favour of the new
+comments; a device that had it on is told once. Raw <code>&lt;aside&gt;</code> HTML still shows as before.</li>
+</ul>
+<h3 id="-fixed">🐛 Fixed</h3>
+<ul>
+<li><strong>Table handles on short tables</strong> — in the preview, a table&#39;s column and row handles follow the table&#39;s own height
+instead of the whole view, and long handle menus stay inside the window.</li>
+<li>🖥️ <strong>Device pairing from the Microsoft Store</strong> — the Store build of Arkenda now has the firewall rules device sync
+needs, so pairing and sync reach other devices.</li>
+</ul>
+<hr>
+<h2 id="052---2026-11-21">[0.5.2] - 2026-11-21</h2>
+<p>Arkenda reaches beyond its window: reminders on notes and tasks with Snooze and Done, a system tray and start with
+the system, read aloud, share notes and files out and receive them in, LocalSend to and from any device on your
+network, and pictures through the clipboard on Android. Experiments you used every day became features, and every
+Markdown extension now lives in one place, synced with your vault.</p>
+<h3 id="-new-1">✨ New</h3>
+<ul>
+<li><p><strong>Reminders</strong> — a task reminds you at its due time: write the time after its due date (<code>📅 2026-11-20 ⏰ 09:30</code>),
+or pick it with the new <strong>⏰</strong> button in Todos. Any note can remind you too: <strong>Remind me…</strong> in its <strong>…</strong> menu
+saves a day and a time in its <code>remind</code> property. The notification and a card in the app offer <strong>Open</strong>,
+<strong>Snooze 10 min</strong> and <strong>Done</strong> (ticks the task, or removes the note&#39;s reminder). Each device fires a reminder
+once, and one missed while the app was closed fires at start when it is less than a day old. 🖥️ On Linux and
+Windows the notification itself has <strong>Snooze</strong> and <strong>Done</strong> buttons (a click on it opens the note). 📱 On
+Android the reminders fire with Arkenda closed and after a restart, Snooze works from the notification, and on
+Android 14 and later setting a reminder offers to open <strong>Alarms &amp; reminders</strong> so they ring on the minute. 🌐 On
+the web, setting the first reminder asks for the browser&#39;s notification permission, once.</p>
+</li>
+<li><p><strong>Experiments that became features</strong> — Todos, Calendar, the app context menu, Merged table cells, Smart
+typography, Spoilers and Save diagrams are now part of Arkenda and on by default; 🖥️ Window blur too, off until
+you turn it on. Their switches left Settings ▸ Experimental for their own sections: Todos and Calendar in Layout,
+the context menu in General, Window blur in Appearance ▸ Transparency, the Markdown extensions in Editor. A
+device that turned one of them on keeps it on.</p>
+</li>
+<li><p><strong>Markdown extensions in one place</strong> — Settings ▸ Editor ▸ Markdown extensions lists every Markdown extension,
+graduated or experimental, by group, each with its switch, a sample of its syntax and its insert-menu entry, plus
+a search, Turn all on and Back to defaults. Your choices now follow the vault, so your other devices get them;
+check <strong>Only on this device</strong> to keep this device&#39;s own choice. Settings ▸ Experimental no longer lists them.</p>
+</li>
+<li><p>📱 <strong>Pictures through the clipboard on Android</strong> — paste a picture copied in another app (a screenshot, a photo)
+into a note, and copy a picture out of Arkenda to paste it elsewhere.</p>
+</li>
+<li><p><strong>Copy image in the viewer</strong> — the picture viewer has a Copy image button, so a picture can be copied on a phone
+or tablet too.</p>
+</li>
+<li><p><strong>Read aloud</strong> — the palette and a note&#39;s menu read the selection, or the whole note, with your system&#39;s own
+voice, in a small player bar with Pause, Play and Stop. Only voices on your device are used: Android&#39;s installed
+text-to-speech voices, speech-dispatcher on Linux where it is installed, Windows&#39; voices, and the browser&#39;s
+on-device voices on the web.</p>
+</li>
+<li><p><strong>Share as file</strong> — a note&#39;s menu and the palette hand the note, as <code>&lt;title&gt;.md</code>, to another app through the
+system&#39;s share sheet, and a file attached to a note has a Share button on its card. On Android, on Windows, and
+in browsers that can share files; Linux has no share sheet.</p>
+</li>
+<li><p>📱 <strong>Share into Arkenda</strong> — share text, a link or pictures from another app to Arkenda on Android, and choose where
+they go: your Inbox, a new note, or the end of a note you pick. A link becomes a link named after the page (it is never opened); pictures are checked and stored like
+any attachment, up to 10 at a time.</p>
+</li>
+<li><p>🖥️ <strong>Arkenda in the system tray</strong> — on Linux and Windows, a tray icon with New note, Quick capture, Show Arkenda
+and Quit. It is on by default; Settings ▸ General turns it off, and <strong>Close to the tray</strong> (off by default) makes
+closing the main window save and hide it in the tray instead of quitting.</p>
+</li>
+<li><p>🖥️ <strong>Start with the system</strong> — Settings ▸ General ▸ Start Arkenda with the system opens Arkenda when you sign in, on
+Linux and Windows. Off until you turn it on.</p>
+</li>
+<li><p>📱 <strong>Launcher shortcuts on Android</strong> — touch and hold Arkenda&#39;s icon for New note and Quick capture.</p>
+</li>
+<li><p>🧪 🖥️ 📱 <strong>LocalSend</strong> — send notes and attached files to the LocalSend apps on the same network, and receive
+texts, pictures and files from them where you choose (as a share does), on the desktop and Android. Every transfer
+asks first, a PIN is optional (on its card in Settings ▸ Experimental), and a port is open on your local network only while the experiment is on. Implemented from the
+protocol&#39;s public description (it publishes no license).</p>
+</li>
+<li><p><strong>Long notes render off the main thread again</strong> — with the default Markdown extensions on, the preview&#39;s render
+worker now parses merged table cells, spoilers, tabs, kanban boards, accordions, extended code blocks, inline marks
+and slides itself; lists, timelines, comments, maps and embeds still render in the page while on.</p>
+</li>
+</ul>
+<h3 id="-changes-1">🔧 Changes</h3>
+<ul>
+<li><strong>Clearer editor themes</strong> — the 15 editor themes take their makers&#39; new colours, tuned for contrast: comments,
+keywords and links read better on every theme, and Basic Dark&#39;s links now use its own colour.</li>
+<li><strong>Markdown on the released libraries</strong> — the Markdown extensions run on their released versions; notes render as
+before.</li>
+</ul>
+<h3 id="-fixed-1">🐛 Fixed</h3>
+<ul>
+<li>🖥️ <strong>Window blur no longer blinks on Linux</strong> — the blur is set once and kept, instead of being removed and added
+again on every theme or opacity change.</li>
+<li>🖥️ <strong>A start that freezes is undone</strong> — on Linux, a start that never stays responsive goes back to Auto rendering
+and turns the window effect off at the next start; the window opens opaque while compositing is off; and
+<code>ARKENDA_SAFE_MODE=1</code> starts once with Auto rendering, an opaque window and the system title bar.</li>
+<li><strong>Front matter stays out of the preview</strong> — a note&#39;s front matter is no longer shown as a line and a heading in
+the preview or in an exported web page; task checkboxes still toggle their own line.</li>
+<li>🖥️ <strong>Staying awake for work already running</strong> — on Linux, a sync or an export already under way when Arkenda
+finished starting now keeps the machine awake too, not only work started afterwards.</li>
+</ul>
+<hr>
+<h2 id="051---2026-11-18">[0.5.1] - 2026-11-18</h2>
+<p>Arkenda now works with the rest of your desktop: links and Markdown files open in it, notes are a search away in
+KRunner, the taskbar and sleep follow what the app is doing, deleted notes go to the system&#39;s trash, and video posters
+come from the system first. Plus one Attach entry for any file, versioned documentation, and tools for plugin authors.</p>
+<h3 id="-new-2">✨ New</h3>
+<ul>
+<li>🖥️ <strong>One Arkenda at a time</strong> — starting Arkenda again brings the open window forward instead of opening a second
+copy.</li>
+<li><strong>Note links</strong> — an <code>arkenda://note/&lt;id&gt;</code> link (the address MCP clients get for a note) opens that note from another
+app or the browser. The <code>.deb</code>, <code>.rpm</code>, Windows installers and Microsoft Store package register the link; the
+<code>.AppImage</code> registers it the first time it starts; 📱 on Android the link opens the note too.</li>
+<li>🖥️ <strong>Open Markdown files with Arkenda</strong> — double-click a <code>.md</code> file or use Open with: a file inside the open folder
+vault opens as its note, any other is edited in place (it stays where it is, outside the vault; edits save after a
+short pause, and if another app changed it meanwhile, Arkenda asks whether to reload theirs or keep yours).</li>
+<li>🖥️ <strong>New note and Quick capture from the launcher</strong> — right-click Arkenda in the Linux launcher or taskbar, or run
+<code>arkenda --new-note</code> / <code>arkenda --quick-capture</code>.</li>
+<li>🖥️ <strong>Show in folder</strong> — a note&#39;s menu opens your file manager at the note&#39;s file (folder vaults).</li>
+<li>🖥️ <strong>Deleted notes go to the system&#39;s trash</strong> — a note deleted forever from a folder vault moves its file to the
+trash of Linux or Windows, so it can still be restored there.</li>
+<li>🖥️ <strong>System notifications on Linux</strong> — the 🧩 Pomodoro timer&#39;s notifications show as your desktop&#39;s own, with an
+Open action that brings Arkenda forward.</li>
+<li>🖥️ <strong>Taskbar progress and due count</strong> — an import, export or sync shows its progress on Arkenda&#39;s taskbar icon (KDE
+Plasma and other launchers that read it, and Windows), and the icon shows how many tasks are due.</li>
+<li>🖥️ <strong>The computer stays awake for long work</strong> — while Arkenda records, imports, exports or syncs a lot, Linux does
+not suspend; it may sleep again as soon as the work ends.</li>
+<li>🖥️ <strong>Sync knows your network and battery on Linux</strong> — a metered connection, a low battery or power saver lets the
+media policy wait for a better moment, as on Android.</li>
+<li>🖥️🧪 <strong>Notes in KRunner</strong> — on KDE Plasma, find your notes by title from the search (Alt+Space) and open them, or
+start a new note there (Settings ▸ Experimental ▸ Notes in KRunner).</li>
+<li><strong>Video posters and lengths from the system</strong> — a video&#39;s poster, duration and size come from what Linux, Windows
+and 📱 Android already know (the thumbnail cache, the shell, the media retriever) before Arkenda decodes the file
+itself, so long videos show their poster sooner.</li>
+<li><strong>Attach a file…</strong> — one entry in the editor and on the whiteboard takes any file: a picture, audio, video or any
+other file, recognised from its contents.</li>
+<li><strong>Versioned documentation</strong> — the user guides and the plugin guide now have one folder per version in the public
+repo (<code>wiki/</code>), readable in Arkodex; the <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/README.md">guides of this version</a>.</li>
+<li><strong>Plugin author tools</strong> — every release now carries <code>arkenda-plugin-check.mjs</code> (checks a plugin package with
+Node.js 22) and <code>arkenda-plugin-starter.zip</code> (a template to start from).</li>
+</ul>
+<h3 id="-fixed-2">🐛 Fixed</h3>
+<ul>
+<li>🖥️ On Linux, sync frames and plugin signatures of 65,473 to 65,535 bytes could fail to verify or close the window
+(a WebKitGTK limit); they are now checked another way.</li>
+</ul>
+<hr>
+<h2 id="050---2026-11-17">[0.5.0] - 2026-11-17</h2>
+<p>Dictation that stays on your device, a website with a playground to try Arkenda in the browser, motion you can
+tune or turn off, a sharper Linux app (Wayland quick capture, an AUR package, native contrast and motion), logs you
+can share, a fuller whiteboard, and a public guide for plugin authors.</p>
+<p align="center">
+  <img src="../files/wiki/0.5.0/content/images/whiteboard.png" alt="Arkenda 0.5.0: a whiteboard with the board's title, undo and redo at the top left, the floating tool dock at the bottom, and a selected rectangle with its property bar open on corners and shadow" width="900">
+</p><h3 id="-new-3">✨ New</h3>
+<ul>
+<li><p>🖥️🧪 <strong>Quick capture from any app on Wayland</strong> — on KDE Plasma, GNOME and other Wayland desktops whose portal offers
+global shortcuts, quick capture&#39;s key now works whatever app has the focus: the desktop asks you to confirm the key
+in its own dialog the first time, and Settings ▸ Keyboard shows the key it bound (it may differ from yours).
+Desktops without that portal keep the X11 key, which works only while an X11 app has the focus, and Settings says so.</p>
+</li>
+<li><p>🖥️ <strong>Arch Linux package</strong> — install Arkenda on Arch and its derivatives from the AUR (<code>yay -S arkenda-bin</code>). It
+uses your system&#39;s WebKitGTK, video codecs and GTK theme instead of the AppImage&#39;s own copies, and pacman keeps it
+up to date (Settings ▸ About says so instead of offering an in-app update).</p>
+</li>
+<li><p>🖥️ <strong>Linux rendering fallback</strong> — for blank or flickering windows on some GPUs: Settings ▸ Experimental ▸ Linux
+rendering fallback starts Arkenda without DMA-BUF or without compositing, after a restart. On NVIDIA systems Arkenda
+now adds <code>__NV_DISABLE_EXPLICIT_SYNC=1</code> at start; a variable you set yourself always wins. Programs Arkenda starts
+(the terminal, git, your browser and players) keep your own environment. If a start never reaches the window, the
+next one goes back to Auto and says so; <code>ARKENDA_RENDERING=auto</code> forces Auto for one launch.</p>
+</li>
+<li><p><strong>License</strong> — Arkenda&#39;s terms are now written down in <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">LICENSE</a>: free to use on any number of devices,
+personal or commercial; share the official, unmodified release files; no selling or modified copies. The Linux
+packages carry it too.</p>
+</li>
+<li><p><strong>Motion setting</strong> — Settings ▸ Appearance ▸ Motion: System (full motion, or none when your system asks to reduce
+motion; it follows a change at once), Full, Subtle or Off, on this device only. The app&#39;s animations follow
+it.</p>
+<p align="center"><img src="../files/wiki/0.5.0/content/images/motion-setting-dark.png" alt="Settings ▸ Appearance in the dark theme: the Motion card with System, Full, Subtle and Off" width="820"></p></li>
+<li><p><strong>Small feedback</strong> — buttons give a little when pressed, switches slide, checkboxes and radios dip while pressed,
+and button and menu highlights fade in; all of it follows the Motion setting (none at Off), and keyboard focus
+still shows at once. Checkboxes, sliders and progress bars use the accent colour everywhere, and the settings pages
+use the app&#39;s standard buttons.</p>
+</li>
+<li><p>🖥️ <strong>System contrast and reduced motion on Linux</strong> — the desktop app now reads high contrast and reduce motion from
+your desktop&#39;s settings (GNOME, KDE and others through the settings portal), even where the webview misses them, and
+follows a change at once: high contrast strengthens borders and muted text, and the System motion level turns
+animations off. In every app, high contrast now also applies in the dark theme.</p>
+</li>
+<li><p><strong>Logs you can share</strong> — Settings ▸ About ▸ Logs keeps the warnings and errors of this device (the app, its
+workers and the desktop and Android shells), at most about 1 MB, redacted when written: no note text, titles, file
+paths or keys, and nothing is ever sent. Filter by level and area, search, Copy, Save as file (a <code>.txt</code> with the
+system information on top) or Clear. Detailed logging adds info-level events until Arkenda restarts. Report a
+problem says how to attach the saved file. On Android, Share hands the same file to an app you pick (mail, chat, a
+drive) through the system&#39;s share sheet.</p>
+<p align="center"><img src="../files/wiki/0.5.0/content/images/logs.png" alt="Settings ▸ About ▸ Logs: Detailed logging on, Copy, Save as file, Refresh and Clear, filters by level and area, and the newest entries with their time, level and area" width="820"></p>
+</li>
+<li><p>📱 <strong>Dictation</strong> — the microphone button in the editor&#39;s toolbar (or Dictate in the command palette) types what
+you say at the cursor: the words heard so far show as you speak, and each finished phrase is one undo step. Press
+it again or Escape to stop. It uses only a recognizer that runs on your device, so no audio ever leaves it: on
+Android 12 and later (the system&#39;s on-device recognizer; a missing language model can be downloaded first), and in
+Chrome on a computer that has one. Where there is none (Linux, Firefox, Windows for now) the button does not show;
+on Windows, Win+H still types into the editor.</p>
+</li>
+<li><p><strong>Website and playground</strong> — Arkenda has a website at <a href="https://fsegurai.github.io/arkenda-release/">https://fsegurai.github.io/arkenda-release/</a> (English and
+Spanish): what it does, downloads for your system from the latest release, the user guides, the plugin guide, the
+changelog and the privacy policy. Its <strong>playground</strong> runs the web app with a sample vault in your browser, kept apart
+from any vault of yours, with nothing sent anywhere (sync, the marketplace, link previews and weather say &quot;App
+only&quot;); Reset sample and Export as Markdown are in its banner.</p>
+<table>
+  <tr>
+    <td width="50%"><img src="../files/wiki/0.5.0/content/images/website.png" alt="The website's home page: Download for Linux, Try it in your browser, and a picture of the app"></td>
+    <td width="50%"><img src="../files/wiki/0.5.0/content/images/playground.png" alt="The playground: the sample vault with its banner (Reset sample, Export as Markdown, Get the app) and the first step of the tour"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>The website, in English and Spanish</sub></td>
+    <td align="center"><sub>The playground, with a sample vault and a short tour</sub></td>
+  </tr>
+</table></li>
+<li><p><strong>Plugin guide for authors</strong> — the guide for writing plugins is public, with new pages on what a plugin must have,
+its limits, what to consider (privacy, performance, accessibility, phones, sync) and how submitting works. Publishing
+plugins to other users is not open yet; the new &quot;Plugin submission&quot; form registers a plugin and asks for an early
+look.</p>
+</li>
+<li><p>🧪 <strong>More Markdown blocks</strong> — new experiments in Settings ▸ Experimental, off until you turn them on: <strong>accordions</strong>,
+<strong>kanban blocks</strong> (shown as a board, read only), <strong>slides</strong> (a presentation block with an overview and full screen),
+<strong>comments</strong> (review comments with replies, as a block or inline), <strong>lettered and Roman lists</strong>, and
+<strong>inserted, superscript and subscript text</strong> (++ins++, x^2^, H<del>2</del>O).</p>
+<p align="center"><img src="../files/wiki/0.5.0/content/images/markdown-blocks.png" alt="A note's preview with an open and a closed accordion, a kanban block with To do, In progress and Done, a lettered list and a review comment" width="820"></p></li>
+</ul>
+<h3 id="-changes-2">🔧 Changes</h3>
+<ul>
+<li><p>🧪 <strong>Whiteboard: floating tools</strong> — the bar above the board gives way to chrome that floats over it: a tool dock at
+the bottom (shapes and insert in flyouts; the dock shows the last shape you picked, on this device), the board&#39;s
+title with undo and redo at the top left, export at the top right, and zoom at the bottom right. Every tool keeps its
+key, shown in its button&#39;s corner, and <strong>?</strong> lists every key of the board. 📱 On a phone the dock scrolls sideways, the selection&#39;s style opens as a sheet from
+the bottom, the <strong>?</strong> button sits at the top right, and you zoom by pinching.</p>
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="../files/wiki/0.5.0/content/images/phone-whiteboard.png" alt="A whiteboard on a phone: the title and undo at the top left, export and ? at the top right, and the tool dock at the bottom" width="240"></td>
+    <td width="50%" align="center"><img src="../files/wiki/0.5.0/content/images/phone-whiteboard-sheet.png" alt="A whiteboard on a phone: a selected sticky note with its style in a sheet from the bottom, open on corners and shadow" width="240"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>The tool dock on a phone</sub></td>
+    <td align="center"><sub>The selection's style as a sheet</sub></td>
+  </tr>
+</table></li>
+<li><p>🧪 <strong>Whiteboard: property bar</strong> — the selection&#39;s style opens in a bar above it (a sheet from the bottom on a 📱
+phone) instead of the side panel: fill and stroke from the palette or any custom colour, stroke width and <strong>dash
+style</strong> (solid, dashed, dotted), opacity, and for text the <strong>font</strong> (app font, serif, monospace, handwritten, or a
+font installed on the device), <strong>size</strong> (S, M, L, XL or any size in px), <strong>bold, italic, underline,
+strikethrough</strong>, <strong>colour</strong>, <strong>outline</strong> (colour and width), <strong>alignment</strong> (left, centre, right, justify; top,
+middle, bottom) and <strong>text opacity</strong>. <strong>Lock</strong> (Ctrl+Shift+L) keeps elements from being moved, resized, restyled or
+deleted until unlocked. Boards stay readable by 0.3.0 and 0.4.0, which keep the new styles as they are.</p>
+</li>
+<li><p>🧪 <strong>Whiteboard: shape options</strong> — the property bar&#39;s shape section <strong>changes a shape</strong> into another (rectangle,
+ellipse, diamond) keeping its text, style and place; sets the <strong>corners</strong> of a rectangle, diamond, sticky note or
+frame: sharp, round with a radius, cut, or <strong>each corner on its own</strong>; and adds a <strong>shadow</strong> (soft or hard) to a
+shape, sticky note or frame. The SVG and PNG exports draw them. 0.3.0 and 0.4.0 keep these styles as they are and
+draw a rectangle&#39;s radius (cut corners show round there). A changed shape keeps its corners as they looked, its
+connectors, its frame and its group.</p>
+</li>
+<li><p>🧪 <strong>Whiteboard: editing</strong> — <strong>duplicate</strong> (Ctrl+D, or Alt-drag; connectors between the copies stay connected),
+<strong>align and distribute</strong> in the property bar once two or more are selected (a group moves as one), <strong>arrange</strong>
+(bring to front, bring forward, send backward, send to back) in the property bar and the right-click menu, <strong>copy
+and paste style</strong> (Ctrl+Alt+C and Ctrl+Alt+V), and <strong>right-click menus</strong> for elements and for the board. A
+<strong>grid</strong> (dots, lines or off: G or the top-right button) follows pan and zoom, and moves and resizes can <strong>snap to
+it</strong> (from the board&#39;s menu; hold Ctrl or ⌘ to move freely); it is kept per device and never exported. The
+<strong>lasso</strong> (Q, in the select tool&#39;s flyout) selects what you draw around.</p>
+</li>
+<li><p>🧪 <strong>Whiteboard: eraser</strong> — the <strong>eraser</strong> (E, in the pens flyout beside the pen) erases what you drag over: the part
+of a pen line it crosses (a line crossed in the middle becomes two; hold Shift to erase the whole line) and whole
+shapes, texts, stickies and connectors. Locked elements stay, a drag is one undo step, and what will go is dimmed
+while you drag. 📱 Works with a finger too. Boards stay readable by 0.3.0 and 0.4.0: the two halves of a line are two
+ordinary pen lines.</p>
+</li>
+<li><p><strong>Motion: menus, dialogs and moving between views</strong> — menus, dialogs, the command palette, toasts and sheets now
+fade and scale in and out, a new view fades in and rises a little, a tab widens as it opens and narrows as it
+closes, and the sidebar slides when you collapse or expand it. All of it follows Settings ▸ Appearance ▸ Motion:
+shorter at Subtle, and none at Off (or when your system asks to reduce motion with Motion on System).</p>
+</li>
+<li><p><strong>Markdown rendering</strong> — the preview&#39;s Markdown extensions moved to their new version: alerts take their titles in
+the app&#39;s language, and the table of contents and ==highlights== look as before. Exported pages may need their
+stored CSS updated for the renamed task-box and table-of-contents classes.</p>
+</li>
+<li><p><strong>Plugin checks</strong> — every plugin input (manifest, settings, package, sandbox messages) is now checked by one set of
+rules, and the install dialog names each problem with its message (<code>path: message [code]</code>) instead of a code only.
+The manifest schema in the plugin guide is generated from the same rules.</p>
+</li>
+</ul>
+<hr>
+<h2 id="041---2026-11-12">[0.4.1] - 2026-11-12</h2>
+<p>Roomier, tidier pages on phones, pasting that works again in the Linux app, videos that play in the Linux
+AppImage, and a trash that really deletes on phones.</p>
+<table>
+  <tr>
+    <td width="33%" align="center"><img src="../files/wiki/0.4.1/content/images/phone-settings.png" alt="Settings on a phone: labels above each card, the tabs in one row" width="240"></td>
+    <td width="33%" align="center"><img src="../files/wiki/0.4.1/content/images/phone-media.png" alt="The media library on a phone: filters in one row, a two-column grid" width="240"></td>
+    <td width="33%" align="center"><img src="../files/wiki/0.4.1/content/images/phone-trash.png" alt="The trash on a phone: two items selected, Restore and Delete forever at the bottom" width="240"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Settings</sub></td>
+    <td align="center"><sub>Media library</sub></td>
+    <td align="center"><sub>Trash</sub></td>
+  </tr>
+</table><h3 id="-changes-3">🔧 Changes</h3>
+<ul>
+<li>📱 <strong>Phone pages</strong> — Settings, the media library, the trash, More, Today, Inbox, Todos, Calendar, Dashboard,
+Board, Whiteboards and Vaults share one layout on phones: the same margins, the title with at most one button
+beside it, tabs and filters in one row you swipe sideways, and each card&#39;s title above the card. Computers and
+tablets look as before.</li>
+<li>📱 <strong>Trash</strong> — <strong>Empty trash</strong> is in the <strong>⋯</strong> menu at the top; with items selected, <strong>Restore</strong> and
+<strong>Delete forever</strong> stay at the bottom of the screen.</li>
+<li>📱 <strong>Settings</strong> — <strong>Reset this page</strong> is at the end of the page.</li>
+<li>📱 <strong>Inbox</strong> opens as its own page on phones instead of the note list.</li>
+</ul>
+<h3 id="-fixes">🐛 Fixes</h3>
+<ul>
+<li>🖥️ <strong>Paste on Linux</strong> — the right-click menu&#39;s <strong>Paste</strong>, and pasting a screenshot with Ctrl+V, work again in the
+Linux app (&quot;The app is not allowed to read the clipboard&quot; is gone).</li>
+<li>🖥️ <strong>Videos in the Linux AppImage</strong> — adding a large video no longer freezes the AppImage or turns its window
+black, and YouTube cards play; the AppImage now carries the media plugins it needs on every distribution.</li>
+<li>📱 <strong>Delete forever on phones</strong> — <strong>Empty trash</strong> and <strong>Delete forever</strong> no longer bring deleted files back into
+the media library. On a phone or in a browser, a file other vaults on the device may share stays stored, but it no
+longer shows in the library unless a note uses it again.</li>
+</ul>
+<hr>
+<h2 id="040---2026-11-11"><a href="https://github.com/fsegurai/arkenda-release/releases/tag/v0.4.0">0.4.0</a> - 2026-11-11</h2>
+<p>A redesigned Settings, an Inbox that files your captures, a richer right-click menu with spelling suggestions,
+a cleaner Markdown map, Arkenda in the Microsoft Store, and phones that save battery when Arkenda is in the
+background.</p>
+<p align="center">
+  <img src="../files/wiki/0.4.0/content/images/editor.png" alt="Arkenda 0.4.0: the sidebar with the Inbox, the note list, tabs, the editor and the Markdown map" width="900">
+</p><h3 id="-new-4">✨ New</h3>
+<ul>
+<li><p><strong>Inbox</strong> — one Inbox note per vault, with its own page to file what you capture: move a line to a note, turn it
+into a new note, or mark it done. Images, videos and files show what they are, with their name and a thumbnail.
+Choose the Inbox note and what filing does in <strong>Settings ▸ Notes &amp; capture ▸ Capture</strong>.</p>
+<p align="center"><img src="../files/wiki/0.4.0/content/images/inbox.png" alt="The Inbox page: each captured line with Move to note, New note and Done" width="820"></p></li>
+<li><p><strong>Redesigned Settings</strong> — every option grouped into nine categories, with the less common ones folded under
+<strong>Advanced</strong>, one search that also finds plugins and experiments, an icon rail on tablets and category screens
+on phones.</p>
+</li>
+<li><p><strong>Plugins and Experimental as grids</strong> — filter by family or area, search, show only what is on, and open a
+plugin&#39;s options in a sheet.</p>
+<table>
+  <tr>
+    <td width="62%"><img src="../files/wiki/0.4.0/content/images/settings.png" alt="Settings on the desktop: the categories, one search, and the Appearance page"></td>
+    <td width="38%" align="center"><img src="../files/wiki/0.4.0/content/images/phone-settings.png" alt="Settings on a phone: one screen per category" width="260"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>The categories and one search on the desktop</sub></td>
+    <td align="center"><sub>One screen per category on phones</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="../files/wiki/0.4.0/content/images/plugins.png" alt="Settings ▸ Plugins as a grid with families, search and an On only switch"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub>Plugins as a grid: families, search and On only</sub></td>
+  </tr>
+</table></li>
+<li><p><strong>Media library preview</strong> — each file previews by its kind: images whole, video and audio that play in place
+(audio with its waveform), a PDF&#39;s first page and page count, a text file&#39;s first lines.</p>
+</li>
+<li><p>🧪 <strong>Right-click menu</strong> — back and forward, reload (it saves your edits first), zoom, settings, and in the editor
+<strong>Check spelling</strong>; 🖥️ on Linux and Windows the misspelled word&#39;s suggestions appear at the top of the menu. On by
+default; turn it off in <strong>Settings ▸ Experimental</strong>.</p>
+<table>
+  <tr>
+    <td width="50%"><img src="../files/wiki/0.4.0/content/images/context-menu.png" alt="The editor's right-click menu"></td>
+    <td width="50%"><img src="../files/wiki/0.4.0/content/images/command-palette-dark.png" alt="The command palette in the dark theme"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>The editor's right-click menu</sub></td>
+    <td align="center"><sub>Ctrl+P finds notes, commands and tags</sub></td>
+  </tr>
+</table></li>
+<li><p><strong>Ctrl+Tab order</strong> — in <strong>Settings ▸ Editor ▸ Tabs</strong>, keep the strip order (Linear) or switch to the most recent
+tabs (Recent): hold Ctrl and press Tab to walk back, release to land.</p>
+</li>
+<li><p><strong>Keys</strong> — Alt+← / Alt+→ go back and forward, Ctrl+R (⌘R) reloads after saving.</p>
+</li>
+<li><p>🖥️ <strong>Microsoft Store</strong> — Arkenda can be installed from the Microsoft Store, signed by Microsoft and updated by
+the Store. The direct installers stay available as before.</p>
+</li>
+<li><p>📱 <strong>Save battery</strong> — when Arkenda goes to the background on a phone, sync pauses and catches up as soon as you
+return. Turn it off in <strong>Settings ▸ Sync &amp; devices ▸ Connection ▸ Battery</strong> to keep syncing in the background.</p>
+</li>
+</ul>
+<h3 id="-changes-4">🔧 Changes</h3>
+<ul>
+<li><strong>Markdown map</strong> — shows your note&#39;s text from far away, one stroke per word, instead of a small blurry render;
+the heading under the pointer shows as a tip.</li>
+<li><strong>Glass theme</strong> — picking Glass turns it on in one step; choose <strong>Subtle</strong> or <strong>Strong</strong> (today&#39;s look), and find
+Reduce transparency and the window blur together under <strong>Transparency</strong>.</li>
+<li>🖥️ <strong>Window effect</strong> — the <strong>Translucent</strong> mode was removed (a see-through window looked bad on Linux and
+Windows); <strong>Blur</strong> stays as it was. A device that used Translucent now opens with the effect off.</li>
+<li>📱 <strong>Phone settings</strong> — phones no longer show settings that don&#39;t apply to them (toolbar, tabs, reading width,
+layout presets, panels and widgets).</li>
+<li><strong>Inline code</strong> stands out from the text, in the editor and the preview.</li>
+<li><strong>Video cards in lists</strong> — a YouTube or X link alone in a list item now shows as a card too.</li>
+<li><strong>Sync messages</strong> — clearer reasons when a device can&#39;t be reached, and which backups each device has.</li>
+<li>🖥️ <strong>Windows installers</strong> show Arkenda&#39;s icon and branding.</li>
+</ul>
+<h3 id="-fixes-1">🐛 Fixes</h3>
+<ul>
+<li>🖥️ <strong>YouTube cards on desktop</strong> — videos play instead of showing &quot;Error 153&quot;.</li>
+<li><strong>Pasting screenshots</strong> — images copied from a screenshot tool paste into the editor.</li>
+<li><strong>Pinned notes</strong> — pinning from the editor always shows in the note list (folder vaults).</li>
+<li>🖥️ <strong>Title bar</strong> — the app no longer slides up behind Arkenda&#39;s title bar.</li>
+<li>🖥️ <strong>Middle-click on a tab</strong> (Linux) — closes the tab without pasting into the note.</li>
+<li><strong>Reduce transparency</strong> shows only where it applies.</li>
+<li>📱 <strong>Phone screens</strong> — the image viewer and annotator clear the status bar, and links open in your browser.</li>
+<li><strong>Search after a hiccup</strong> — if search&#39;s background helper restarts and your notes can&#39;t be read right away,
+search keeps retrying in the background and catches up without waiting for you to edit a note.</li>
+</ul>
+<h3 id="-performance">⚡ Performance</h3>
+<ul>
+<li><strong>Less memory in large vaults</strong> — each note&#39;s searchable text is kept once instead of twice (about 20% less
+memory with 10,000 notes), and the editor remembers the cursor and scroll position of up to 200 notes per pane.</li>
+<li>🖥️ <strong>Faster desktop start</strong> — less code loads before the window appears.</li>
+</ul>
+<h3 id="-documentation">📝 Documentation</h3>
+<ul>
+<li>A <a href="privacy.html">privacy policy</a> and issue forms for bugs, features, questions and other feedback.</li>
+<li>The <a href="index.html">README</a> shows the 0.4.0 screens and features: the Inbox, tabs, the Glass theme, the new Settings
+paths and in-app updates.</li>
+</ul>
+<hr>
+<h2 id="031---2026-11-09"><a href="https://github.com/fsegurai/arkenda-release/releases/tag/v0.3.1">0.3.1</a> - 2026-11-09</h2>
+<p>Syncing media to the Linux desktop app works again, and large notes and files sync reliably on every device.</p>
+<h3 id="-fixes-2">🐛 Fixes</h3>
+<ul>
+<li>🖥️ <strong>Linux app froze and went blank while syncing media</strong> — the Linux desktop app no longer stops responding,
+goes blank and needs a force quit when photos, videos or other large files sync from a phone or another device.
+Sync now sends them in pieces small enough for the Linux app to sign safely.</li>
+<li><strong>Large notes in the S3 mirror</strong> — very large notes and big changes are now split into smaller pieces when they
+go to the S3 mirror, so they upload from every device, the Linux app included.</li>
+<li><strong>Plugin signatures</strong> — the plugin catalog and plugin releases with large signed files are verified correctly on
+the Linux app.</li>
+<li>🖥️ <strong>Slow sync after a connection hiccup</strong> — if the desktop app&#39;s connection between its window and the system
+drops to its slow fallback, the app now notices and offers to restart, which brings full speed back.</li>
+</ul>
+<h3 id="-performance-1">⚡ Performance</h3>
+<ul>
+<li><strong>Receiving media</strong> — each piece of a received photo, video or file is checked once instead of twice, so large
+files arrive faster and use less memory.</li>
+</ul>
+<hr>
+<h2 id="030---2026-11-09"><a href="https://github.com/fsegurai/arkenda-release/releases/tag/v0.3.0">0.3.0</a> - 2026-11-09</h2>
+<p>Note properties you can see and edit, a note list that fits any width, a richer History, Linux
+that matches Windows (native blur, the system accent, the desktop&#39;s window buttons), more ways to make the app
+yours, X and YouTube cards, a much fuller MCP for AI agents, and in-app updates on Android.</p>
+<h3 id="-new-5">✨ New</h3>
+<ul>
+<li><strong>Note properties</strong> — the <strong>Properties</strong> panel shows a note&#39;s properties and lets you add, edit, rename and
+remove them (text, number, date, checkbox, list, tags). A folder vault keeps them in the note&#39;s frontmatter, changed
+without touching anything else in the file; a browser vault keeps each property apart, so edits made on two
+devices at once both survive.</li>
+<li><strong>A note list that fits</strong> — no more sideways scrolling: long titles, tags and notebooks fit any width, the time
+sits on the title line, a coloured edge shows the status, two tags show with &quot;+N&quot;, the notebook path shows in
+mixed views, pinned notes get their own <strong>Pinned</strong> section, and the desktop shows quick actions on hover.</li>
+<li><strong>Status bar note strip</strong> — the status bar shows the open note&#39;s save and sync state, status, notebook,
+backlinks, the caret position and word count, each one clickable.</li>
+<li><strong>History</strong> — versions are grouped by day with how much each one changed; compare in the panel, at full width
+or in a tab of its own (<strong>Open in a tab</strong>); restore only the lines you pick; <strong>Undo</strong> after any restore; name a
+version (&quot;Before the rewrite&quot;) and filter by source or by name. The text a restore replaces is always kept as a
+version first.</li>
+<li>🖥️ <strong>Native blur on Linux</strong> — with <strong>Window effect ▸ Blur</strong>, KDE Plasma (Wayland and X11) blurs what is behind
+the window; desktops that blur by their own rules, or offer apps no blur (GNOME), say so instead.</li>
+<li><strong>System accent colour</strong> — <strong>Appearance ▸ Accent ▸ System</strong> follows the accent colour of Windows, of your Linux
+desktop, or of the browser where it offers one, and changes with it. On Linux the system&#39;s light or dark choice
+is also read from the desktop.</li>
+<li>🖥️ <strong>Window buttons where your desktop puts them</strong> — with Arkenda&#39;s own title bar on Linux, the minimize,
+maximize and close buttons follow your desktop&#39;s layout (left or right, and which ones).</li>
+<li><strong>Notebook colours and icons</strong> — give a notebook a colour and an emoji from its menu (<strong>Colour and icon…</strong>);
+they show in the sidebar, the note list, the status bar and the tabs. A folder vault keeps them in
+<code>.arkenda/notebooks.json</code>, so they travel with the vault.</li>
+<li>🖥️ <strong>Interface zoom</strong> — make the whole window larger or smaller (80–150 %) in <strong>Settings ▸ Appearance</strong> or with
+Ctrl/Cmd + and −, Ctrl/Cmd 0 to reset; kept per device. Also the fix for Linux scaling that draws the app too
+small or too large.</li>
+<li><strong>Focus writing</strong> — in zen mode, keep the line you type in the middle of the editor and dim the other
+paragraphs (two switches in <strong>Settings ▸ Editor</strong>).</li>
+<li><strong>CSS snippets</strong> — your own small style sheets in <strong>Settings ▸ Appearance ▸ CSS snippets</strong>, kept on this device,
+each turned on or off. If the app fails to start with snippets on, the next start runs without them and tells
+you which; Ctrl/Cmd+Alt+Shift+S turns them all off for the rest of a run. Stable hooks:
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/css-snippets.md">docs/css-snippets.md</a>.</li>
+<li><strong>Glass theme</strong> — a built-in theme pack, light and dark: see-through side panels and bars over an aurora in
+your accent colour (or your desktop, with the window effect&#39;s blur), text kept readable.</li>
+<li><strong>Reduce transparency</strong> — a switch in <strong>Settings ▸ Appearance</strong> makes Glass, the window effect and frosted menus
+solid on this device; on Android, battery saver does the same for Glass.</li>
+<li>🧪 <strong>X and YouTube cards</strong> — a YouTube video or a post on X linked alone on its line shows as a card in the
+preview; nothing from YouTube or X loads until you click it, then it plays in a sandboxed frame from
+<code>youtube-nocookie.com</code> or X&#39;s embed page. The desktop and Android apps show the thumbnail, title and author; on
+the web, YouTube cards do so only after you turn on <strong>Show previews on the web</strong>. The note keeps the plain link.</li>
+<li>📱 <strong>Update from About on Android</strong> — <strong>Settings ▸ About</strong> downloads a new version, checks its signature and that
+it is signed like the installed app, and opens Android&#39;s installer (allow <strong>Install unknown apps</strong> for Arkenda
+once). Versions before 0.3.0 still link to the release page: the first in-app update is the one after 0.3.0.</li>
+<li><strong>MCP for AI agents</strong> — the local MCP server can now append to a note, insert under a heading and replace text;
+set properties, tags, the pin and the status; add, check and date tasks; list notebooks, tags and the trash;
+move and restore notes; list notes and images as resources (with change notices); and offers prompts
+(summarize a note, a daily review, related notes). Every write still asks you first. Agents set up for 0.2.x
+keep working.</li>
+</ul>
+<h3 id="-changes-5">🔧 Changes</h3>
+<ul>
+<li><strong>Linux downloads</strong> — the <code>.deb</code> and <code>.rpm</code> are now the recommended Linux downloads: about as small as the
+Windows installer (the <code>.AppImage</code> carries its own WebKitGTK and is several times larger). All three update
+themselves.</li>
+</ul>
+<h3 id="-fixes-3">🐛 Fixes</h3>
+<ul>
+<li><strong>Note properties showed nothing</strong> — properties are now read and shown for every note, and what you add is
+kept.</li>
+<li><strong>MCP server</strong> — the launcher&#39;s arguments, the token file&#39;s permissions, idle HTTP sessions (closed after 90 s)
+and an empty search are handled; a regenerated token reaches the running server.</li>
+</ul>
+<hr>
+<h2 id="020---2026-11-07"><a href="https://github.com/fsegurai/arkenda-release/releases/tag/v0.2.0">0.2.0</a> - 2026-11-07</h2>
+<p>In-app updates on the desktop, PDF export on Android, <code>.mkv</code> videos, a faster start for large vaults, internal
+links that open, menus that look alike everywhere, and an experimental browser window. It includes the betas
+<code>0.2.0-beta.0</code> (2026-11-06) and <code>0.2.0-beta.1</code>.</p>
+<h3 id="-new-6">✨ New</h3>
+<ul>
+<li>🖥️ <strong>Update from About</strong> — <strong>Settings ▸ About</strong> downloads a new version, checks its signature and installs it
+with <strong>Restart now</strong>, once every window has saved its edits, on Windows and Linux. Versions from 0.1.x still show the new version with a link to the release page: the first
+in-app update is the one after 0.2.0 is installed.</li>
+<li>📱 <strong>Export a note to PDF on Android</strong> — <strong>Export ▸ PDF</strong> opens Android&#39;s print dialog, where you can save the
+note as a PDF or send it to a printer.</li>
+<li><strong><code>.mkv</code> videos</strong> — Matroska videos are stored and play as videos instead of becoming a <code>.bin</code> file. A video
+the app cannot play says it can&#39;t be streamed here and, in a desktop folder vault, offers <strong>Open in system
+player</strong>. Devices still on 0.1.x show an <code>.mkv</code> as a plain file until they update.</li>
+<li><strong>Split view on smaller windows</strong> — side-by-side editing and preview is offered from 720 px of editor width
+(was 960 px), so it fits half a laptop screen.</li>
+<li><strong>Note list right away</strong> — in a browser vault (the web app and Android), the note list from your last visit is
+shown, read-only, while the vault opens, then switches to the live list.</li>
+<li>🧪 🖥️ <strong>Browser window</strong> — turn it on in <strong>Settings ▸ Experimental</strong> and choose <strong>Open web links
+in ▸ Browser window</strong>: web links open in one Arkenda window with a <strong>Page</strong> menu (Back, Forward, Reload, Open
+in system browser, Close) instead of your browser. It follows the app&#39;s light or dark theme, and a link that
+opens a pop-up (a sign-in, a payment) gets a window of its own. Its pages can&#39;t reach your notes and keep their
+cookies apart. Ctrl+click or a middle click still uses your system browser. Desktop only, off by default.</li>
+<li><strong>Toolbar settings that match the toolbar</strong> — <strong>Settings ▸ Editor ▸ Toolbar</strong> previews the toolbar as the editor
+draws it (Normal text ▾, More, Lists ▾, Callout ▾, + Insert) and has one card per part of it: choose what each
+dropdown lists, show or hide each button, and reorder the buttons that can move. Any tool can be turned off,
+including those hidden by default (headings 4–6, highlight, note link, Callout ▾).</li>
+</ul>
+<h3 id="-fixes-4">🐛 Fixes</h3>
+<ul>
+<li>🖥️ <strong>Links that did nothing on the desktop</strong> — web and mail links (Settings ▸ About, a note&#39;s links, a plugin&#39;s
+page) now open in the system&#39;s browser or mail app.</li>
+<li><strong>Internal links</strong> — Ctrl+click (Cmd+click on macOS) on a <code>[[link]]</code> in the editor opens its note, and a heading&#39;s
+copied link (<code>/notes/…#heading</code>) opens that note and heading from the preview instead of doing nothing.</li>
+<li><strong>Menus that looked different</strong> — the toolbar&#39;s callout menu shows each kind&#39;s colour and its <code>[!NOTE]</code> syntax as
+the <code>[!</code> menu does, the table row and column menus in the preview are the app&#39;s own menu, the editor&#39;s table bar
+looks like the selection bar in every editor theme, and every menu marks the highlighted item the same way.</li>
+<li><strong>Tables in the preview</strong> — a column&#39;s alignment (<code>:---:</code>, <code>---:</code>) shows again, a caption lines up with the
+cells inside the table&#39;s frame, and the add-column <strong>+</strong> has room of its own beside the table instead of sitting
+under the scrollbar or over the last column (a narrow split pane above all).</li>
+<li><strong>Toolbar settings that did nothing</strong> — the toolbar page still listed tools the toolbar no longer shows (divider,
+table of contents, camera and recorders) and offered to reorder headings and lists, which the toolbar ignored.
+Those tools are in <strong>+ Insert</strong>; the page now lists only what the toolbar shows.</li>
+<li><strong>Uploads that never finished</strong> — adding a video or a large file to a browser vault could hang until the app was
+restarted, blocking every other upload (seen on Windows). Each step now has a time limit: the upload either lands
+or says it could not be stored, and the next upload works.</li>
+<li><strong>The note list failing to load</strong> now says so, with <strong>Try again</strong>, instead of staying empty.</li>
+<li>📱 <strong>Check for updates</strong> on Android points to the release page instead of saying nothing is configured.</li>
+<li>A <strong>New notebook</strong> click while the sidebar was still drawing could be ignored; it now opens the name field.</li>
+<li><strong>Sync</strong> — a vault key sent by a device right as the connection closed is still applied, and logged when it
+cannot be.</li>
+</ul>
+<h3 id="-performance-2">⚡ Performance</h3>
+<ul>
+<li><strong>Large vaults open faster</strong> — big saved snapshots of a browser vault are split into smaller pieces, read without
+freezing the page, and the app starts reading the vault while the cached note list is shown.</li>
+<li><strong>Less work for random ids</strong> — ids for sync and the editor come from a pooled random buffer.</li>
+<li>The todo page reads note details without sorting them first.</li>
+</ul>
+<h3 id="-maintenance">🔧 Maintenance</h3>
+<ul>
+<li>🖥️ Desktop installers are signed for the in-app updater, and each release&#39;s <code>latest.json</code> lists them; it keeps the
+fields 0.1.x versions read.</li>
+<li>Betas: a version like <code>0.2.0-beta.0</code> is published as a GitHub pre-release with its own update feed.</li>
+<li>Biome 2.6 now formats and lints the stylesheets and the Markdown files.</li>
+<li>New automated tests for the cached note list, split snapshots, uploads that stop answering and the update feed.</li>
+</ul>
+<hr>
+<h2 id="011---2026-11-06"><a href="https://github.com/fsegurai/arkenda-release/releases/tag/v0.1.1">0.1.1</a> - 2026-11-06</h2>
+<p>A maintenance release: a much faster app on phones, security hardening, fixes for the editor, phones and the
+desktop builds, and a steadier release pipeline.</p>
+<h3 id="-fixes-5">🐛 Fixes</h3>
+<ul>
+<li><strong>Editor suggestions</strong> — clicking an option in a suggestions menu (<code>/</code>, <code>[[</code>, <code>[!</code>, emoji) always applies it;
+a click right after the list opened or changed was sometimes ignored.</li>
+<li>📱 <strong>The + button</strong> is on screen as soon as the app starts, before the vault finishes opening. A tap while it
+opens makes exactly one note once it is ready, however many times you tap.</li>
+<li>🖥️ <strong>Windows builds</strong> — code that only applies to Linux (the Wayland activity island, the screen-capture
+picker, the terminal&#39;s tty) is limited to it, so the desktop app builds cleanly for Windows.</li>
+<li><strong>Sync after a device is removed</strong> — a device that was offline when another device was removed now always receives
+the new vault key on its first connection back; before, it could miss it on a slow device and had to connect again.</li>
+<li>🖥️ <strong>Voice memos</strong> — when the microphone is refused or missing, quick capture always says why; starting a
+voice memo from the command palette could lose that message.</li>
+<li><strong>Release downloads</strong> — installers are published as plain files next to their <code>SHA256SUMS.txt</code>, never inside
+folders, and two files with the same name stop the release instead of overwriting each other.</li>
+</ul>
+<h3 id="-performance-3">⚡ Performance</h3>
+<ul>
+<li>📱 <strong>No more waiting on every tap</strong> — Android redrew the app&#39;s large logo icon each time you changed view, went
+back or opened a note, freezing the app for up to a few seconds each time. The app no longer declares that icon:
+switching views, going back and opening notes are now near-instant.</li>
+<li><strong>Sidebar and editor ready sooner</strong> — notebooks, tags, statuses, plugin panels, icons and the editor&#39;s
+snippets, table editing and selection bar appear right after the first screen is drawn instead of waiting for the
+device to go idle (up to 2 seconds on a busy phone).</li>
+<li><strong>Board and todos open faster</strong> — board lanes show their first 20 cards and todo groups their first 30 tasks, and
+more appear as you scroll; counts still show every item, and keyboard navigation, drag and drop and <strong>Show more</strong>
+work as before.</li>
+<li><strong>Large vaults stay responsive</strong> — note lists, the notebook tree and status counts reuse what is already read
+instead of re-reading every note after each change, and the task list is sorted once instead of on every query.</li>
+<li>📱 <strong>Smoother scrolling</strong> — touch gestures no longer make the page wait before it scrolls.</li>
+<li>📱 <strong>Big photos use far less memory</strong> — photos are decoded only as large as the copies the app makes (at most
+2560 px), so a 50-megapixel photo no longer risks running a phone out of memory.</li>
+<li>📱 <strong>Less work in the background</strong> — the media library shows thumbnails lazily and in batches, a folder vault is
+re-checked at most every 30 seconds when you come back to the app, the sync status stops updating while the app is
+hidden, and the network type is read only while sync or the cloud mirror runs.</li>
+</ul>
+<h3 id="-security">🔐 Security</h3>
+<ul>
+<li>📱 <strong>Android backups</strong> — Google cloud backups of your notes now happen only when Android encrypts them with your
+screen lock (Android 9 and later); your sync keys were already excluded.</li>
+<li>🖥️ <strong>Folder vaults</strong> — nothing in the app can write into a vault&#39;s <code>.git</code> folder, so a git hook cannot be planted
+there.</li>
+<li>🧪 <strong>Local MCP server</strong> — its HTTP endpoint refuses every request that comes from a web page, sandboxed ones
+included; desktop MCP clients are unaffected.</li>
+<li><strong>Printing a note</strong> runs in a sandboxed frame that cannot run scripts.</li>
+</ul>
+<h3 id="-maintenance-1">🔧 Maintenance</h3>
+<ul>
+<li>The app version is set in one place: <code>bun run version:set &lt;x.y.z&gt;</code> (<code>package.json</code> is the source).</li>
+<li>Angular 22.2.4 (its build tools 22.2.6), Tauri CLI 2.12.4 and other patch updates.</li>
+<li>Build and test tools updated (Biome 2.6, Playwright 1.65, Vitest 5.1), clearing every known advisory
+(<code>bun audit</code> reports none).</li>
+<li>New automated tests for the board, the todo list, the note cache, photo processing and the Android network
+readings.</li>
+<li>A failed Android build no longer blocks the desktop release; the APK is skipped with a warning.</li>
+<li>CI moved to the latest GitHub Actions, fixed the Android NDK install, and runs tests in fewer places to keep
+pipelines fast.</li>
+<li>Clearer READMEs.</li>
+</ul>
+<hr>
+<h2 id="010---2026-11-04"><a href="https://github.com/fsegurai/arkenda-release/releases/tag/v0.1.0">0.1.0</a> - 2026-11-04</h2>
+<p align="center">
+  <img src="../files/wiki/assets/arkenda-logo.svg" alt="Arkenda" width="96">
+</p><p align="center">
+  <strong>The first release of Arkenda</strong> — a local-first, private Markdown notes app.<br>
+  No account, no telemetry: your notes stay on your device as plain Markdown, and nothing reaches the network
+  unless you turn on something that needs it.
+</p><p align="center">
+  <img src="../files/wiki/0.1.0/content/images/editor.png" alt="The editor: notebooks and statuses in the sidebar, the note list, and a note with links" width="900">
+</p><h3 id="-highlights">✨ Highlights</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>📝 <strong>Markdown-first</strong></td>
+<td>Notes are portable Markdown with frontmatter, never locked in a database.</td>
+</tr>
+<tr>
+<td>📂 <strong>Your folder</strong></td>
+<td>On desktop a vault is a plain folder of <code>.md</code> files; edits made outside are picked up live.</td>
+</tr>
+<tr>
+<td>🔒 <strong>Private sync</strong></td>
+<td>Device-to-device sync, end-to-end encrypted. Relays only ever see encrypted traffic.</td>
+</tr>
+<tr>
+<td>🧩 <strong>Plugins</strong></td>
+<td>Sandboxed plugins with declared permissions: commands, panels, widgets, themes.</td>
+</tr>
+<tr>
+<td>💻📱 <strong>Everywhere</strong></td>
+<td>One app for the browser, the desktop (Linux, Windows) and phones and tablets.</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="-features">🚀 Features</h3>
+<h4 id="-notes-and-editor">✍️ Notes and editor</h4>
+<ul>
+<li><strong>A Markdown editor with a toolbar</strong> — headings, lists, links, tables, images and emoji; switch between edit and
+preview, with a minimap, find in note and &quot;Turn into&quot;.</li>
+<li><strong>One insert menu</strong> everywhere: type <code>/</code>, use the block <code>+</code> handle or the toolbar&#39;s <strong>Insert</strong>.</li>
+<li><strong>Linked notes</strong> — <code>[[</code> suggests notes to link, <code>[[Note#Heading]]</code> jumps straight to a heading, and backlinks
+show who links here. <code>[!</code> suggests callouts, shown as coloured alerts.</li>
+<li><strong>Properties</strong> — tags, status, pinned and the rest live in the note&#39;s frontmatter, explained in the
+<strong>Details</strong> panel.</li>
+<li><strong>Export a note</strong> to share it outside Arkenda.</li>
+<li><strong>Live presence</strong> — see who else is in a note, with their cursors, when a vault is shared between devices.</li>
+<li>🧪 Richer Markdown blocks: tabs, timelines, spoilers, typographic quotes, Mermaid export, maps (<code>md-map</code>), and link
+titles fetched when a link is pasted.</li>
+<li>🧪 Editor themes: a gallery of light and dark pairs.</li>
+</ul>
+<h4 id="-organise-and-find">🗂️ Organise and find</h4>
+<ul>
+<li><strong>Nested notebooks, tags and statuses</strong> — set a status from any note, with counts in the sidebar.</li>
+<li><strong>Views</strong> — Dashboard, All notes, Pinned, Unfiled and Trash, with a choice of note-list density.</li>
+<li><strong>Command palette</strong> — one search for notes, <code>&gt;</code> commands and <code>#</code> tags.</li>
+<li><strong>Outline</strong> of the open note.</li>
+<li>🧩 <strong>Vault map</strong> — your notes and their links as a 2D or 3D graph.</li>
+</ul>
+<table>
+  <tr>
+    <td width="50%"><img src="../files/wiki/0.1.0/content/images/command-palette-dark.png" alt="The command palette in the dark theme"></td>
+    <td width="50%"><img src="../files/wiki/0.1.0/content/images/kanban.png" alt="Notes grouped by status on the kanban board"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>The command palette (dark theme)</sub></td>
+    <td align="center"><sub>Kanban: notes in their status lanes</sub></td>
+  </tr>
+</table><h4 id="-plan-your-day">📅 Plan your day</h4>
+<ul>
+<li>🧪 <strong>Today</strong> — overdue and upcoming tasks in one place, with quick add.</li>
+<li>🧪 <strong>Todos and calendar</strong> — every task across your notes, by date.</li>
+<li>🧪 <strong>Kanban</strong> — notes grouped by status, with an <em>Unassigned</em> lane; move cards by dragging, with <code>Alt+arrow</code> or from
+a menu.</li>
+<li>🧪 <strong>Whiteboards</strong> — shapes, text, sticky notes, connectors, images and live note cards; drop files from your file
+manager onto the board. Each board is saved as a note.</li>
+<li>🧩 <strong>Dashboard widgets</strong> — pomodoro, insights, weather and clock.</li>
+</ul>
+<h4 id="-media-and-attachments">🖼️ Media and attachments</h4>
+<ul>
+<li><strong>Audio and video</strong> play right in the note; any other file shows as a card with <strong>Open</strong> and <strong>Save</strong>.</li>
+<li><strong>Pictures</strong> — annotate and redact, compression levels, and location data (EXIF) removed on import.</li>
+<li><strong>PDF reader</strong> — read PDFs in the app and link to a highlighted passage.</li>
+<li><strong>Media library</strong> — filter by type, sort into folders with labels, and delete safely (a trash per device, by kind).</li>
+<li><strong>Attachment folders</strong> — give a notebook a media folder: new uploads go there, and moving a note offers to move its
+media too.</li>
+<li>📱 Capture photos, audio and video from the phone or tablet.</li>
+</ul>
+<p align="center">
+  <img src="../files/wiki/0.1.0/content/images/media-library.png" alt="The media library with filters, folders and file tiles" width="820">
+</p><h4 id="-vaults-and-storage">💾 Vaults and storage</h4>
+<ul>
+<li><strong>Browser vault</strong> — stored in the browser (IndexedDB) and exported to a portable archive whenever you want.</li>
+<li>🖥️ <strong>Folder vaults</strong> — a vault is a folder: folder = notebook, file name = title. See
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/file-vault.md">the folder vault guide</a>.</li>
+<li><strong>Several vaults</strong> — a vault picker and <strong>Manage vaults</strong>; a vault that is not reachable is shown as such, never
+lost.</li>
+<li><strong>Backups</strong> — import and export run in the background, and imports are checked before anything is written.</li>
+<li><strong>Cloud mirror (S3)</strong> — a copy in your own bucket, encrypted with a recovery code when you choose, and the option to
+keep large media only there.</li>
+</ul>
+<h4 id="-sync-and-devices">🔄 Sync and devices</h4>
+<ul>
+<li><strong>End-to-end encrypted sync</strong> between your paired devices — see <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/sync.md">the sync guide</a>.</li>
+<li><strong>Pair with a code</strong>, step by step; paired devices find each other again on the local network.</li>
+<li><strong>Every way to connect, in order</strong> — the local network, across networks (desktop and Android), public relays, and
+store-and-forward through your own S3 mirror.</li>
+<li><strong>Sync &amp; devices</strong> — the status at a glance, each device&#39;s health, a connection test and <em>what syncs where</em>.</li>
+<li><strong>Large media waits for Wi-Fi</strong>, with a switch per device.</li>
+</ul>
+<table>
+  <tr>
+    <td width="50%"><img src="../files/wiki/0.1.0/content/images/sync-overview.png" alt="Sync and devices overview with paired devices"></td>
+    <td width="50%"><img src="../files/wiki/0.1.0/content/images/sync-pairing.png" alt="The pairing code dialog"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Sync &amp; devices at a glance</sub></td>
+    <td align="center"><sub>Pairing a new device with a code</sub></td>
+  </tr>
+</table><h4 id="-plugins">🧩 Plugins</h4>
+<ul>
+<li><strong>Sandboxed plugins</strong> with declared permissions: they add commands, insert items, panels, widgets, settings, themes
+and Markdown blocks — and never reach the app&#39;s pages, cookies, storage or secrets.</li>
+<li><strong>Built-in plugins</strong> (🧩 all off by default): pomodoro, insights, vault map, git history, weather and clock.</li>
+<li><strong>Write your own</strong> — <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/api/README.md">plugin documentation</a>, from getting started to permissions and
+testing.</li>
+</ul>
+<h4 id="-desktop-app">🖥️ Desktop app</h4>
+<ul>
+<li><strong>A flexible layout</strong> — collapsible panes with an icon rail, a toolbar row, a selection bar, and notes side by
+side in horizontal and vertical splits. See <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/desktop-layout.md">the desktop layout guide</a>.</li>
+<li><strong>The activity island</strong> — quick capture with a global key, screenshots, voice memos and a drop shelf. See
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/notch.md">the island guide</a>.</li>
+<li>🧩 <strong>Version history with git</strong> — the vault&#39;s history through your system&#39;s git.</li>
+<li><strong>Secrets in the OS keychain.</strong></li>
+<li><strong>Check for updates</strong> in <strong>Settings ▸ About</strong>, which asks the release page only when you click.</li>
+<li>🧪 Glass window effect (<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/window-effect-linux.md">Linux notes</a>), a system-wide notch, screen recording, an
+integrated terminal and a local MCP server.</li>
+</ul>
+<p align="center">
+  <img src="../files/wiki/0.1.0/content/images/split-panes.png" alt="Four notes open side by side in split panes" width="900">
+</p><h4 id="-phone-and-tablet">📱 Phone and tablet</h4>
+<ul>
+<li><strong>Made for touch</strong> — a bottom bar (Notes, Today, Search, More), a <strong>+</strong> button, long-press sheets, row swipes,
+pull to sync and the system back gesture.</li>
+<li><strong>Writing on a phone</strong> — a single compact header, the formatting bar above the keyboard, and details as sheets;
+new notes open ready to type.</li>
+<li><strong>Tablets</strong> — drawers in portrait, two panes with a rail in landscape. See
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/phone-and-tablet.md">the phone and tablet guide</a>.</li>
+</ul>
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="../files/wiki/0.1.0/content/images/phone-today.png" alt="Today on a phone with the bottom bar" width="300"></td>
+    <td width="50%" align="center"><img src="../files/wiki/0.1.0/content/images/phone-note.png" alt="Reading a note on a phone" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Today, with the bottom bar</sub></td>
+    <td align="center"><sub>Reading a note</sub></td>
+  </tr>
+</table><h4 id="-settings-themes-and-languages">🎨 Settings, themes and languages</h4>
+<ul>
+<li><strong>A new Settings</strong> — two columns on desktop, stacked pages on touch, with dedicated <em>Sync &amp; devices</em> and
+<em>Data &amp; storage</em> pages and a tidy <em>Experimental</em> page.</li>
+<li><strong>Themes and accents</strong> — presets such as Nord, Sepia and High contrast, and accent colours.</li>
+<li><strong>Your shortcuts</strong> — customise keyboard shortcuts and snippets. See <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/keyboard-shortcuts.md">keyboard shortcuts</a>.</li>
+<li><strong>English and Spanish</strong> (en-US, es-CR).</li>
+</ul>
+<table>
+  <tr>
+    <td width="50%"><img src="../files/wiki/0.1.0/content/images/appearance.png" alt="Appearance settings with themes and accents"></td>
+    <td width="50%"><img src="../files/wiki/0.1.0/content/images/plugins.png" alt="Plugins settings"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Appearance</sub></td>
+    <td align="center"><sub>Plugins</sub></td>
+  </tr>
+</table><h3 id="-security-1">🔐 Security</h3>
+<ul>
+<li><strong>Private by default</strong> — no account and no telemetry; a strict Content Security Policy names every host the app may
+contact, and it is checked on every build.</li>
+<li><strong>Encrypted sync</strong> — relays only pass on encrypted traffic they cannot read; a cloud mirror is encrypted too when you
+turn on its <strong>Encrypted</strong> switch (with a recovery code).</li>
+<li><strong>Every input is checked</strong> — imports, sync messages and plugin calls are validated before they touch your data.</li>
+<li><strong>Plugins in a sandbox</strong>, limited to the permissions you grant.</li>
+</ul>
+<h3 id="-performance-4">⚡ Performance</h3>
+<ul>
+<li><strong>Fast start</strong> — the startup bundle is kept under a hard budget on every build (web, desktop and mobile); features
+you have not opened load only when you need them.</li>
+<li><strong>Large vaults</strong> — measured with 10,000-note vaults; the todo list opens about twice as fast as in earlier builds.</li>
+</ul>
+<h3 id="-documentation-1">📝 Documentation</h3>
+<ul>
+<li>Guides for <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/file-vault.md">folder vaults</a>, <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/sync.md">sync</a>, <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/media.md">media</a>,
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/keyboard-shortcuts.md">keyboard shortcuts</a>, <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/desktop-layout.md">the desktop layout</a>,
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/phone-and-tablet.md">phones and tablets</a>, <a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/guides/notch.md">the activity island</a> and
+<a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/wiki/0.5.1/content/api/README.md">plugins</a>.</li>
+</ul>
+<hr>
+<h3 id="-compatibility">✅ Compatibility</h3>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Status in 0.1.0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🌐 Web</td>
+<td>✅ Modern browsers; the vault lives in the browser&#39;s storage</td>
+</tr>
+<tr>
+<td>🐧 Linux</td>
+<td>✅ <code>.deb</code>, <code>.rpm</code> and <code>.AppImage</code></td>
+</tr>
+<tr>
+<td>🪟 Windows</td>
+<td>🟡 <code>.msi</code> and setup <code>.exe</code>, built automatically; not yet tried on a Windows machine</td>
+</tr>
+<tr>
+<td>🤖 Android</td>
+<td>✅ <code>.apk</code> for arm64 (Android 7 or later), installed from the release page</td>
+</tr>
+<tr>
+<td>🍎 macOS and iOS</td>
+<td>⏸️ On hold</td>
+</tr>
+</tbody></table>
+<details>
+<summary><strong>Known limitations</strong></summary><ul>
+<li>The installers are <strong>not code-signed</strong> yet: Windows SmartScreen may warn the first time you open the app.</li>
+<li><strong>No automatic updates</strong> yet — <strong>Check for updates</strong> tells you when a new version is out and links to it.</li>
+<li>Printing a note on macOS and on Android is not available yet.</li>
+<li>Features marked 🧪 are experiments: they may change, and they stay off until you turn them on.</li>
+</ul>
+</details>
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="index.html#features">Funciones</a></li>
+      <li><a href="download.html">Descargar</a></li>
+      <li><a href="../playground/">Pruébelo</a></li>
+      <li><a href="changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="plugins/index.html">Guía de plugins</a></li>
+      <li><a href="plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

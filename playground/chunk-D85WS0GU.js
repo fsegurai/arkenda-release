@@ -1,0 +1,1 @@
+function l(e){if(![`ArrowDown`,`ArrowUp`,`Home`,`End`].includes(e.key))return;let n=[...e.currentTarget?.querySelectorAll(`[data-row]`)??[]];if(!n.length)return;let t=n.indexOf(document.activeElement),o=e.key===`Home`?0:e.key===`End`?n.length-1:Math.min(Math.max(t+(e.key===`ArrowDown`?1:-1),0),n.length-1);e.preventDefault(),n[o]?.focus()}export{l as t};

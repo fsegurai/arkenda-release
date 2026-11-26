@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var r=`arkenda:title-bar`;var t=new A(`ARKENDA_WINDOW_CHROME`,{factory:()=>null});export{t as n,r as t};

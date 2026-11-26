@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Manifest reference · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="manifest.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/manifest.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/manifest.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="manifest-reference">Manifest reference</h1>
+<p><code>arkenda-plugin.json</code> describes an extension before any of its code runs: who made it, what it is,
+what it asks for and what it adds. The app&#39;s validator (<code>parsePluginManifestV2</code>) is the authority, and it
+reads one schema, <code>PLUGIN_MANIFEST_SCHEMA</code>; <a href="../files/wiki/0.5.3/content/api/manifest.schema.json"><code>manifest.schema.json</code></a> is generated from that
+same schema (<code>scripts/plugin-schema.ts</code>), for your editor, so the two cannot disagree.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 2,
+  &quot;id&quot;: &quot;reading-time&quot;,
+  &quot;name&quot;: &quot;Reading time&quot;,
+  &quot;version&quot;: &quot;1.2.0&quot;,
+  &quot;apiVersion&quot;: 1,
+  &quot;minAppVersion&quot;: &quot;0.1.0&quot;,
+  &quot;description&quot;: &quot;Shows how long the open note takes to read.&quot;,
+  &quot;author&quot;: { &quot;name&quot;: &quot;Ada&quot;, &quot;url&quot;: &quot;https://example.dev&quot; },
+  &quot;publisher&quot;: &quot;ada-tools&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;repository&quot;: &quot;https://github.com/ada/reading-time&quot;,
+  &quot;categories&quot;: [&quot;writing&quot;, &quot;sidebar&quot;],
+  &quot;keywords&quot;: [&quot;reading&quot;, &quot;time&quot;],
+  &quot;platforms&quot;: [&quot;web&quot;, &quot;desktop&quot;],
+  &quot;permissions&quot;: [&quot;notes:read&quot;, &quot;ui:widgets&quot;],
+  &quot;contributes&quot;: {
+    &quot;dashboardWidgets&quot;: [{ &quot;id&quot;: &quot;reading-time&quot;, &quot;title&quot;: &quot;Reading time&quot; }]
+  },
+  &quot;entry&quot;: &quot;dist/main.js&quot;,
+  &quot;integrity&quot;: &quot;sha256-…&quot;
+}
+</code></pre>
+<p>Point your editor at the schema with <code>&quot;$schema&quot;</code> only in your source copy: the validator refuses
+unknown fields, <code>$schema</code> included.</p>
+<h2 id="rules-for-every-field">Rules for every field</h2>
+<ul>
+<li><strong>Unknown fields are errors</strong>, at any depth (<code>unknown-field</code>).</li>
+<li><strong>Lists are distinct:</strong> a repeated value is an error (<code>duplicate</code>).</li>
+<li>Each error has a stable <code>code</code> (<code>SCHEMA_ERROR_CODES</code>, such as <code>entry-traversal</code> or
+<code>unknown-permission</code>) and a JSON <code>path</code> (<code>$.contributes.commands[0].id</code>).</li>
+<li>A few rules the schema only describes: a hotkey&#39;s shape, a public host name, an SPDX license
+expression, <code>optionalPermissions</code> being declared in <code>permissions</code>, a default place among the
+places.</li>
+</ul>
+<h2 id="fields">Fields</h2>
+<p>Generated from the schema; the prose sections below explain the fields that need it.</p>
+<!-- generated:manifest-fields --><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="#schemaversion"><code>schemaVersion</code></a></td>
+<td>Required</td>
+<td>always <code>2</code></td>
+</tr>
+<tr>
+<td><a href="#kind"><code>kind</code></a></td>
+<td>Optional</td>
+<td>one of <code>plugin</code>, <code>theme</code>, <code>font</code>, <code>icon-pack</code>, <code>snippet-pack</code>, <code>language-pack</code>; or text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters</td>
+</tr>
+<tr>
+<td><a href="#id"><code>id</code></a></td>
+<td>Required</td>
+<td>text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters</td>
+</tr>
+<tr>
+<td><a href="#name"><code>name</code></a></td>
+<td>Required</td>
+<td>text, not blank, up to 80 characters</td>
+</tr>
+<tr>
+<td><a href="#version"><code>version</code></a></td>
+<td>Required</td>
+<td>text, matching <code>^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$</code></td>
+</tr>
+<tr>
+<td><a href="#apiversion"><code>apiVersion</code></a></td>
+<td>Required</td>
+<td>a whole number, at least 1</td>
+</tr>
+<tr>
+<td><a href="#minappversion"><code>minAppVersion</code></a></td>
+<td>Required</td>
+<td>text, matching <code>^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$</code></td>
+</tr>
+<tr>
+<td><a href="#description"><code>description</code></a></td>
+<td>Required</td>
+<td>text, up to 500 characters</td>
+</tr>
+<tr>
+<td><a href="#author"><code>author</code></a></td>
+<td>Required</td>
+<td>an object</td>
+</tr>
+<tr>
+<td><a href="#publisher"><code>publisher</code></a></td>
+<td>Required</td>
+<td>text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters</td>
+</tr>
+<tr>
+<td><a href="#license"><code>license</code></a></td>
+<td>Required</td>
+<td>text, up to 128 characters</td>
+</tr>
+<tr>
+<td><a href="#repository"><code>repository</code></a></td>
+<td>Required</td>
+<td>a URL, starting with <code>https://</code>, up to 2048 characters</td>
+</tr>
+<tr>
+<td><a href="#categories"><code>categories</code></a></td>
+<td>Required</td>
+<td>a list of 1 to 3 distinct items, each a category of the governed taxonomy; or any other id is accepted and shown as &quot;other&quot;</td>
+</tr>
+<tr>
+<td><a href="#keywords"><code>keywords</code></a></td>
+<td>Optional</td>
+<td>a list of up to 10 distinct items, each text, not blank, up to 32 characters</td>
+</tr>
+<tr>
+<td><a href="#platforms"><code>platforms</code></a></td>
+<td>Required</td>
+<td>a list of 1 to 3 distinct items, each one of <code>web</code>, <code>desktop</code>, <code>mobile</code></td>
+</tr>
+<tr>
+<td><a href="#permissions"><code>permissions</code></a></td>
+<td>Plugins</td>
+<td>a list of up to 13 distinct items, each one of <code>notes:read</code>, <code>notes:write</code>, <code>storage</code>, <code>commands</code>, <code>ui:panels</code>, <code>ui:widgets</code>, <code>markdown</code>, <code>network</code>, <code>clipboard</code>, <code>notifications</code>, <code>ui:themes</code>, <code>editor</code>, <code>sync</code></td>
+</tr>
+<tr>
+<td><a href="#optionalpermissions"><code>optionalPermissions</code></a></td>
+<td>Optional (plugins)</td>
+<td>a list of up to 13 distinct items, each one of <code>notes:read</code>, <code>notes:write</code>, <code>storage</code>, <code>commands</code>, <code>ui:panels</code>, <code>ui:widgets</code>, <code>markdown</code>, <code>network</code>, <code>clipboard</code>, <code>notifications</code>, <code>ui:themes</code>, <code>editor</code>, <code>sync</code></td>
+</tr>
+<tr>
+<td><a href="#network"><code>network</code></a></td>
+<td>Optional (plugins)</td>
+<td>an object</td>
+</tr>
+<tr>
+<td><a href="#contributes"><code>contributes</code></a></td>
+<td>Plugins</td>
+<td>an object</td>
+</tr>
+<tr>
+<td><a href="#entry"><code>entry</code></a></td>
+<td>Plugins</td>
+<td>text, matching <code>^[A-Za-z0-9_-][A-Za-z0-9._-]*(?:/[A-Za-z0-9_-][A-Za-z0-9._-]*)*\.m?js$</code>, up to 200 characters</td>
+</tr>
+<tr>
+<td><a href="#integrity"><code>integrity</code></a></td>
+<td>Plugins</td>
+<td>text, matching <code>^sha256-[A-Za-z0-9+/]{43}=$</code></td>
+</tr>
+</tbody></table>
+<h3 id="schemaversion"><code>schemaVersion</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> always <code>2</code>.</li>
+</ul>
+<h3 id="kind"><code>kind</code></h3>
+<ul>
+<li>Optional.</li>
+<li><strong>Value:</strong> one of <code>plugin</code>, <code>theme</code>, <code>font</code>, <code>icon-pack</code>, <code>snippet-pack</code>, <code>language-pack</code>; or text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li>What the extension is; &quot;plugin&quot; when left out. Only &quot;plugin&quot; runs code. An unknown kind is shown as &quot;other&quot; and never run.</li>
+<li><strong>Default:</strong> <code>&quot;plugin&quot;</code>.</li>
+<li><strong>More:</strong> <a href="#extension-kinds">Extension kinds</a>.</li>
+</ul>
+<h3 id="id"><code>id</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+</ul>
+<h3 id="name"><code>name</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, not blank, up to 80 characters.</li>
+</ul>
+<h3 id="version"><code>version</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, matching <code>^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$</code>.</li>
+</ul>
+<h3 id="apiversion"><code>apiVersion</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> a whole number, at least 1.</li>
+<li>The plugin API version (this app: 1).</li>
+<li><strong>More:</strong> <a href="versioning.html#compatibility">Versioning and compatibility</a>.</li>
+</ul>
+<h3 id="minappversion"><code>minAppVersion</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, matching <code>^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$</code>.</li>
+<li><strong>More:</strong> <a href="versioning.html#compatibility">Versioning and compatibility</a>.</li>
+</ul>
+<h3 id="description"><code>description</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, up to 500 characters.</li>
+</ul>
+<h3 id="author"><code>author</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> an object with these fields:<ul>
+<li><code>name</code> (required): text, not blank, up to 120 characters.</li>
+<li><code>url</code>: a URL, starting with <code>https://</code>, up to 2048 characters.</li>
+</ul>
+</li>
+</ul>
+<h3 id="publisher"><code>publisher</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><strong>More:</strong> <a href="package.html#signing">Signing</a>.</li>
+</ul>
+<h3 id="license"><code>license</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> text, up to 128 characters.</li>
+<li>An SPDX license expression (MIT, Apache-2.0 OR MIT).</li>
+</ul>
+<h3 id="repository"><code>repository</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> a URL, starting with <code>https://</code>, up to 2048 characters.</li>
+</ul>
+<h3 id="categories"><code>categories</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> a list of 1 to 3 distinct items, each a category of the governed taxonomy; or any other id is accepted and shown as &quot;other&quot;.</li>
+<li><strong>More:</strong> <a href="#taxonomy">Taxonomy</a>.</li>
+</ul>
+<h3 id="keywords"><code>keywords</code></h3>
+<ul>
+<li>Optional.</li>
+<li><strong>Value:</strong> a list of up to 10 distinct items, each text, not blank, up to 32 characters.</li>
+<li><strong>More:</strong> <a href="#taxonomy">Taxonomy</a>.</li>
+</ul>
+<h3 id="platforms"><code>platforms</code></h3>
+<ul>
+<li>Required.</li>
+<li><strong>Value:</strong> a list of 1 to 3 distinct items, each one of <code>web</code>, <code>desktop</code>, <code>mobile</code>.</li>
+<li><strong>More:</strong> <a href="overview.html#platforms">Overview</a>.</li>
+</ul>
+<h3 id="permissions"><code>permissions</code></h3>
+<ul>
+<li>Required for the <code>plugin</code> kind; refused on every other kind (<code>kind-code</code>).</li>
+<li><strong>Value:</strong> a list of up to 13 distinct items, each one of <code>notes:read</code>, <code>notes:write</code>, <code>storage</code>, <code>commands</code>, <code>ui:panels</code>, <code>ui:widgets</code>, <code>markdown</code>, <code>network</code>, <code>clipboard</code>, <code>notifications</code>, <code>ui:themes</code>, <code>editor</code>, <code>sync</code>.</li>
+<li><strong>More:</strong> <a href="permissions.html#permissions">Permissions and privacy</a>.</li>
+</ul>
+<h3 id="optionalpermissions"><code>optionalPermissions</code></h3>
+<ul>
+<li>Optional, <code>plugin</code> kind only; refused on every other kind (<code>kind-code</code>).</li>
+<li><strong>Value:</strong> a list of up to 13 distinct items, each one of <code>notes:read</code>, <code>notes:write</code>, <code>storage</code>, <code>commands</code>, <code>ui:panels</code>, <code>ui:widgets</code>, <code>markdown</code>, <code>network</code>, <code>clipboard</code>, <code>notifications</code>, <code>ui:themes</code>, <code>editor</code>, <code>sync</code>.</li>
+<li>Permissions of <code>permissions</code> the plugin works without.</li>
+<li><strong>More:</strong> <a href="permissions.html#optional-permissions">Permissions and privacy</a>.</li>
+</ul>
+<h3 id="network"><code>network</code></h3>
+<ul>
+<li>Optional, <code>plugin</code> kind only; refused on every other kind (<code>kind-code</code>).</li>
+<li><strong>Value:</strong> an object with these fields:<ul>
+<li><code>hosts</code> (required): a list of 1 to 20 distinct items, each text.</li>
+</ul>
+</li>
+<li>Only with the &quot;network&quot; permission.</li>
+<li><strong>More:</strong> <a href="permissions.html#network-hosts">Permissions and privacy</a>.</li>
+</ul>
+<h3 id="contributes"><code>contributes</code></h3>
+<ul>
+<li>Required for the <code>plugin</code> kind; refused on every other kind (<code>kind-code</code>).</li>
+<li><strong>Value:</strong> an object with these fields:<ul>
+<li><code>commands</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 80 characters.</li>
+<li><code>hotkey</code>: text. The default key, e.g. Mod-Shift-k; bound only when free.</li>
+</ul>
+</li>
+<li><code>markdownFeatures</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 80 characters.</li>
+</ul>
+</li>
+<li><code>sidebarPanels</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 80 characters.</li>
+<li><code>icon</code>: one of <code>note</code>, <code>pin</code>, <code>search</code>, <code>dashboard</code>, <code>notebook</code>, <code>tag</code>, <code>command</code>, <code>panel-outline</code>, <code>panel-backlinks</code>, <code>panel-properties</code>, <code>panel-hotkeys</code>, <code>panel-widgets</code>.</li>
+<li><code>places</code>: a list of 1 to 3 distinct items, each one of <code>left</code>, <code>right</code>, <code>status</code>.</li>
+<li><code>defaultPlace</code>: one of <code>left</code>, <code>right</code>, <code>status</code>. One of the declared places (by default: dashboard for widgets, left for panels).</li>
+</ul>
+</li>
+<li><code>dashboardWidgets</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 80 characters.</li>
+<li><code>category</code>: one of <code>notes</code>, <code>tasks</code>, <code>time</code>, <code>focus</code>, <code>insights</code>, <code>other</code>.</li>
+<li><code>places</code>: a list of 1 to 2 distinct items, each one of <code>dashboard</code>, <code>aside</code>.</li>
+<li><code>defaultPlace</code>: one of <code>dashboard</code>, <code>aside</code>. One of the declared places (by default: dashboard for widgets, left for panels).</li>
+</ul>
+</li>
+<li><code>settingsTabs</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 80 characters.</li>
+</ul>
+</li>
+<li><code>themes</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 64 characters.</li>
+</ul>
+</li>
+<li><code>insertItems</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 64 characters.</li>
+</ul>
+</li>
+<li><code>toolbarItems</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 64 characters.</li>
+</ul>
+</li>
+<li><code>syncSources</code>: a list of up to 500 items with distinct <code>id</code>s, each an object with these fields:<ul>
+<li><code>id</code> (required): text, matching <code>^[a-z0-9][a-z0-9-]{1,63}$</code>, up to 64 characters.</li>
+<li><code>title</code> (required): text, not blank, up to 80 characters.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>More:</strong> <a href="surfaces.html">Surfaces</a>.</li>
+</ul>
+<h3 id="entry"><code>entry</code></h3>
+<ul>
+<li>Required for the <code>plugin</code> kind; refused on every other kind (<code>kind-code</code>).</li>
+<li><strong>Value:</strong> text, matching <code>^[A-Za-z0-9_-][A-Za-z0-9._-]*(?:/[A-Za-z0-9_-][A-Za-z0-9._-]*)*\.m?js$</code>, up to 200 characters.</li>
+<li>The bundle, relative to the package root.</li>
+<li><strong>More:</strong> <a href="package.html#layout">Package layout</a>.</li>
+</ul>
+<h3 id="integrity"><code>integrity</code></h3>
+<ul>
+<li>Required for the <code>plugin</code> kind; refused on every other kind (<code>kind-code</code>).</li>
+<li><strong>Value:</strong> text, matching <code>^sha256-[A-Za-z0-9+/]{43}=$</code>.</li>
+<li>SHA-256 of the bundle bytes.</li>
+<li><strong>More:</strong> <a href="package.html#integrity">Integrity</a>.</li>
+</ul>
+<!-- /generated:manifest-fields --><h2 id="extension-kinds">Extension kinds</h2>
+<p><code>kind</code> says what the extension is. Only a plugin runs code; every other kind is data checked by the
+schema, so it needs no sandbox and no permissions, and must not declare <code>permissions</code>,
+<code>optionalPermissions</code>, <code>network</code>, <code>contributes</code>, <code>entry</code> or <code>integrity</code> (<code>kind-code</code>).</p>
+<!-- generated:extension-kinds --><ul>
+<li><code>plugin</code>: code, run in the sandbox (the default).</li>
+<li><code>theme</code>: data only.</li>
+<li><code>font</code>: data only.</li>
+<li><code>icon-pack</code>: data only.</li>
+<li><code>snippet-pack</code>: data only.</li>
+<li><code>language-pack</code>: data only.</li>
+</ul>
+<!-- /generated:extension-kinds --><ul>
+<li><strong>Unknown kind:</strong> shown as &quot;Other&quot; and never run, so an app keeps accepting extensions of a kind
+added later.</li>
+<li><strong>Installing:</strong> only plugins can be installed in this version; any other kind is refused with
+<code>not-a-plugin</code> (data kinds are not available yet).</li>
+</ul>
+<h2 id="taxonomy">Taxonomy</h2>
+<p>A manifest declares 1 to 3 categories from the governed list. The first one decides the family it is
+browsed under. Surfaces (sidebar, status bar, toolbar, widgets) are never declared: the app derives
+them from <code>contributes</code> (<code>derivedSurfaces</code>), so they cannot mislead.</p>
+<!-- generated:taxonomy --><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Categories</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Writing and editing (<code>writing</code>)</td>
+<td><code>editing</code> Editing · <code>writing</code> Writing · <code>markdown</code> Markdown · <code>tables</code> Tables · <code>footnotes</code> Footnotes · <code>code</code> Code · <code>emoji</code> Emoji · <code>annotation</code> Annotation · <code>properties</code> Properties</td>
+</tr>
+<tr>
+<td>Organizing (<code>organizing</code>)</td>
+<td><code>files</code> Files · <code>folders</code> Folders · <code>tags</code> Tags · <code>links</code> Links · <code>navigation</code> Navigation · <code>search</code> Search · <code>tasks</code> Tasks · <code>dates</code> Dates</td>
+</tr>
+<tr>
+<td>Media (<code>media</code>)</td>
+<td><code>images</code> Images · <code>attachments</code> Attachments · <code>pdf</code> PDF · <code>music</code> Music</td>
+</tr>
+<tr>
+<td>Seeing your notes (<code>seeing</code>)</td>
+<td><code>visualization</code> Visualization · <code>graph</code> Graph</td>
+</tr>
+<tr>
+<td>Working with others and the outside (<code>connecting</code>)</td>
+<td><code>integrations</code> Integrations · <code>syncing</code> Syncing · <code>import</code> Import · <code>publishing</code> Publishing · <code>research</code> Research</td>
+</tr>
+<tr>
+<td>Automation and AI (<code>automating</code>)</td>
+<td><code>automation</code> Automation · <code>ai</code> AI</td>
+</tr>
+<tr>
+<td>Look and interface (<code>appearance</code>)</td>
+<td><code>interface</code> Interface · <code>sidebar</code> Sidebar · <code>status-bar</code> Status bar · <code>commands</code> Commands · <code>fonts</code> Fonts</td>
+</tr>
+<tr>
+<td>Utilities (<code>utilities</code>)</td>
+<td><code>utilities</code> Utilities</td>
+</tr>
+<tr>
+<td>Other (<code>other</code>)</td>
+<td>Any category, family or kind this app does not know.</td>
+</tr>
+</tbody></table>
+<p>36 categories in 8 families, in browsing order. A manifest declares 1 to 3 categories and up to 10 free keywords of up to 32 characters.</p>
+<!-- /generated:taxonomy --><ul>
+<li><strong>Unknown category:</strong> a well-formed id that this app does not know shows as &quot;Other&quot; (a warning in
+<code>plugin-check</code>), so apps keep accepting plugins that use a category added later. A malformed
+value, or more than 3, is an error.</li>
+<li><strong>Keywords</strong> are free words for search; they never change where a plugin is listed.</li>
+<li><strong>Themes</strong> are their own kind, not a category.</li>
+</ul>
+<p><a id="built-in"></a></p>
+<h2 id="built-in-plugins">Built-in plugins</h2>
+<p>Plugins shipped with Arkenda run in-process and use the app&#39;s own, shorter manifest shape (<code>id</code>, <code>name</code>,
+<code>version</code>, <code>minAppVersion</code>, <code>description</code>, <code>author</code>, <code>isBuiltIn</code>). Each has 1 to 3 categories from the same
+taxonomy as yours, and every category and family has an English and a Spanish name. Your plugin uses the full
+manifest described above.</p>
+<p>See <a href="examples.html">Worked examples</a> for two of them.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

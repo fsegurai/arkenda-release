@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Considerations · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="considerations.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/considerations.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/considerations.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="considerations">Considerations</h1>
+<p>Things to think about while you design a plugin. None of them is a single rule the app can check, but
+the review will look at each.</p>
+<h2 id="privacy">Privacy</h2>
+<ul>
+<li><strong>Note content never leaves without the user&#39;s consent.</strong> Send note text to a host only when the
+user asked for it (a command, a button), and say so in your description.</li>
+<li><strong>Ask for the least.</strong> Users see every permission before they install and grant each one; put what
+you can work without in <code>optionalPermissions</code> (<a href="permissions.html#grants">Grants</a>).</li>
+<li><strong>The privacy label is written for you.</strong> Settings shows what your plugin reads, changes, contacts
+and keeps, from your manifest and the user&#39;s grant, never from your own text
+(<a href="permissions.html#privacy-label">Privacy label</a>).</li>
+<li><strong>Secrets are <code>secret</code> settings,</strong> never <code>storage</code> values or text fields
+(<a href="settings.html#secrets">Secrets</a>).</li>
+</ul>
+<h2 id="performance">Performance</h2>
+<ul>
+<li>Keep <code>activate</code> short: register what you show, and do the rest later.</li>
+<li>Show a &quot;Counting…&quot; state at once and update the view when the work is done.</li>
+<li>Batch your calls; the sandbox allows 50 requests per second on average
+(<a href="limitations.html#performance-budget">Limitations ▸ Performance budget</a>).</li>
+<li>Keep views small: a panel or widget answers one question.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<p>The app draws your views with its own components, so focus, keyboard use and screen readers work as
+in the rest of the app. What is left is yours: labels that say what each button does, no meaning in
+colour alone, and text short enough for the view limits (<a href="ux.html#accessibility">Accessibility</a>).</p>
+<h2 id="phones">Phones</h2>
+<ul>
+<li>List <code>mobile</code> in <code>platforms</code> only after trying your plugin at a phone width
+(<a href="ux.html#mobile">Mobile</a>).</li>
+<li>On phones, <code>network.fetch</code> answers <code>network-not-available</code>: a plugin that needs the network is
+desktop only.</li>
+<li>Don&#39;t rely on running in the background on phones; a sync source, for one, syncs only when the app
+asks it to and keeps no timers of its own (<a href="surfaces.html#sync-sources">Sync sources</a>).</li>
+</ul>
+<h2 id="sync">Sync</h2>
+<ul>
+<li><strong>What syncs with the vault:</strong> your <code>ctx.storage</code> values, <code>vault</code> settings, the installed list and
+the on/off flag (<a href="settings.html#scopes">Scopes</a>, <a href="package.html#installing">Installing</a>).</li>
+<li><strong>What stays on the device:</strong> <code>device</code> and <code>vault-device</code> settings, secrets, permission grants,
+approved hosts and the bundle itself. Another device must fetch and verify the bundle, and the user
+reviews permissions there.</li>
+<li>Your storage may change on another device while yours runs; read it again instead of caching it for
+long.</li>
+</ul>
+<h2 id="offline">Offline</h2>
+<p>Arkenda is local first: notes are on the device, and a plugin that reads and writes notes works
+offline. If you use <code>network</code>, handle <code>network-failed</code> and <code>network-not-available</code> and keep the rest of
+your plugin working.</p>
+<h2 id="versioning-and-the-compatibility-promise">Versioning and the compatibility promise</h2>
+<ul>
+<li>Raise <code>version</code> for every release; an older version is refused (<code>downgrade</code>).</li>
+<li>Keep contribution ids and settings keys stable; change keys only through
+<a href="settings.html#migrations">migrations</a>.</li>
+<li>Check <code>ctx.apiMinor</code> before you use an addition, so your plugin still works on an older app.</li>
+<li><strong>Our promise:</strong> the plugin API only grows within an API version, and from the first public release a
+renamed or removed API keeps working for at least one API version after it is deprecated. Until that
+release the contract may still change
+(<a href="versioning.html#deprecation-policy">Deprecation policy</a>).</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

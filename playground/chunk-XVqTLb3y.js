@@ -1,0 +1,1 @@
+var o=class extends Error{constructor(d,n,r){super(n,r?.cause===void 0?void 0:{cause:r.cause});this.code=d}code;name=`MediaPlaybackError`};var i=e=>e?.code===3||e?.code===4;var t=/^[0-9a-f]{64}$/;var s=e=>t.test(e);export{o as n,s as r,i as t};

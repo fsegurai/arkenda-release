@@ -1,0 +1,1 @@
+import{ot as P}from"./chunk-BStajcYz.js";var t={"panel-history":P};export{t};

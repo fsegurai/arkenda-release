@@ -1,0 +1,1 @@
+import{n as t,t as n}from"./chunk-C2v9xkZS.js";import"./chunk-BIXle6fk.js";import"./chunk-CtLIq420.js";export{n as installMultiPlace};

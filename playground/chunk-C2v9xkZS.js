@@ -1,0 +1,1 @@
+import{qt as Uo}from"./chunk-BIXle6fk.js";var t=Uo(!1);function n(){return t.set(!0),()=>t.set(!1)}export{t as n,n as t};

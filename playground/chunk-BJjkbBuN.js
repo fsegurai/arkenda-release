@@ -1,0 +1,1 @@
+function t(n){return o=>{let e=n.find(r=>r===o);if(e===void 0)throw new TypeError(`Expected one of ${n.join(`, `)}`);return e}}function f(n){if(typeof n!=`boolean`)throw new TypeError(`Expected a boolean`);return n}export{t as n,f as t};

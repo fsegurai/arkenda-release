@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Requirements · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="requirements.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/requirements.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/requirements.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="requirements">Requirements</h1>
+<p>What a plugin must have before it can be reviewed, and what is up to you. Most of the &quot;must have&quot; list
+is checked by the app when it installs your package; the rest is checked by a person during review.</p>
+<blockquote>
+<p><strong>Publishing to other users is not open yet.</strong> Today these requirements are the bar your plugin
+will be reviewed against once the marketplace opens; until then, meeting them is the best way to be
+ready. See <a href="contributing.html">Contributing a plugin</a>.</p>
+</blockquote>
+<h2 id="must-have">Must have</h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Checked by</th>
+<th>Where it is specified</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A valid manifest (<code>arkenda-plugin.json</code>, schema version 2), with no unknown field</td>
+<td>the app, at install</td>
+<td><a href="manifest.html#fields">Manifest reference</a>, <a href="../files/wiki/0.5.3/content/api/manifest.schema.json"><code>manifest.schema.json</code></a></td>
+</tr>
+<tr>
+<td>A package that keeps the layout, file and size rules: one bundle, allowed assets only, 5 MB at most</td>
+<td>the app, at install</td>
+<td><a href="package.html#layout">The package</a>, <a href="package.html#limits">Limits</a></td>
+</tr>
+<tr>
+<td><code>integrity</code> that matches the bundle you ship</td>
+<td>the app, at install and at each load</td>
+<td><a href="package.html#integrity">Integrity</a></td>
+</tr>
+<tr>
+<td>Every permission declared, and each one explained by what the plugin does</td>
+<td>the app (declared), review (explained)</td>
+<td><a href="permissions.html">Permissions and privacy</a></td>
+</tr>
+<tr>
+<td>No network without <code>network</code> and its <code>network.hosts</code>; no data kept outside <code>storage</code></td>
+<td>the sandbox, at every call</td>
+<td><a href="permissions.html#network-hosts">Network hosts</a>, <a href="api.html#ctxstorage"><code>ctx.storage</code></a></td>
+</tr>
+<tr>
+<td>The sandbox rules kept: a plugin that hangs, floods or oversteps a limit is stopped</td>
+<td>the sandbox, while it runs</td>
+<td><a href="sandbox.html#limits">The sandbox</a></td>
+</tr>
+<tr>
+<td><code>activate</code> done within 10 s, each command, button or Markdown block answered within 5 s</td>
+<td>the sandbox, while it runs</td>
+<td><a href="sandbox.html#limits">Sandbox limits</a></td>
+</tr>
+<tr>
+<td>No remote code: no <code>eval</code>, no code fetched at run time, nothing obfuscated; the source at <code>repository</code> builds to the same bundle</td>
+<td>review</td>
+<td><a href="security.html#for-authors">Security checklist</a></td>
+</tr>
+<tr>
+<td>A license: an SPDX expression in <code>license</code></td>
+<td>the app (present), review (matches the repository)</td>
+<td><a href="manifest.html#license"><code>license</code></a></td>
+</tr>
+<tr>
+<td>A README with screenshots, in the package or at <code>repository</code></td>
+<td>review</td>
+<td><a href="package.html#layout">Package layout</a> (README and images are allowed assets)</td>
+</tr>
+<tr>
+<td>Keyboard and screen-reader access: labels that say what each button does, nothing said by colour alone</td>
+<td>review</td>
+<td><a href="ux.html#accessibility">UX guidelines ▸ Accessibility</a></td>
+</tr>
+<tr>
+<td>Light and dark themes: views use the app&#39;s tokens; a theme keeps 4.5:1 text contrast</td>
+<td>the app (themes), review</td>
+<td><a href="ux.html#design-tokens-and-themes">Design tokens and themes</a></td>
+</tr>
+<tr>
+<td>English text for titles, labels and descriptions</td>
+<td>review</td>
+<td><a href="ux.html#words-and-languages">Words and languages</a></td>
+</tr>
+</tbody></table>
+<p>Translations of a plugin&#39;s own text are not available yet: titles and view text show as written. When
+they are, Spanish (Costa Rica) and other languages will be welcome.</p>
+<h2 id="optional">Optional</h2>
+<p>None of these is needed to pass review. Add them when your plugin needs them.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Where it is specified</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Settings, with scopes and migrations</td>
+<td><a href="settings.html">Settings</a></td>
+</tr>
+<tr>
+<td>Commands and default hotkeys</td>
+<td><a href="surfaces.html#commands">Surfaces ▸ Commands</a></td>
+</tr>
+<tr>
+<td>Sidebar panels, status bar chips and dashboard widgets</td>
+<td><a href="surfaces.html">Surfaces</a></td>
+</tr>
+<tr>
+<td>Editor insert items and toolbar buttons</td>
+<td><a href="surfaces.html#insert-items-and-toolbar-items">Insert items and toolbar items</a></td>
+</tr>
+<tr>
+<td>Markdown code blocks</td>
+<td><a href="surfaces.html#markdown-code-blocks">Markdown code blocks</a></td>
+</tr>
+<tr>
+<td>Themes</td>
+<td><a href="surfaces.html#themes">Themes</a></td>
+</tr>
+<tr>
+<td>Optional permissions, so the plugin works with less</td>
+<td><a href="permissions.html#optional-permissions">Optional permissions</a></td>
+</tr>
+<tr>
+<td>A phone layout (<code>mobile</code> in <code>platforms</code>)</td>
+<td><a href="ux.html#mobile">UX guidelines ▸ Mobile</a></td>
+</tr>
+<tr>
+<td>Tests (recommended)</td>
+<td><a href="testing.html">Testing a plugin</a></td>
+</tr>
+</tbody></table>
+<h2 id="next">Next</h2>
+<ul>
+<li><a href="limitations.html">Limitations</a>: what a plugin cannot do, and what is not exposed yet.</li>
+<li><a href="considerations.html">Considerations</a>: privacy, performance, phones, sync and offline.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

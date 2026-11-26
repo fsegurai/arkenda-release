@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Comments · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="comments.html">
+<link rel="alternate" hreflang="es" href="../es/docs/comments.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/comments.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="comments">Comments</h1>
+<p>Comments sit beside a note, never inside its text: the note&#39;s Markdown, its versions, its tasks and its tags stay as
+they are. They sync with the vault to your other devices, like the note.</p>
+<h2 id="commenting">Commenting</h2>
+<ul>
+<li><strong>On text:</strong> select words in the editor or in the preview. In the editor, <strong>Comment</strong> is a button of the selection
+toolbar that shows above the selection, after the formatting tools. In the preview, the same toolbar shows with
+<strong>Comment</strong> and <strong>Copy</strong> (on a touch screen, below the selection, clear of the system&#39;s own selection menu). Choose
+<strong>Comment</strong>, or press <code>Ctrl+Shift+M</code> (<code>Cmd+Shift+M</code> on a Mac); you can change the key in Settings ▸ Keyboard.
+<code>Alt+F10</code> moves into the toolbar and <code>Escape</code> leaves it. With the selection toolbar turned off in Settings ▸ Editor,
+a small <strong>Comment</strong> button shows above the selection in the editor instead.</li>
+<li><strong>On a section:</strong> hover a heading in the preview and choose the <strong>+</strong> in its margin, or press <code>Ctrl+Shift+M</code> with
+the cursor in the section and nothing selected in the editor.</li>
+<li><strong>On the whole note:</strong> <strong>Comment on note</strong> in the Comments panel, or in the note&#39;s menu (⋯).</li>
+</ul>
+<p>The composer opens in the Comments panel. It is a small Markdown editor: bold, italics and links with the editor&#39;s
+keys, <code>[[</code> to link a note, <code>:</code> for emoji. Pick a type (Note, Question, Suggestion, Issue, Review or To-do: the last
+one you used is chosen next time), check it with <strong>Preview</strong>, then <strong>Post</strong> (<code>Ctrl+Enter</code>). <strong>Cancel</strong> (<code>Escape</code>)
+keeps your draft on this device until you post it. Comments show Markdown, tables, code, emoji and note links;
+<code>- [ ]</code> is a plain list in a comment, never a task, and images, diagrams and math are not shown in 0.5.3.</p>
+<p>The first time you post in a vault, Arkenda asks for <strong>your name in this vault</strong>, filled in with this device&#39;s name.
+It is shown on every comment you write in the vault; comments keep the name they were written with.</p>
+<h2 id="the-comments-panel">The Comments panel</h2>
+<p>Comments live in a panel of the note&#39;s inspector (the right sidebar, beside Outline and Backlinks; <code>Ctrl+Alt+B</code> shows
+or hides it). Its tabs are <strong>Open</strong>, <strong>Resolved</strong> and <strong>Orphaned</strong>, each with its count. Open threads are listed in
+note order, the whole-note ones first. Each thread shows the text it is about, its comments in order with their
+author and time, and what you can do: <strong>Reply</strong>, <strong>Edit</strong> and <strong>Delete</strong> on your own comments (those written on any
+of this vault&#39;s devices), <strong>Resolve</strong>, and <strong>⋯</strong> for <strong>Re-attach to selection</strong> and <strong>Copy link</strong>. Deleting the first
+comment deletes the whole thread; a deleted reply shows &quot;Comment deleted&quot;.</p>
+<p>The text of an open thread is tinted and underlined in the preview, with a marker in the margin that counts the threads
+of that paragraph; where threads overlap the tint is deeper. The editor shows a quiet underline and a mark in the
+gutter. Click a highlight, a marker or a gutter mark to select its thread in the panel.</p>
+<h2 id="moving-between-threads">Moving between threads</h2>
+<ul>
+<li><code>Alt+↓</code> and <code>Alt+↑</code> go to the next and the previous thread of the selected tab, in note order (after the last comes
+the first again), from the preview or the Comments panel: the thread&#39;s card takes the focus and its text scrolls into
+view. Screen readers hear &quot;Thread 2 of 5&quot;.</li>
+<li>In the editor <code>Alt+↑/↓</code> move lines, so there <code>F8</code> and <code>Shift+F8</code> do the same; they work everywhere else too. From
+the editor the cursor goes to the thread&#39;s line and the focus stays in the text.</li>
+<li>On a focused card, <code>Enter</code> selects the thread at its text and <code>R</code> replies; <code>←</code> and <code>→</code> switch the tabs. <code>Escape</code>
+closes a composer (the draft stays) and gives the focus back to where it was, or to the thread&#39;s card.</li>
+</ul>
+<p>All of these keys can be changed in Settings ▸ Keyboard.</p>
+<h2 id="links-to-a-thread">Links to a thread</h2>
+<p><strong>⋯ ▸ Copy link</strong> on a thread copies a link such as <code>/notes/&lt;note&gt;#comment-&lt;thread&gt;</code>. Opening it (pasted into another
+note, or in the address bar of the web app) opens the note, shows the Comments panel on that thread with its card
+focused, and scrolls its text into view. When the thread was deleted, the note still opens and a short notice says the
+thread is no longer there.</p>
+<h2 id="on-a-phone-or-a-tablet">On a phone or a tablet</h2>
+<p>On a phone the Comments panel is a bottom sheet (the note&#39;s <strong>Details</strong>): it opens at half the screen and grows with
+its threads; swipe it down, tap outside it or press back to close it. The composer is as wide as the sheet, with large
+targets; <code>Escape</code> on a keyboard closes the composer first and the sheet next. Select text and choose the <strong>Comment</strong>
+button below the selection, or <strong>Comment on note</strong> in the note&#39;s menu. On a tablet the panel opens as the inspector&#39;s
+drawer over the note.</p>
+<h2 id="resolving">Resolving</h2>
+<p><strong>Resolve</strong> a thread once it is settled: its highlight goes and it moves to the <strong>Resolved</strong> tab, which shows who
+resolved it and when (the text gets a faint underline while that tab is open). <strong>Reopen</strong> brings it back, and so does a
+reply. <strong>Delete resolved threads…</strong> in the Resolved tab removes them from the note for good.</p>
+<h2 id="on-a-whiteboard">On a whiteboard</h2>
+<p>On a board (the <strong>Whiteboard</strong> experiment), right-click an element and choose <strong>Comment</strong>, or select one element and
+press <code>Ctrl+Shift+M</code> (<code>Cmd+Shift+M</code> on a Mac); with nothing selected the comment is on the whole board. The thread
+remembers the element&#39;s text, shown on its card as <strong>Board element</strong>.</p>
+<p>An element with open threads carries a small pin at its top-right corner with their count; the pin turns grey when all
+of them are resolved. Click the pin to see that element&#39;s threads alone in the Comments panel (<strong>On this board
+element</strong>); <strong>×</strong> shows every thread of the board again.</p>
+<p>Comments never enter the board&#39;s text. When you delete an element, its threads move to the <strong>Orphaned</strong> tab with the
+element&#39;s text, so nothing is lost: undo the delete and they come back, or select another element and choose
+<strong>Re-attach to selection</strong>.</p>
+<h2 id="on-images-recordings-and-files">On images, recordings and files</h2>
+<p>In the media library, open a file&#39;s details and choose <strong>Comments</strong>: a drawer shows its threads, and <strong>Comment</strong> starts
+one about the whole file. They work the same for images, audio and video (and any other file). A file&#39;s comments
+belong to the file itself, so they show wherever it is embedded, in every note and board; the drawer says how many
+places that is. The library&#39;s grid shows how many open threads each file has.</p>
+<p>The same drawer opens from the media viewer of a note&#39;s preview: click an image you added to the note (or open a
+recording or video in the viewer) and choose the <strong>Comments</strong> button in the viewer&#39;s top bar, which shows how many open
+threads the item has. The drawer follows the item as you step through the note&#39;s media; keys typed in it stay there.
+Images linked from the web have no comments.</p>
+<p>A file&#39;s comments stay with the vault for as long as the vault has them: deleting the file from the media library&#39;s
+trash removes it from this device only, and another device may still hold it, so its comments are kept.</p>
+<h2 id="when-the-text-changes">When the text changes</h2>
+<p>A thread follows its text as you edit. When the text changed a little, the thread stays with a dashed underline and a
+<strong>Text changed</strong> flag. When the text is gone, the thread moves to the <strong>Orphaned</strong> tab with its original quote: select
+new text in the note and choose <strong>Re-attach to selection</strong>, or <strong>Resolve</strong> it.</p>
+<p>Comments written by a newer Arkenda are shown but cannot be changed on this device.</p>
+<h2 id="finding-comments-in-search">Finding comments in search</h2>
+<p>The full-text search (<code>Ctrl+Shift+F</code>, or the notes in the command palette) also looks in comments. A note found only
+through one of its comments is marked <strong>Comment</strong>, shows the comment&#39;s words, and opens with the Comments panel on that
+thread. Comments on a whiteboard&#39;s elements count as the board note&#39;s. Open threads come before resolved ones, and
+deleted comments are never found. Comments never become tags, tasks or note links, even when they hold <code>#words</code>,
+<code>- [ ]</code> or <code>[[links]]</code>. Comments on media files are not searched.</p>
+<h2 id="replies-to-your-comments">Replies to your comments</h2>
+<p>When someone on another device replies in a thread where you (on any of this vault&#39;s devices) wrote a comment, the
+activity island in the title bar shows <strong>Reply to your comment</strong>, with the replier&#39;s name and, when there are several,
+how many. Hover it to see the note&#39;s title (unless note titles are hidden in the island). <strong>Open</strong> goes to the thread,
+<strong>Dismiss</strong> takes the notice away, and it also goes once you open the note. The notice never shows what the comment
+says. It comes for notes whose comments are open in Arkenda at that moment (a note open in a tab or a pane), and not
+for your own replies from your other devices.</p>
+<h2 id="in-a-shared-vault">In a shared vault</h2>
+<p>When you share a note or a notebook (the note&#39;s or the notebook&#39;s <strong>Share…</strong>), <strong>They can</strong> sets what the other
+person does with it:</p>
+<ul>
+<li><strong>Read only:</strong> they read the notes and their comments, with no composer.</li>
+<li><strong>Comment:</strong> they read the notes and comment on them: start threads, reply, edit and delete their own comments,
+resolve, reopen and re-attach threads. They cannot change the note&#39;s text, title or details.</li>
+<li><strong>Edit:</strong> they change the notes and comment on them, as a commenter does.</li>
+</ul>
+<p>You, as the owner, can edit and delete any comment in what you shared. Your devices check every comment a member
+sends, so a member&#39;s device can only write what its role allows. A member still on Arkenda 0.5.2 who was given
+<strong>Comment</strong> sees the share as read only. Comments on media files stay in your vault: they do not travel in a share.</p>
+<h2 id="exporting-a-note-with-its-comments">Exporting a note with its comments</h2>
+<p>In the note&#39;s <strong>Export…</strong> dialog, check <strong>Include comments</strong> (it is off by default) to add a <strong>Comments</strong> section after
+the note, as a web page, a PDF or plain text. It lists each open thread with the text or the target it is about, then
+its comments with their author, date and replies. <strong>Include resolved threads</strong> (available once comments are included)
+adds the resolved ones after them, with who resolved them. A deleted comment reads &quot;Comment deleted&quot;, deleted threads
+are left out, and a thread whose text changed or is gone shows its original quote with a note saying so. The section
+is for reading in any browser or viewer; Arkenda does not import comments back from it.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

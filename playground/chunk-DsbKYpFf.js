@@ -1,0 +1,1 @@
+var t=`calc(72px + env(safe-area-inset-bottom))`;function n(o){return o?{bottom:t}:{}}export{t as n,n as t};

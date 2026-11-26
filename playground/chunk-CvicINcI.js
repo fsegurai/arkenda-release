@@ -1,0 +1,1 @@
+import{ar as oe,qt as Uo}from"./chunk-BIXle6fk.js";var o=class n{state=Uo({kind:`off`});static ɵfac=function(r){return new(r||n)};static ɵprov=oe({token:n,factory:n.ɵfac,providedIn:`root`})};export{o as t};

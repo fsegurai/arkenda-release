@@ -1,0 +1,1 @@
+var e=null;var t=null;function l(n){e=n?{query:n,at:Date.now()}:null}function u(){let n=e;return e=null,n&&Date.now()-n.at<=5e3?n.query:null}function r(n){t=n?{query:n,at:Date.now()}:null}function i(){let n=t;return t=null,n&&Date.now()-n.at<=1e4?n.query:null}function o(){return!!t&&Date.now()-t.at<=1e4}export{u as a,r as i,l as n,o as r,i as t};

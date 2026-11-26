@@ -1,0 +1,1 @@
+import{t as o$1}from"./chunk-B5FoXY4L.js";var n=/^[A-Za-z0-9_-]{1,64}$/;function o(t,r){if(!n.test(t))throw new o$1(`invalid-id`,`Invalid ${r} id "${t}"`)}function i(t){return o(t,`note`),t}function s(t){return o(t,`notebook`),t}function I(t){return o(t,`device`),t}export{s as i,i as n,n as r,I as t};

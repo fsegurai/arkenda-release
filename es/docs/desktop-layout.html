@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>The desktop layout · Arkenda</title>
+<meta name="description" content="Guías para usar Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../docs/desktop-layout.html">
+<link rel="alternate" hreflang="es" href="desktop-layout.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../docs/desktop-layout.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Todas las guías</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="the-desktop-layout">The desktop layout</h1>
+<p>On a window wider than 1023 px (the desktop app, and the web app on a large screen; a tablet
+shares most of it), Arkenda shows four panes side by side: the <strong>sidebar</strong> on the left, the <strong>note
+list</strong>, the <strong>note</strong> with its tabs and toolbar, and the <strong>inspector</strong> on the right (Outline,
+Backlinks and plugin panels). A window 721 to 1023 px wide used with a mouse or a trackpad keeps
+this layout too. Phones, and tablets held upright, have their own: see
+<a href="phone-and-tablet.html">Phones and tablets</a>.</p>
+<p>Keys below are written for Windows and Linux; on macOS read ⌘ for Ctrl. The full list is in
+<a href="keyboard-shortcuts.html">Keyboard shortcuts</a>, and every key can be changed in <strong>Settings ▸
+Keyboard</strong>.</p>
+<h2 id="panes-and-collapsing-them">Panes, and collapsing them</h2>
+<p>Each pane can be resized by dragging its edge. Widths are remembered on this device.</p>
+<table>
+<thead>
+<tr>
+<th>Pane</th>
+<th>Starts at</th>
+<th>Narrowest</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sidebar</td>
+<td>220 px</td>
+<td>180 px</td>
+</tr>
+<tr>
+<td>Note list</td>
+<td>280 px</td>
+<td>220 px</td>
+</tr>
+<tr>
+<td>Inspector</td>
+<td>260 px</td>
+<td>240 px</td>
+</tr>
+</tbody></table>
+<h3 id="the-sidebar-and-its-rail">The sidebar and its rail</h3>
+<ul>
+<li><strong>Collapse</strong> with the « button on its edge (shown on hover and focus), <code>Ctrl+\</code>, the status bar&#39;s
+sidebar toggle, the desktop app&#39;s title-bar sidebar button, or by dragging it narrower than 180 px.</li>
+<li><strong>Collapsed</strong>, it becomes a 48 px <strong>rail</strong> of icons: the sidebar peek (☰), expand (»), the vault,
+Search, then your pinned views, <strong>More</strong> and your notebooks. Names show in tooltips, and a click
+still navigates.</li>
+<li><strong>Peek:</strong> rest the pointer on the rail for 300 ms, or press ☰, and the whole sidebar slides over
+the content without moving it. It closes when the pointer leaves, on Esc, on a click outside, or
+after you choose something. Its pin keeps it open.</li>
+<li><strong>Restore</strong> with » on the rail, the pin in the peek, <code>Ctrl+\</code> again, or the status bar&#39;s toggle.</li>
+<li><strong>On its own:</strong> a window narrower than 1100 px starts with the rail. Widening the window never
+reopens a sidebar you collapsed yourself.</li>
+<li><strong>Focus:</strong> collapsing moves the focus to the rail; a peek gives it back to where it was.</li>
+</ul>
+<h3 id="views-and-more">Views and More</h3>
+<ul>
+<li><strong>Pinned views:</strong> the sidebar&#39;s Views list (and the rail) shows only the views you pinned. By
+default these are <strong>All notes</strong>, <strong>Today</strong> (while Todos or Calendar is on, as they are by default) and
+<strong>Media</strong>, the media library.</li>
+<li><strong>More</strong> opens a grid with every other view: Dashboard, Pinned, Unfiled, Trash, and the
+views of Todos, Calendar and the experiments (Whiteboards, Kanban). A view added later starts there too.
+Its second group, <strong>In the sidebar</strong>, lists the pinned ones.</li>
+<li><strong>Pin or unpin:</strong> the pin on a tile in More keeps that view in the sidebar or sends it back to More.
+A pinned view&#39;s menu in the sidebar (right-click, <code>Shift+F10</code> or the Menu key) has <strong>Move to More</strong>,
+and <strong>Settings ▸ Workspace ▸ Panels and status bar ▸ Sidebar views</strong> has an <strong>In the sidebar</strong>
+checkbox per view. Pins belong to this device and are never synced; the order (<strong>Move up</strong>,
+<strong>Move down</strong>) applies to the pinned views.</li>
+<li><strong>Keyboard:</strong> in More, the arrow keys move between the tiles, Home and End go to the first and the
+last, Tab reaches the tile&#39;s pin, and Esc closes it and puts the focus back on More.</li>
+<li><strong>Where you are:</strong> a view you opened from More marks <strong>More</strong> as the current place (&quot;More, Calendar
+is open&quot;).</li>
+<li>The phone and the tablet keep their own navigation: Browse lists every view, and Today and More are
+in the bottom bar.</li>
+</ul>
+<h3 id="the-note-list">The note list</h3>
+<ul>
+<li><strong>Collapse</strong> with the « button in the list&#39;s header, <code>Ctrl+Shift+\</code>, the status bar&#39;s list toggle,
+or by dragging it narrower than 220 px.</li>
+<li><strong>Collapsed</strong>, it is gone, and a <strong>☰ All notes · N</strong> button at the start of the tab row (or at the
+top of a list page) names the list you are in.</li>
+<li><strong>Peek:</strong> click that button, or rest the pointer on it for 300 ms: the list slides in over the
+content. Choosing a note opens it and closes the list, with the focus in the editor.</li>
+<li><strong>Restore</strong> with the pin in the peek, <code>Ctrl+Shift+\</code> again, or the status bar&#39;s toggle.</li>
+<li>The list never collapses on its own.</li>
+</ul>
+<h3 id="the-inspector">The inspector</h3>
+<p><code>Ctrl+Alt+B</code> or the status bar shows and hides it. On the desktop it hides on its own while the window
+is narrower than 1200 px; on a tablet it stays as you left it.</p>
+<h2 id="the-tab-row">The tab row</h2>
+<p>The open note is the active tab of its pane&#39;s tab row, and that row is the note&#39;s only header:</p>
+<ul>
+<li><strong>Left:</strong> ☰ All notes (while the list is collapsed), then the tabs. Tabs shrink before the row
+scrolls.</li>
+<li><strong>Right:</strong> who else is here, <strong>Find</strong>, the edit/preview switch, pin, delete, <strong>…</strong> (the note&#39;s
+menu) and zen. In a narrow pane, Find and zen fold away first, then pin and delete (both are also
+in <strong>…</strong>).</li>
+</ul>
+<p><strong>Rename</strong> a note in its tab: double-click it, press F2 on it, or choose <strong>Rename…</strong> in the tab&#39;s
+menu or in <strong>…</strong>. Enter saves, Esc cancels.</p>
+<p>Choosing a tab moves the focus into its note. Closing one gives the focus to the next tab.</p>
+<p>Ctrl+Tab goes to the next tab, or to the one you used before it when <strong>Ctrl+Tab order</strong> is
+<strong>Recent</strong> (Settings ▸ Editor ▸ Tabs; see <a href="keyboard-shortcuts.html">Keyboard shortcuts</a>).</p>
+<p>The note&#39;s <strong>Details</strong> (dates, tags, words) are closed by default; open them from the toolbar&#39;s
+<strong>Details</strong> button. Your choice is remembered.</p>
+<h2 id="the-toolbar-row">The toolbar row</h2>
+<p>One row under the tabs, left to right:</p>
+<ul>
+<li>undo and redo;</li>
+<li><strong>Normal text ▾</strong>: the paragraph or heading at the cursor, and the menu to change it;</li>
+<li><strong>B</strong>, <strong>I</strong>, and <strong>•••</strong> (strikethrough, inline code, highlight, subscript, superscript, clear
+formatting);</li>
+<li><strong>Lists ▾</strong>: bullets, numbers, tasks, indent, outdent;</li>
+<li>link, <code>[[</code> note link, image or file, table, emoji;</li>
+<li><strong>Callout ▾</strong>: the eleven kinds; with text selected, it wraps the selection;</li>
+<li><strong>+ Insert ▾</strong>: everything the &quot;/&quot; menu offers;</li>
+<li>your plugins&#39; buttons, then <strong>⋯</strong> and <strong>Details</strong>.</li>
+</ul>
+<p>When the pane gets narrow, buttons fold from the right into <strong>⋯</strong> (plugin buttons first). The
+buttons you hid, the order you chose and renamed buttons in <strong>Settings ▸ Editor</strong> still apply.
+Tooltips show each button&#39;s key, or its Markdown when it has none.</p>
+<p>Highlight writes <code>==text==</code>; subscript and superscript write <code>&lt;sub&gt;…&lt;/sub&gt;</code> and <code>&lt;sup&gt;…&lt;/sup&gt;</code>.</p>
+<p>The text&#39;s size and line height in <strong>Settings ▸ Editor</strong> apply to the note&#39;s text and to its preview.</p>
+<h2 id="the-selection-bar">The selection bar</h2>
+<p>Select text and, after a moment, a small bar appears above it with the most used formatting: the
+block style, bold, italic, strikethrough, code, link and <code>[[</code>, Callout and <strong>•••</strong>. It hides while you
+type, on Esc, and when the selection goes. <code>Alt+F10</code> moves the focus into it (without a selection,
+the same key reaches a table&#39;s bar); the arrow keys move between its buttons.</p>
+<p>The bar is drawn on its own rounded surface, with no square box around it. Turn it off in
+<strong>Settings ▸ Editor ▸ Options ▸ Show formatting on selection</strong>. On a phone it is a pill below the
+selection (see <a href="phone-and-tablet.html">Phones and tablets</a>).</p>
+<h2 id="split-panes">Split panes</h2>
+<p>A window can hold up to <strong>four</strong> note panes on the desktop and <strong>two</strong> side by side on a tablet.</p>
+<ul>
+<li><strong>Split right</strong> (<code>Ctrl+Alt+\</code>) and <strong>Split down</strong> (<code>Ctrl+Alt+Shift+\</code>) copy the current tab into a
+new pane. Both are in the tab&#39;s menu, in the note&#39;s <strong>…</strong> and in the palette.</li>
+<li><strong>Drag a tab</strong> onto another pane: near an edge it splits that side; in the middle it moves the tab
+into that pane. <strong>Move to the next pane</strong> in the tab&#39;s menu moves it without dragging.</li>
+<li><strong>Resize</strong> by dragging the line between panes, or focus it and use the arrow keys.
+Double-click it to make both sides equal.</li>
+<li><strong>Maximize pane</strong> shows one pane alone; <strong>Restore panes</strong> brings the others back.</li>
+<li>Closing a pane&#39;s last tab closes the pane, and the focus moves to its neighbour.</li>
+</ul>
+<p>The layout and its sizes are remembered on this device. A window too small for the whole layout
+shows part of it without changing what is saved.</p>
+<h2 id="the-palette">The palette</h2>
+<p>One palette finds notes, runs commands and opens tags. The prefix you type picks what it searches,
+and the chips under the field do the same:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Searches</th>
+<th>Opened by</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text</td>
+<td>notes: titles first, then the text, then <strong>Create note</strong></td>
+<td><code>Ctrl+P</code>, <code>Ctrl+O</code>, the sidebar&#39;s and the rail&#39;s <strong>Search</strong></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>commands</td>
+<td><code>Ctrl+Shift+P</code></td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>tags; choosing one opens its notes</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p><code>Ctrl+Shift+F</code> opens it on the full text of every note only. Backspace on an empty field goes back to
+the notes.</p>
+<p>On the desktop app, <code>Ctrl+1</code> … <code>Ctrl+8</code> go to that tab of the focused pane, and <code>Ctrl+9</code> to its last.
+On the web, browsers keep those keys, so use the palette&#39;s <strong>Go to tab</strong> commands.</p>
+<h2 id="density">Density</h2>
+<p><strong>Settings ▸ Appearance ▸ Density</strong> sets one scale for rows, bands and bars: 24/32/40 px at
+comfortable, 20/28/36 compact and 28/36/44 spacious. The note list keeps its own row height setting.
+The note&#39;s tab row and toolbar row are bars of the same scale, and a toolbar button is a band less 4 px
+(28 px comfortable, 24 compact, 32 spacious). On a touch screen (a tablet, upright or on its side) they
+are 44 px at any density, for fingers.</p>
+<h2 id="settings">Settings</h2>
+<p>Settings opens as a large window over the app: what you were doing stays where it is, dimmed behind it. Close it
+with <strong>×</strong>, <strong>Esc</strong> or the same key that opens it (<code>Ctrl+,</code>); the note you had open is just as you left it. The
+browser&#39;s back button closes it too. Menus, questions and messages that a page opens show above it.</p>
+<p>Inside it, Settings has two columns on a computer: the section menu on the left (pinned, with its own scroll, the six
+groups and About at its foot) and the page on the right, which scrolls on its own. Moving between sections changes
+only the page.</p>
+<ul>
+<li><strong>The page&#39;s header</strong> (its title and one line) is its only introduction. Where a page has defaults, the header has
+one <strong>Reset this page</strong>, which asks first and says what goes back and what stays.</li>
+<li><strong>Cards</strong> hold the settings: a heading and an optional line, then rows with the label and hint on the left and
+the control on the right. Help sits under <strong>How it works</strong> at the end of a card, after the controls.</li>
+<li><strong>Badges</strong> (On/Off, Desktop only, Experimental) look the same on every page.</li>
+<li>The search above the menu finds a setting by its name or its keywords and opens its page scrolled to it; a setting
+that this device does not have is shown greyed with where it is available.</li>
+<li><code>/settings</code> opens General over the view you are on (over the start page when Arkenda starts there). Links to a
+page (<code>/settings/appearance</code>) keep working, and old links (<code>/settings#theme</code>, <code>/settings/devices#lan</code>, …) open the
+page the setting moved to.</li>
+<li><strong>Settings ▸ Editor ▸ Markdown extensions</strong> is the one place for every Markdown extension (spoilers, tabs,
+merged table cells, maps, slides…), the graduated ones and the experiments (badged <strong>Experimental</strong>), grouped as
+blocks, inline text, tables, and diagrams and maps. Each row has its switch, a sample of the syntax it adds and what
+it shows, the entry it adds to <strong>+ Insert</strong>, and <strong>Only on this device</strong>. Your choices follow the vault, so your
+other devices get them; with <strong>Only on this device</strong> checked, this device keeps its own choice for this vault
+(the box works once the vault is open). The page searches names, descriptions and syntax, and has <strong>Turn all on</strong>
+and <strong>Back to defaults</strong> (which asks first and resets the vault&#39;s choices for all your devices). Each extension
+loads only while it is on. Settings ▸ Experimental no longer lists them; a card there leads to the page.</li>
+<li>The typed comment syntax (the <strong>Comments</strong> extension: a <code>```comments</code> block or <code>:::comment{…}…:::</code>
+in the text) was retired in 0.5.3. Notes that use it show it as plain text: the block as a code block, the
+inline comment as written. Nothing in the note changes. Comments on a selection of the note come later in 0.5.3.</li>
+<li>A narrow window keeps a menu button above the page instead of the left column.</li>
+</ul>
+<h2 id="media">Media</h2>
+<p>Pictures, audio, video and other files go into a note by picking, dropping (from your file manager too) or
+pasting them. A PDF card&#39;s
+<strong>Open beside</strong> shows the reader next to the note. The palette opens the media library (<strong>Open the media
+library</strong>) and the trash. See <a href="media.html">Media</a> for upload, cards, galleries, annotation, the PDF reader,
+<code>[toc]</code>, the trash and storage.</p>
+<h2 id="the-activity-island">The activity island</h2>
+<p>While something runs (a sync, the focus timer, an export or an import), the centre of Arkenda&#39;s title bar
+shows it instead of the search field, with its buttons when you point at it; with the system&#39;s title bar it
+sits at the top edge of the window. See <a href="notch.html">The activity island</a>. An experiment shows it outside the window
+too, at the top centre of the screen (Windows, Linux with X11, and KDE or wlroots with Wayland): see
+<a href="notch.html#the-notch-outside-the-app-desktop-app-an-experiment">The notch outside the app</a>. Files dragged onto it go
+into the open note or a new note: see <a href="notch.html#the-drop-shelf">The drop shelf</a>.</p>
+<h2 id="the-window-effect">The window effect</h2>
+<p>In the desktop app, <strong>Settings ▸ Appearance ▸ Window effect</strong> (shown once <strong>Window blur</strong> above it is on;
+off by default) has two choices, <strong>None</strong> and <strong>Blur</strong>: Blur lets the desktop show, blurred
+by the system where it can, through the chrome: the rail, the tab and toolbar rows, the status bar and
+the inspector. The note&#39;s text stays opaque. The <strong>Translucent</strong> choice (see-through without blur) was
+removed in 0.4.0; a device that had it shows None, the app turns the effect off as it starts, and later
+launches open an ordinary opaque window. Blur is kept.</p>
+<p>While the effect is on, floating surfaces (menus, peeks, the selection bar and the palette) are
+glass: they blur what is under them. With the effect off, when the system asks for reduced
+transparency, and always on the web, they are opaque.</p>
+<p>On Linux, see <a href="window-effect-linux.html">Window effect on Linux</a> for what works on each desktop and
+how to get a real blur.</p>
+<h2 id="the-browser-window">The browser window</h2>
+<p>In the desktop app, <strong>Settings ▸ Experimental ▸ Browser window</strong> (an experiment, off by default) adds
+<strong>Open web links in</strong> to its card: <strong>System browser</strong> (as before) or <strong>Browser window</strong>. With
+<strong>Browser window</strong> chosen, a plain click on a web link (in a note&#39;s preview, in Settings ▸ About…)
+opens it in one Arkenda window instead of your browser. The next link replaces its page and brings it
+to the front. Ctrl+click (Cmd+click on macOS), a middle click and mail links always use your system
+browser.</p>
+<p>The window&#39;s <strong>Page</strong> menu: <strong>Back</strong> (Alt+←), <strong>Forward</strong> (Alt+→), <strong>Reload</strong> (Ctrl+R), <strong>Open in
+system browser</strong> (Ctrl+Shift+O) and <strong>Close</strong> (Ctrl+W). Its title follows the page, it follows the
+app&#39;s light or dark theme (and its background while a page loads), and it remembers its size and place.</p>
+<p>The pages there are kept apart from your notes: they cannot call the app, they keep their cookies and
+storage in a folder of their own, they load only <code>http</code> and <code>https</code> addresses, a link that asks for a
+new window (a sign-in, a payment) opens in a pop-up window with the same rules, and downloads are
+refused (use <strong>Open in system browser</strong>). Each open page is a full browser engine (roughly 100–300 MB
+of memory, plus what the site runs); closing the window frees it. Turning the experiment off closes
+the window, and links go back to your system browser. The window and its pop-ups close with the last
+Arkenda window. Changing <strong>Open web links in</strong> in one Arkenda window applies to every open one.</p>
+<p>It is a window rather than a tab: on Linux, the app cannot place a browser view inside a pane yet.</p>
+<h2 id="opening-arkenda-from-elsewhere">Opening Arkenda from elsewhere</h2>
+<p>One Arkenda runs at a time: starting it again brings the open window forward instead of opening a
+second copy.</p>
+<ul>
+<li><strong>Note links:</strong> an <code>arkenda://note/&lt;id&gt;</code> link (the address MCP clients get for a note) opens that note in Arkenda from
+another app or the browser. The installed packages register the link: <code>.deb</code>, <code>.rpm</code>, the Windows
+installers and the Microsoft Store package; the <code>.AppImage</code> registers it the first time it starts.</li>
+<li><strong>Markdown files:</strong> open a <code>.md</code> file with Arkenda (double-click, or Open with) to edit it. A file inside
+the open folder vault opens as its note. Any other file is edited in place: it stays where it is and is not
+part of the vault (no sync, search or backlinks). Edits save to the file after a short pause, and if another
+app changed it meanwhile, Arkenda asks whether to reload that version or keep yours. Files up to 8 MB.</li>
+<li><strong>New note and Quick capture:</strong> on Linux, right-click Arkenda in the launcher or the taskbar. From a
+terminal, <code>arkenda --new-note</code> and <code>arkenda --quick-capture</code> do the same, with Arkenda open or not. The tray
+icon&#39;s menu has them too (below).</li>
+<li><strong>Show in folder:</strong> a note&#39;s menu opens your file manager with the note&#39;s file selected (folder vaults).</li>
+<li><strong>Share as file</strong> (Windows, and browsers that can share files): a note&#39;s menu and the palette hand the note to
+another app through the system&#39;s share sheet (on Windows, Windows&#39; own share window), as <code>&lt;title&gt;.md</code>; a file attached to a note has a <strong>Share</strong> button on
+its card. Where the window cannot share files (Linux has no share sheet), the action is not offered.</li>
+<li><strong>Notes in KRunner</strong> (an experiment, KDE Plasma): with Settings ▸ Experimental ▸ Notes in KRunner on, the search
+(Alt+Space) finds your notes by title; Enter opens one in Arkenda, and a New note entry starts one with the words you
+typed. While it is on, other programs on your computer can also read your notes&#39; titles through it.</li>
+</ul>
+<h2 id="reading-aloud">Reading aloud</h2>
+<p><strong>Read aloud</strong> (in the palette, and in a note&#39;s <strong>…</strong> menu) reads the text you selected, or the whole note when
+nothing is selected, with your system&#39;s own voice in the app&#39;s language. The front matter, code blocks and the
+Markdown marks are left out; a link reads as its text and a picture as its description.</p>
+<ul>
+<li>A small bar at the bottom of the window shows how far it is (<strong>Reading aloud · 3 of 40</strong>), with <strong>Pause</strong> (it
+stops at the sentence it was reading and starts that sentence again when you press <strong>Play</strong>) and <strong>Stop</strong>.
+<strong>Escape</strong> stops too.</li>
+<li>Only voices on your device are used: nothing you read is sent to a speech service. Without a voice for the app&#39;s
+language, Arkenda says so; add one in your system&#39;s speech settings.</li>
+<li><strong>Linux:</strong> Arkenda reads with speech-dispatcher (<code>spd-say</code>) where it is installed, else with the voices the
+window&#39;s engine has; with neither, Read aloud is not offered. <strong>Windows:</strong> the voices of Windows&#39; own speech
+settings. <strong>The web:</strong> the voices of your browser that run on your device.</li>
+</ul>
+<h2 id="working-with-the-system">Working with the system</h2>
+<ul>
+<li><strong>The system tray</strong> (Linux and Windows): Arkenda&#39;s icon in the tray (Windows&#39; notification area; on Linux KDE
+Plasma&#39;s tray, or GNOME&#39;s with the AppIndicator extension) has <strong>New note</strong>, <strong>Quick capture</strong>, <strong>Show Arkenda</strong> and
+<strong>Quit</strong>. New note and Quick capture bring the window forward and do what the palette&#39;s commands do; Quit closes
+every window, each saving first. On Windows a click on the icon shows the window; on Linux a click opens the menu.
+It is on by default; turn it off in Settings ▸ General ▸ <strong>Show Arkenda in the system tray</strong> (this device only,
+at once).</li>
+<li><strong>Close to the tray:</strong> shown while the tray is on, off by default. When it is on, closing the main window does
+not quit Arkenda: your edits are saved and the window hides in the tray. <strong>Show Arkenda</strong> (or opening Arkenda
+again) brings it back; <strong>Quit</strong> ends the app. On Linux it needs a desktop with a tray (KDE Plasma, or GNOME with
+the AppIndicator extension); without one, closing quits as usual. Other windows always close.</li>
+<li><strong>Start with the system</strong> (Linux and Windows): Settings ▸ General ▸ <strong>Start Arkenda with the system</strong> opens Arkenda
+when you sign in (an entry in your autostart folder on Linux, the Run key on Windows). It is off until you turn it
+on, and the switch shows what the system has; if the system refuses the change, Arkenda says so.</li>
+<li><strong>Notifications</strong> (Linux): the Pomodoro plugin&#39;s notifications show as your desktop&#39;s own; <strong>Open</strong> brings Arkenda
+forward. Elsewhere they show as before.</li>
+<li><strong>Taskbar</strong> (Linux launchers that read it, such as KDE Plasma&#39;s, and Windows): an import, export or sync shows its
+progress on Arkenda&#39;s icon, and the icon counts the tasks that are due.</li>
+<li><strong>Staying awake</strong> (Linux): while Arkenda records, imports, exports or syncs a lot, the computer does not suspend or
+go idle; it may again as soon as the work ends or the window closes.</li>
+<li><strong>Network and battery</strong> (Linux): sync and the media policy see a metered connection, a low battery and power saver,
+as they do on Android, and wait for a better moment for large media.</li>
+<li><strong>Trash:</strong> a note deleted forever from a folder vault moves its file to the system&#39;s trash (Linux and Windows), so
+you can still restore it there.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

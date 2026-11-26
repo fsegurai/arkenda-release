@@ -1,0 +1,1 @@
+import{a as A,qt as Uo}from"./chunk-BIXle6fk.js";var s=new A(`LOCALSEND`,{factory:()=>null});var n=Uo(!1);var c=n.asReadonly();var l=t=>n.set(t);export{l as n,s as r,c as t};

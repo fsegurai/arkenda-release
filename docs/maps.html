@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Maps · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="maps.html">
+<link rel="alternate" hreflang="es" href="../es/docs/maps.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/maps.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="maps">Maps</h1>
+<p>A <code>map</code> block in a note shows places on an OpenStreetMap map in the preview. Maps are on by default; you can
+turn them off in <strong>Settings ▸ Editor ▸ Markdown extensions ▸ Maps</strong>.</p>
+<h2 id="writing-a-map">Writing a map</h2>
+<p>Write a fenced block named <code>map</code>. The simplest one is a place&#39;s latitude and longitude:</p>
+<pre><code class="language-markdown">```map
+9.9281, -84.0907
+```
+</code></pre>
+<p>A place can also be written with its fields:</p>
+<pre><code class="language-markdown">```map
+lat: 9.9281
+lon: -84.0907
+zoom: 13
+label: San José, Costa Rica
+marker: true
+```
+</code></pre>
+<ul>
+<li><code>lat</code> (−90 to 90) and <code>lon</code> (−180 to 180) are required; <code>zoom</code> is 1 to 19 (12 by default); <code>label</code> is at most
+120 characters and shows when you click the place&#39;s marker; <code>marker: false</code> hides the marker.</li>
+</ul>
+<p>Several places, one per line as <code>latitude, longitude, label</code> (the label is optional). The map fits all of them
+unless you give a <code>zoom</code>:</p>
+<pre><code class="language-markdown">```map
+9.9281, -84.0907, San José
+9.8644, -83.9194, Cartago
+route: true
+circle: 9.93, -84.08, 2 km
+polygon: 9.95, -84.10; 9.95, -84.05; 9.90, -84.07
+height: 320
+```
+</code></pre>
+<ul>
+<li><code>route: true</code> draws a line through the places in their order (two places at least).</li>
+<li><code>circle: latitude, longitude, radius</code> draws an area; the radius is in metres, or in <code>km</code> (1 m to 1,000 km).</li>
+<li><code>polygon:</code> draws an area through 3 to 100 points, separated by <code>;</code>.</li>
+<li><code>height:</code> sets the map&#39;s height in pixels (120 to 800).</li>
+</ul>
+<p>A block with a line Arkenda does not know, a key written twice or a value out of range is not a map: it stays a
+code block, so you can see what to fix. A block holds at most 50 places, 10 circles and 10 polygons.</p>
+<h2 id="picking-places">Picking places</h2>
+<p>Choose <strong>Map</strong> from the insert menu (the toolbar, the <strong>/</strong> menu, the block <strong>+</strong> or the editor&#39;s context
+menu). Click or tap the map to drop a place, or press <strong>Enter</strong> while the map has the focus to drop one at its
+centre. Give each place a label if you like, remove the ones you don&#39;t want, add one by its coordinates, and
+turn on <strong>Join the places with a route</strong>. <strong>Insert</strong> writes the block into the note.</p>
+<p>The picker shows OpenStreetMap&#39;s map, so opening it loads map tiles from OpenStreetMap. Nothing you type is
+sent anywhere: there is no place search.</p>
+<h2 id="using-a-map">Using a map</h2>
+<ul>
+<li>Drag to move the map, and use <strong>+</strong> and <strong>−</strong> to zoom. The mouse wheel zooms only after you click the map, so
+the note still scrolls past it.</li>
+<li><strong>⤢</strong> puts the map over the whole window; press it again, or <strong>Esc</strong>, to go back.</li>
+<li><strong>↗</strong> opens the same view on openstreetmap.org, in your browser.</li>
+<li>When the map tiles cannot load (you&#39;re offline, for example), the map says so and offers <strong>Try again</strong>; it
+also tries again by itself when you&#39;re back online.</li>
+<li>Screen readers read the map&#39;s places, its route and its areas as text.</li>
+</ul>
+<h2 id="loading-maps-a-click-or-automatically">Loading maps: a click, or automatically</h2>
+<p>Loading a map requests its tiles from OpenStreetMap&#39;s tile server (<code>tile.openstreetmap.org</code>), which then sees
+your device&#39;s IP address. So by default <strong>a map waits for a click</strong>: the block shows its places as text and a
+<strong>Load map</strong> button, and nothing is requested until you press it. Each map loads on its own click.</p>
+<p>To load maps without the click, turn on <strong>Load maps automatically</strong> under <strong>Maps</strong> in <strong>Settings ▸ Editor ▸
+Markdown extensions</strong>. Maps then load as soon as they scroll into view. The choice is kept on this device only.</p>
+<p>Either way Arkenda follows OpenStreetMap&#39;s tile policy: the map always credits OpenStreetMap, it loads only the
+tiles of the view you see (never whole areas ahead of time), and nothing loads for a map you haven&#39;t loaded or
+that isn&#39;t on screen. A note chooses places, never the server: maps only ever load from OpenStreetMap.</p>
+<h2 id="printing-and-exports">Printing and exports</h2>
+<ul>
+<li><strong>Printing the preview</strong> prints a loaded map as it is on screen, without its buttons; a map you haven&#39;t
+loaded prints its places as text.</li>
+<li><strong>Exports</strong> (a web page, plain text or PDF) show a map block&#39;s places as text: the map&#39;s name, its places as a
+list (each label, or the coordinates of a place without one), then its route and areas. A block that is not a
+map stays a code block.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

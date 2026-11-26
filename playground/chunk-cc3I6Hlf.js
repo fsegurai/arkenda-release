@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var n=new A(`ARKENDA_MCP_HOST`,{providedIn:`root`,factory:()=>null});export{n as t};

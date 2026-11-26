@@ -1,0 +1,1 @@
+function n(a,r=()=>!0){return a.find(e=>r(e)&&e.available())}export{n as t};

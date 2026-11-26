@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Reminders · Arkenda</title>
+<meta name="description" content="Guías para usar Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../docs/reminders.html">
+<link rel="alternate" hreflang="es" href="reminders.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../docs/reminders.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Todas las guías</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="reminders">Reminders</h1>
+<p>Arkenda can remind you of a task on its due day at the time you give it, and of any note at a day and time
+you pick. A reminder is part of the note&#39;s text, so it syncs with the note to your other devices, and each
+device shows it once.</p>
+<h2 id="a-tasks-reminder">A task&#39;s reminder</h2>
+<p>A task reminds you when its due date has a time. Write the time after the due date, as <code>⏰</code> and the time on a
+24-hour clock:</p>
+<pre><code class="language-markdown">- [ ] Call the bank 📅 2026-11-20 ⏰ 09:30
+</code></pre>
+<ul>
+<li>A due date without a time, like every task written before, reminds you of nothing.</li>
+<li>A time without a due date does nothing.</li>
+<li>In <strong>Todos</strong>, a task with a due date has a <strong>⏰</strong> button beside its date: pick a time, change it, or
+<strong>Clear</strong> it.</li>
+</ul>
+<h2 id="a-notes-reminder">A note&#39;s reminder</h2>
+<p>Open a note&#39;s <strong>…</strong> menu and choose <strong>Remind me…</strong>. Pick a day and a time, then <strong>Save</strong>. Arkenda keeps it in
+the note&#39;s <code>remind</code> property, in the note&#39;s front matter:</p>
+<pre><code class="language-yaml">remind: 2026-11-20T09:30
+</code></pre>
+<p>The time is your device&#39;s time. To remove the reminder, open <strong>Remind me…</strong> again and choose <strong>Clear</strong>: the
+<code>remind</code> key leaves the front matter, and nothing else in the note changes.</p>
+<h2 id="when-a-reminder-fires">When a reminder fires</h2>
+<p>You get a notification with the note&#39;s title and the task. Where the notification has buttons of its own (the
+Linux and Windows desktops, Android), they are the reminder&#39;s buttons; elsewhere a card at the top of the
+window shows the reminder with them:</p>
+<ul>
+<li><strong>Open</strong> opens the note, at the task&#39;s line for a task.</li>
+<li><strong>Snooze 10 min</strong> reminds you again in 10 minutes, on this device only.</li>
+<li><strong>Done</strong> ticks the task, or removes a note&#39;s reminder. In a vault someone shared with you to read or comment only,
+<strong>Done</strong> opens the note instead.</li>
+</ul>
+<p>A reminder fires once on each device. If the app was closed when a reminder was due, it fires when you open
+the app, as long as it was due less than a day before.</p>
+<h3 id="on-the-desktop">On the desktop</h3>
+<p>The app&#39;s own clock fires reminders while Arkenda is open, also after the computer wakes from sleep or after
+the clock changes. On Linux the notification comes from the desktop&#39;s own notifications, and on Windows it is a
+toast. It has <strong>Snooze 10 min</strong> and <strong>Done</strong> buttons, which work like the card&#39;s; a click on the notification
+itself opens the note and brings Arkenda forward. In a vault shared with you to read or comment only, it has no <strong>Done</strong>.
+Where the desktop&#39;s notifications show no buttons, the card waits in the app instead.</p>
+<h3 id="on-the-web">On the web</h3>
+<p>The app&#39;s own clock fires reminders while the page is open. The first time you set a reminder, the browser
+asks whether Arkenda may show notifications, and it asks only that once:</p>
+<ul>
+<li><strong>Allow</strong>: each reminder also shows a browser notification; a click on it opens the note.</li>
+<li><strong>Block</strong>, or a browser that does not ask: reminders show only the card in the app, and Arkenda never asks
+again. To change your mind later, allow notifications for the site in your browser&#39;s settings.</li>
+</ul>
+<h3 id="on-android">On Android</h3>
+<p>Android keeps your next reminders, so they fire with Arkenda closed and after the phone restarts. The
+notification has <strong>Open</strong>, <strong>Snooze</strong> and <strong>Done</strong>. <strong>Snooze</strong> works without opening the app. <strong>Open</strong> and
+<strong>Done</strong> open Arkenda. The first reminder asks for the notification permission.</p>
+<p>Android 14 and later deliver a reminder at its minute only when you allow <strong>Alarms &amp; reminders</strong> for Arkenda
+in <strong>Settings ▸ Apps ▸ Arkenda</strong>. Without it, Android may deliver a reminder a few minutes late while the
+phone is idle. When you set a reminder and it is not allowed, Arkenda explains this with a button that opens
+that page. Once you allow it, or choose <strong>Dismiss</strong>, the notice does not come back.</p>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

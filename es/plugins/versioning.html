@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Versioning and compatibility · Arkenda</title>
+<meta name="description" content="Cómo crear un plugin para Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../plugins/versioning.html">
+<link rel="alternate" hreflang="es" href="versioning.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../plugins/versioning.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Guía de plugins</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="versioning-and-compatibility">Versioning and compatibility</h1>
+<p>Three numbers decide whether a plugin runs: its own <code>version</code>, the <code>apiVersion</code> it was built for and
+the <code>minAppVersion</code> it needs.</p>
+<h2 id="compatibility">Compatibility</h2>
+<p><code>checkCompatibility</code> runs at install and before a plugin starts. A plugin cannot run when:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Fails when</th>
+<th>Shown as</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>App version</td>
+<td>the app is older than <code>minAppVersion</code></td>
+<td>&quot;Requires Arkenda X or later.&quot;</td>
+</tr>
+<tr>
+<td>API version</td>
+<td><code>apiVersion</code> is higher than the app&#39;s plugin API</td>
+<td>refused (<code>api-version</code>)</td>
+</tr>
+<tr>
+<td>Platform</td>
+<td>this platform is not in <code>platforms</code></td>
+<td>&quot;Not available on …&quot;</td>
+</tr>
+</tbody></table>
+<p>A package that fails any of them is refused with <code>incompatible</code>. The plugin API only grows, so an app
+runs every plugin built for its API version or a lower one.</p>
+<h2 id="your-plugins-version">Your plugin&#39;s version</h2>
+<p><code>version</code> and <code>minAppVersion</code> are <code>major.minor.patch</code>, optionally with a <code>-pre-release</code> or <code>+build</code>
+suffix. Comparisons use <code>major.minor.patch</code> only (<code>compareVersions</code>).</p>
+<ul>
+<li>Raise <code>version</code> for every release: the same or a newer version replaces the installed one, an
+older one is refused (<code>downgrade</code>).</li>
+<li>Use semver: a new major when settings or behaviour change in a way users must notice. Settings keys
+change through <a href="settings.html#migrations">migrations</a>, never silently.</li>
+<li>Keep contribution ids stable: users rename, hide and reorder your items by id.</li>
+</ul>
+<h2 id="the-plugin-api-version">The plugin API version</h2>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Today</th>
+<th>Raised when</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PLUGIN_API_VERSION</code> (<code>ctx.apiVersion</code>, manifest <code>apiVersion</code>)</td>
+<td><code>1</code></td>
+<td>something changes in a way that breaks plugins built before.</td>
+</tr>
+<tr>
+<td><code>PLUGIN_API_MINOR</code> (<code>ctx.apiMinor</code>)</td>
+<td><code>2</code></td>
+<td>something is added that changes nothing for older plugins (optional fields only).</td>
+</tr>
+</tbody></table>
+<p>Check <code>ctx.apiMinor</code> before you use an addition, so your plugin keeps working on an older app.</p>
+<h2 id="deprecation-policy">Deprecation policy</h2>
+<ul>
+<li><strong>From the first public release:</strong> a renamed or removed API, manifest value or category keeps
+working as an alias for at least one API version after it is deprecated, and each deprecation is
+listed in the changelog below with its replacement.</li>
+<li><strong>Until then (now):</strong> nothing has been released, so the contract may change freely; old names and
+aliases are removed, not kept.</li>
+<li><strong>Unknown values from a newer app</strong> never break an older one: an unknown category or kind shows as
+&quot;Other&quot; instead of refusing the plugin.</li>
+</ul>
+<h2 id="api-changelog">API changelog</h2>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>First version of the contract: manifest schema version 2, extension kinds, the governed category taxonomy and the sandbox API. Not yet released publicly.</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>Sync sources: <code>ctx.sync.registerSource</code>, the <code>sync</code> permission, <code>contributes.syncSources</code> (plugins of the <code>syncing</code> category) and the <code>sync</code> surface. See <a href="surfaces.html#sync-sources">Sync sources</a>.</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>Live activities (<code>ctx.activities.publish</code>), for built-in plugins only; nothing changes for sandboxed plugins.</td>
+</tr>
+</tbody></table>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

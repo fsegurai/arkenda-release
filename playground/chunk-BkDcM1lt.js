@@ -1,0 +1,1 @@
+import{t as n}from"./chunk-DsbKYpFf.js";import{t as h$1}from"./chunk-TGj9flH6.js";import{t as b}from"./chunk-t4EpPfuG.js";import{er as mn}from"./chunk-BIXle6fk.js";import{t as r}from"./chunk-CtLIq420.js";function h(o,n$1){h$1(o.get(mn),r({message:n$1},n(o.get(b).phone())))}export{h as t};

@@ -1,0 +1,1 @@
+import"./chunk-CtLIq420.js";function i(t,o){t.addEventListener(`keydown`,e=>{if(e.key!==`Escape`||e.defaultPrevented||e.isComposing)return;(e.target instanceof Element?e.target:null)?.closest(`[role="dialog"], [role="menu"], [role="listbox"]`)||o()})}export{i as listenZenEscape};

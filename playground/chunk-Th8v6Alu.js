@@ -1,0 +1,1 @@
+var r=class extends Error{constructor(n,s){super(s);this.code=n;this.name=`MirrorPortError`}code};export{r as t};

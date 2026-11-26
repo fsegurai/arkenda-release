@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var n=new A(`ARKENDA_GIT_PORT`);var o=null;function e(){return o}export{n,e as t};

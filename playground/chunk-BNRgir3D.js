@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";function i(t){return[`changed`,`gone`,`denied`,`too-large`,`not-text`,`unknown`].find(n=>t===n)??`other`}var s=new A(`ARKENDA_OUTSIDE_FILES`,{providedIn:`root`,factory:()=>null});export{s as n,i as t};

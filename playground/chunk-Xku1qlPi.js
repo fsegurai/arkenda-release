@@ -1,0 +1,1 @@
+import{t as r}from"./chunk-TBs4RG5p.js";async function s(e,o){if(r(e)){let t=await e.readVersioned(o);return t?{note:t.note,save:async r=>{await e.saveVersioned(r,t.version)}}:null}let n=await e.get(o);return n?{note:n,save:t=>e.save(t)}:null}async function d(e,o){r(e)?await e.saveVersioned(o,null):await e.save(o)}export{s as n,d as t};

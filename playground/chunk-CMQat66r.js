@@ -1,0 +1,1 @@
+var e=/* @__PURE__ */ new Set([`self-revoked`,`start-failed`,`codec-error`,`protocol-error`,`protocol-version`,`vault-mismatch`,`overloaded`,`partial-peer`,`not-a-member`,`device-id-mismatch`]);function o(r){return e.has(r)?r:`unknown`}export{o as t};

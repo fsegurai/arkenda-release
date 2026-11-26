@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Window effect on Linux (desktop) · Arkenda</title>
+<meta name="description" content="Guides for using Arkenda.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="window-effect-linux.html">
+<link rel="alternate" hreflang="es" href="../es/docs/window-effect-linux.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/docs/window-effect-linux.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← All docs</a>
+  <article class="prose" lang="en">
+<h1 id="window-effect-on-linux-desktop">Window effect on Linux (desktop)</h1>
+<p><strong>Appearance ▸ Window effect ▸ Blur</strong> lets the desktop show, blurred, through Arkenda&#39;s chrome: the sidebar, the note
+list, the inspector, the tab and toolbar rows, and the status bar. The note&#39;s text area always stays
+opaque, so your writing never sits on top of a busy wallpaper. This page explains what works on Linux,
+what you can set up on your side to get a real blur, and what no app can fix.</p>
+<h2 id="what-arkenda-does-on-linux">What Arkenda does on Linux</h2>
+<ul>
+<li><strong>Blur</strong> asks your desktop for a native blur behind the window: KDE Plasma&#39;s KWin (on Wayland through
+<code>ext-background-effect-v1</code> or KWin&#39;s own blur protocol, on X11 through its blur property) blurs it
+while its Blur desktop effect is on. Where the desktop offers apps no blur (GNOME, for example), or
+blurs windows by its own rules (Hyprland, SwayFX, Wayfire), the window stays see-through without
+Arkenda&#39;s blur, and the setting says why. The chrome is drawn at the opacity you choose.</li>
+<li>The <strong>Translucent</strong> mode (a see-through window with no blur) was removed in 0.4.0: a device that had
+it chosen shows <strong>None</strong>; on the first launch the app turns the effect off as it starts (the window
+looks opaque), and every later launch opens an ordinary opaque window. A device that had <strong>Blur</strong>
+keeps it.</li>
+<li><strong>Glass on menus, peeks and the palette</strong> (the redesigned desktop, phase 6.1 M3) is drawn by Arkenda
+itself, inside its own window, whenever Blur is on. It works the same on every Linux desktop, with or
+without a compositor blur. With the effect off, or when the system asks for reduced transparency,
+they stay opaque.</li>
+</ul>
+<h2 id="turning-it-on">Turning it on</h2>
+<ol>
+<li><strong>Settings ▸ Appearance ▸ Transparency ▸ Window blur</strong>: on (off by default).</li>
+<li><strong>Settings ▸ Appearance ▸ Window effect</strong>: <strong>Blur</strong>, and the opacity.</li>
+<li><strong>Restart Arkenda.</strong> The window is created transparent only at launch.</li>
+</ol>
+<p>To turn it off, choose <strong>None</strong> and restart.</p>
+<h2 id="getting-a-real-blur-desktop-by-desktop">Getting a real blur, desktop by desktop</h2>
+<table>
+<thead>
+<tr>
+<th>Desktop</th>
+<th>See-through window</th>
+<th>Blur behind the window</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>KDE Plasma</strong> (X11 or Wayland)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Arkenda asks KWin for its blur: turn on System Settings ▸ Desktop Effects ▸ <strong>Blur</strong>, then restart Arkenda.</td>
+</tr>
+<tr>
+<td><strong>Hyprland</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Hyprland blurs every translucent window once blur is on: <code>decoration { blur { enabled = true } }</code> in <code>hyprland.conf</code>. Tune <code>size</code> and <code>passes</code> there.</td>
+</tr>
+<tr>
+<td><strong>Sway</strong></td>
+<td>Yes</td>
+<td>Only with SwayFX</td>
+<td>Upstream Sway has no blur. The SwayFX fork adds <code>blur enable</code> to the config.</td>
+</tr>
+<tr>
+<td><strong>X11 with picom</strong> (i3, Openbox, bspwm, XFCE, MATE, Cinnamon…)</td>
+<td>Yes, with picom running</td>
+<td>Yes</td>
+<td>In <code>picom.conf</code>: <code>blur-background = true;</code> and <code>blur-method = &quot;dual_kawase&quot;;</code> (picom 10 or later). Limit it to Arkenda with a rule on its window class if you don&#39;t want every translucent window blurred. On XFCE, MATE and Cinnamon, turn off the desktop&#39;s built-in compositor and run picom instead.</td>
+</tr>
+<tr>
+<td><strong>GNOME</strong> (Mutter)</td>
+<td>Yes</td>
+<td>Only through an extension</td>
+<td>GNOME has no blur behind windows. The <strong>Blur my Shell</strong> extension has an <em>Applications</em> option, marked experimental by its authors, with a list of the windows to blur: add Arkenda&#39;s window class there.</td>
+</tr>
+<tr>
+<td><strong>XFCE, MATE, Cinnamon</strong> (built-in compositor)</td>
+<td>Yes</td>
+<td>No</td>
+<td>Their compositors do transparency, not blur. Use picom (row above) for blur.</td>
+</tr>
+<tr>
+<td><strong>X11 without a compositor</strong></td>
+<td>No: the chrome shows black</td>
+<td>No</td>
+<td>Start a compositor (picom), or keep the effect off.</td>
+</tr>
+</tbody></table>
+<h3 id="finding-arkendas-window-class">Finding Arkenda&#39;s window class</h3>
+<p>Compositor rules match windows by their class (X11) or app id (Wayland). Arkenda&#39;s is set from its
+identifier, <code>dev.fsegurai.arkenda</code>, or its name, <code>arkenda</code>. Check which one your session reports:</p>
+<ul>
+<li><strong>X11:</strong> run <code>xprop WM_CLASS</code> and click the Arkenda window.</li>
+<li><strong>Hyprland:</strong> <code>hyprctl clients</code> lists the <code>class</code> of each window.</li>
+<li><strong>KDE Plasma:</strong> System Settings ▸ Window Management ▸ Window Rules ▸ Add New ▸ <strong>Detect Window
+Properties</strong>, then click the Arkenda window.</li>
+<li><strong>Sway:</strong> <code>swaymsg -t get_tree</code> shows each window&#39;s <code>app_id</code>.</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><strong>The chrome is black, not translucent.</strong> Nothing composites the window. On X11, start a compositor
+(picom) or turn on your desktop&#39;s own. Wayland sessions always composite.</li>
+<li><strong>The window is black or blank after turning the effect on, often with an NVIDIA GPU.</strong> This is a known
+WebKitGTK rendering issue. Set the effect back to <strong>None</strong> and restart. Arkenda never sets
+<code>WEBKIT_DISABLE_DMABUF_RENDERER</code>; setting it yourself can make the window disappear except the element
+under the pointer.</li>
+<li><strong>Text is hard to read on a busy wallpaper.</strong> Raise the opacity under Window effect. Arkenda already
+raises it wherever text would fall below the WCAG AA contrast level, so if you still struggle, choose
+a quieter wallpaper or <strong>None</strong>.</li>
+<li><strong>Screenshots or screen sharing show black areas.</strong> Some compositors and capture tools drop
+transparency. Choose <strong>None</strong> while you share your screen.</li>
+</ul>
+<h2 id="limits-no-app-can-fix">Limits no app can fix</h2>
+<ul>
+<li><strong>There is no cross-desktop blur on Linux.</strong> Each compositor decides, and the table above is the whole
+map. GNOME without an extension, and XFCE, MATE or Cinnamon with their own compositors, cannot blur
+behind a window at all.</li>
+<li><strong>On Wayland, an app cannot force effects on itself.</strong> Only compositors that offer a blur protocol
+(KDE&#39;s KWin today) blur behind Arkenda&#39;s window on request.</li>
+<li><strong>The blur&#39;s strength and tint are your compositor&#39;s</strong>, not Arkenda&#39;s: Arkenda sets only how opaque its
+chrome is.</li>
+<li><strong>The web version has none of this</strong>: a browser page cannot see through its own window, and it has no
+window effect, so its menus and peeks stay opaque.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

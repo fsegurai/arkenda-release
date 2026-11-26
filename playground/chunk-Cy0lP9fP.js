@@ -1,0 +1,1 @@
+var o=`app:comment`;var t=`Mod-Shift-m`;var M=`comments`;export{o as n,t as r,M as t};

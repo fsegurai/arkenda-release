@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Sync between your devices · Arkenda</title>
+<meta name="description" content="Guías para usar Arkenda.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="alternate" hreflang="en" href="../../docs/sync.html">
+<link rel="alternate" hreflang="es" href="sync.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Inicio de Arkenda"><img src="../../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Principal"><ul><li><a href="../../playground/">Pruébelo</a></li><li><a href="../download.html">Descargar</a></li><li><a href="../plugins/index.html">Plugins</a></li><li><a href="../docs/index.html" aria-current="page">Guías</a></li><li><a href="../changelog.html">Novedades</a></li></ul></nav>
+  <a class="lang" href="../../docs/sync.html" hreflang="en" lang="en" aria-label="View this site in English">English</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Todas las guías</a><p class="notice" lang="es">Esta página solo está disponible en inglés.</p>
+  <article class="prose" lang="en">
+<h1 id="sync-between-your-devices">Sync between your devices</h1>
+<p>Arkenda syncs a vault between the devices you paired, with no account and no server of ours in the middle. Turn
+it on in <strong>Settings ▸ Sync &amp; devices ▸ Overview</strong> (its guided setup names this device, turns sync on and leads to
+pairing), pair the other device with a code, and from then on the devices find each other
+on their own. This page says how they reach each other and what each path can see.</p>
+<h2 id="settings--sync--devices">Settings ▸ Sync &amp; devices</h2>
+<ul>
+<li><strong>Overview:</strong> the status card (<strong>Sync off · no devices paired</strong>, or <strong>Syncing with 2 devices · last synced 2 min
+ago</strong>), the devices connected now with the path each one uses, and the Sync switch. While nothing is paired, a
+guided setup: name this device, turn on sync, pair a device. Then every sync source (devices, an external folder,
+the cloud mirror) with its state and actions, and <strong>What syncs where</strong> (the vault, with statuses and snippets;
+appearance and shortcuts when <strong>Same look on every device</strong> is on; what stays on this device: experiments,
+profiles, layout and the window).</li>
+<li><strong>Devices:</strong> this device (name, ID, where its keys are kept), the paired devices with their paths and a
+<strong>Health</strong> panel each, and pairing (a code, a QR code with its steps, devices nearby on the network, incoming
+requests).</li>
+<li><strong>Connection:</strong> what this device keeps (partial sync), what is shared with you, the local network, connections
+over the internet, media on mobile data, live presence, and Advanced (relays, STUN).</li>
+<li><strong>Cloud mirror</strong> (the apps): the S3 bucket, its encryption and recovery code, and media offload and removal.</li>
+<li>Before sync is on, each page still shows its sections, says why they are inactive and offers <strong>Turn on sync</strong>.</li>
+<li>Old links still land on the right page: <code>/settings/devices#lan</code> opens Connection, <code>/settings/storage#bucket</code> opens
+Cloud mirror.</li>
+</ul>
+<h2 id="what-a-sync-brings-and-what-came-of-it">What a sync brings, and what came of it</h2>
+<p>When a device connects, the Overview&#39;s status card shows what it brings to this device, and the device&#39;s row on
+Devices shows the same in one line:</p>
+<ul>
+<li><strong>Before and during:</strong> <strong>Notes: 12 / 40</strong> and <strong>Attachments: 3 / 9</strong>, with <strong>Attachment data: 1.2 MB of 4 MB</strong>,
+a progress bar, and what is arriving now (notes first, then attachments). The activity island shows the same
+numbers while the sync runs. Attachment sizes are known before their transfer starts (this device asks the other
+for them as it asks for the attachments; an older version of the app states each size only as its transfer
+starts). Notes are counted, never sized: a note has no size before it travels.</li>
+<li><strong>Notes changed: 3</strong> shows next to the notes when the sync also changed notes this device already had: an edit
+made on the other device, or a note created there while both were connected.</li>
+<li><strong>After:</strong> what was received, and every item that was not, with its reason: a note the other device no longer
+had, an attachment it does not have (it arrives once a device that has it connects), an attachment refused
+because it was damaged, too large or could not be stored, a change refused (outside what this device keeps, or
+from a read-only member), a connection that was lost, or a sync that stopped with an error.</li>
+</ul>
+<p>The numbers count <strong>what is missing on this device</strong>, not the size of the other device&#39;s vault: the notes the other
+device&#39;s copy of the vault adds here, and the attachments the notes reference that this device lacks. They come
+from the messages a sync already exchanges (plus one short question about the attachments&#39; sizes; no note is read to
+count it), and they belong to one connection: a new connection with the device replaces them. The last summary of
+each paired device is kept on this device only (never in the vault, never synced), so it shows again after a restart
+until the next connection; turning sync off clears them, and removing a device clears its own. A device with nothing
+to bring and nothing failed shows no line.</p>
+<h2 id="the-sync-status">The sync status</h2>
+<p>The status bar, the sync dot (phone and tablet), the title bar and the Overview say the same thing, in one of four
+states:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>What it means</th>
+<th>What you can do</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Up to date</strong> (or <strong>2 devices connected</strong>)</td>
+<td>Nothing is waiting to be exchanged.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Syncing · 12 left</strong></td>
+<td>A sync runs; the number is what is still to arrive or leave, notes and attachments.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Offline · will sync when connected</strong></td>
+<td>Devices are paired but none is connected now. Your changes are kept and sent at the next connection.</td>
+<td><strong>Retry now</strong> dials every path at once.</td>
+</tr>
+<tr>
+<td><strong>Needs your attention</strong></td>
+<td>Sync stopped with an error; the panel says which, in plain words.</td>
+<td><strong>Retry now</strong> when a new try can help, else <strong>Check devices</strong>.</td>
+</tr>
+</tbody></table>
+<p>The panel of the status bar&#39;s indicator also names the path the sync runs on (<strong>Sync path: on this network</strong>,
+<strong>direct over the internet</strong>, <strong>through an internet relay</strong>, <strong>through the signaling relay</strong>, <strong>with a sync code</strong>
+or <strong>through your mirror</strong>), and keeps naming the last one between two syncs.</p>
+<p><strong>A device that goes away leaves the count within seconds.</strong> Connected devices send each other a tiny message when
+they have had nothing else to send for 5 s, and a device that hears nothing from the other for 20 s takes it for
+gone and closes the connection (it reconnects on its own when the other comes back). On battery or on mobile data
+the wait is 60 s and the message goes every 15 s, so a phone&#39;s radio can sleep; each device tells the other which
+wait it uses. The message is a few bytes and is never sent while a sync is exchanging anything else. A browser tab
+in the background tells the other devices at once that it now waits 5 minutes (a hidden tab&#39;s timers may run only
+once a minute), so it stays connected; when it is shown again it tells them its normal wait at once.</p>
+<h2 id="pairing-a-device-step-by-step">Pairing a device, step by step</h2>
+<p>While a pairing code is shown, the Devices page lists the steps, the one to do now in bold:</p>
+<ol>
+<li>On the other device, open <strong>Settings ▸ Sync &amp; devices ▸ Devices</strong> and choose <strong>Enter or scan a code</strong>.</li>
+<li>Scan this QR code with it, or paste the code there.</li>
+<li>Over the internet only: paste the answer code the other device shows, then choose <strong>Connect</strong>. (On the same
+Wi-Fi there is no answer code.)</li>
+<li>Check that both screens show the same six digits, then confirm.</li>
+</ol>
+<p>The device that enters the code shows the same steps from its side: <strong>Show pairing code</strong> on a paired device, scan
+or paste it and <strong>Continue</strong>, hand back the answer code if one appears, then compare the six digits.</p>
+<h2 id="a-devices-health">A device&#39;s health</h2>
+<p><strong>Health</strong>, next to each paired device on the Devices page, opens what this device knows about it:</p>
+<ul>
+<li><strong>Last sync:</strong> connected now, or when it was last seen.</li>
+<li><strong>Path:</strong> the one the connection uses now, or <strong>Not connected</strong>.</li>
+<li><strong>Every way to reach it</strong> (the same network, direct, an internet relay, your signaling relay, your mirror), each
+<strong>Working</strong>, <strong>Not working</strong>, <strong>Not tried yet</strong> or <strong>Not available</strong>, with the reason in plain words — no relay is
+set up, the device has not shared its address yet, the connection was lost, the two devices run versions that
+cannot sync — and when the next try is. A reason with no words of its own still shows its code: a failure is
+never hidden.</li>
+<li><strong>Test connection:</strong> with the device connected, it measures a round trip (<strong>Answered in 42 ms · on this
+network</strong>); otherwise it tries every path now and says whether the device could be reached, the reasons staying
+in the list below it.</li>
+</ul>
+<h3 id="windows-firewall-blocks-this-computer">Windows Firewall blocks this computer</h3>
+<p>The first time Arkenda installed from the website (not the Microsoft Store) listens for your devices, Windows
+Defender Firewall asks whether to allow it. Closing or cancelling that window blocks Arkenda, and Windows does not
+ask again: your other devices then cannot reach this computer, and their health says so. While sync is on, the
+Devices page on Windows says <strong>Windows Firewall blocks incoming connections to Arkenda</strong> and offers:</p>
+<ul>
+<li><strong>Allow in firewall:</strong> Windows asks once for an administrator&#39;s permission, then Arkenda removes its own block
+rules and adds one rule, <strong>Arkenda</strong>, that lets it receive connections on every network. If you cancel that
+prompt, nothing changes and you can try again.</li>
+<li><strong>Open Windows Firewall settings:</strong> Windows&#39; own <strong>Allow an app through Windows Firewall</strong> page, to tick Arkenda
+for <strong>Private</strong> (and <strong>Public</strong>, if you sync on such networks) yourself.</li>
+</ul>
+<p>When Windows has no rule for Arkenda on the network you are on (you allowed it on Private networks only and joined a
+Public one, for example), the page says <strong>Windows Firewall has no rule that lets your other devices connect to Arkenda
+on this network</strong> instead, with the same two choices. Nothing shows when Windows Firewall is off for that network.</p>
+<p>The Microsoft Store version needs none of this: its package declares the rules.</p>
+<h2 id="the-paths-in-order">The paths, in order</h2>
+<p>Each device tries the paths below for each paired device, from the top, and keeps the first one that works.
+A session that is running is never dropped for a better path: a better one is taken when the current one fails,
+or at the next session.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>When it works</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Same network (LAN)</strong></td>
+<td>Both devices on the same Wi-Fi or wired network.</td>
+<td>The apps (desktop, Android). A browser can&#39;t use it.</td>
+</tr>
+<tr>
+<td><strong>iroh, direct</strong></td>
+<td>Over the internet, when the two networks let a direct connection through (hole punching).</td>
+<td>The apps.</td>
+</tr>
+<tr>
+<td><strong>iroh, through a relay</strong></td>
+<td>Over the internet, when no direct connection gets through; see <a href="#relays">Relays</a>.</td>
+<td>The apps.</td>
+</tr>
+<tr>
+<td><strong>WebRTC through your signaling relay</strong></td>
+<td>Only when you added a relay of your own (Settings ▸ Sync &amp; devices ▸ Connection ▸ Advanced).</td>
+<td>The apps and the browser.</td>
+</tr>
+<tr>
+<td><strong>Your S3 mirror, store-and-forward</strong></td>
+<td>When you set up a mirror and the other device is offline; see <a href="#the-s3-mirror">The mirror</a>.</td>
+<td>The apps.</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The apps try the same network first, iroh 3 s later, and your signaling relay 10 s after that, only for a
+device iroh may not reach. A browser has only the signaling relay (or a code), so it starts there.</li>
+<li>When a path fails, the device tries again after a random wait that grows up to 30 s, and starts over at once
+after a success, when the network comes back, when the device wakes or when the app comes to the front.
+On a phone with a low battery it waits longer.</li>
+<li>Settings ▸ Sync &amp; devices ▸ Devices shows the path each device is on, such as <strong>Connected · on this network</strong> or
+<strong>through an internet relay</strong>; the Overview lists the devices connected now with theirs.</li>
+<li>A change that was half sent when the network dropped carries on from where it stopped: a note&#39;s text is merged,
+never sent twice, and a large file resumes from its last piece.</li>
+</ul>
+<h2 id="relays">Relays</h2>
+<ul>
+<li><strong>iroh&#39;s relays are public, and on by default.</strong> They are run by n0, the makers of iroh, and the apps use them
+only when two devices can&#39;t connect directly. A relay passes on encrypted traffic; it can&#39;t read it.</li>
+<li><strong>Router port mapping</strong> (Settings ▸ Sync &amp; devices ▸ Connection ▸ Connections over the internet) lets this device ask your router to
+open one port while sync runs, so more connections are direct. Off: no port is opened, and devices still
+connect, sometimes through a relay. It applies to this device only.</li>
+<li><strong>Your own signaling relay</strong> is optional. It only helps two devices find each other; the notes then travel over
+the direct WebRTC connection. The apps reach only the relays built into them.</li>
+</ul>
+<h2 id="pairing-carries-the-route">Pairing carries the route</h2>
+<p>Pairing proves the two devices trust each other, and it also hands over each device&#39;s iroh address. So two
+devices paired once on the same Wi-Fi find each other later on different networks, with no relay of your own and
+no new code. The address is only a hint: trust still comes from the pairing and from each session&#39;s handshake.</p>
+<h2 id="the-s3-mirror">The S3 mirror</h2>
+<p>When you set up an S3 mirror (your own bucket), it does two jobs:</p>
+<ul>
+<li><strong>A backup of your files</strong> for a folder vault.</li>
+<li><strong>Store-and-forward:</strong> each device also leaves its changes in the bucket, sealed and signed, in a hidden folder
+(<code>.arkenda-sync/</code>). A device that was offline reads them when it comes back and merges them, even when the
+device that wrote them is off by then. The log is compacted, so it doesn&#39;t grow without bound.</li>
+</ul>
+<p><strong>Notes travel by one channel.</strong> While sync runs, notes reach your other devices only through sync (live, or the
+store-and-forward log); the file mirror then only backs them up and never pulls a note from the bucket over the
+one you have. That keeps a note from arriving twice, with doubled text or a conflict copy.</p>
+<h2 id="localsend-experiment">LocalSend (experiment)</h2>
+<p><strong>LocalSend</strong> (Settings ▸ Experimental, the desktop app and Android) exchanges notes, files and texts with the
+<a href="https://localsend.org">LocalSend</a> apps on the same network: phones, tablets and computers that run LocalSend, yours
+or someone else&#39;s. It is not sync: nothing of your vault goes out unless you send it, and nothing comes in unless you
+accept it.</p>
+<ul>
+<li><strong>While it is on</strong>, Arkenda announces this device on your local network and listens on a port (53317, or another
+free one) for transfers. Turn it off and the port closes. On Android 17 it first asks for the local network
+permission.</li>
+<li><strong>Receiving:</strong> every transfer asks first, with the sender&#39;s name, its device, how many items and their size.
+<strong>Accept</strong> asks where they go, as a share does (your Inbox, a new note, or the end of a note you pick): a text as
+a new item or its lines, each file stored like any attachment
+(its type is read from its bytes, and it keeps to the attachment size limits) on a line of its own. <strong>Decline</strong>,
+Escape or 60 seconds without an answer refuse it. At most 20 items come at once; one larger than it said, or than
+the limits, is refused. Files wait outside your vault until they are added, and are deleted then.</li>
+<li><strong>A PIN:</strong> LocalSend&#39;s card in Settings ▸ Experimental (while it is on) and the <strong>LocalSend PIN…</strong> command set,
+change or clear a PIN senders must give before you are asked (4 to 32 characters, kept on this device only; the
+card says whether one is set, never the PIN). Too many wrong PINs from one device are refused for a while.</li>
+<li><strong>Sending:</strong> <strong>Send with LocalSend…</strong> in a note&#39;s <strong>…</strong> menu and the palette sends the note as <code>&lt;title&gt;.md</code>; a
+file attached to a note has a <strong>LocalSend</strong> button on its card. Pick a device among those heard on the network
+(<strong>Refresh</strong> looks again). Arkenda only talks to a device it heard, and only to the certificate that device
+announced. When the other device asks for a PIN, Arkenda asks you for it once.</li>
+<li>The LocalSend protocol publishes no license; Arkenda implements it from its public description.</li>
+</ul>
+<h2 id="media-on-mobile-data">Media on mobile data</h2>
+<p><strong>Sync media on Wi-Fi only</strong> (Settings ▸ Sync &amp; devices ▸ Connection ▸ Media on mobile data) is a switch per device:</p>
+<ul>
+<li><strong>On:</strong> audio and video travel only on Wi-Fi. On mobile data, or on a network the device can&#39;t name, they wait,
+and they leave as soon as the device is on Wi-Fi again.</li>
+<li><strong>Off:</strong> they also use mobile data.</li>
+<li>Images and note text always travel. The switch applies to sync and to the S3 mirror.</li>
+</ul>
+<h2 id="sync-in-the-background-phones">Sync in the background (phones)</h2>
+<p><strong>Save battery</strong> (Settings ▸ Sync &amp; devices ▸ Connection ▸ Battery) is a switch on the Android app only, for this
+device only, and it is on until you turn it off. Desktop and browsers have no such switch: their sync runs as before.</p>
+<ul>
+<li><strong>On:</strong> when Arkenda goes to the background, sync pauses: connections to your devices close, nothing is dialed,
+the internet endpoint (its relay connection and router port mapping) and the search for devices on this network
+(and the Wi-Fi lock it needs) stop, and the S3 mirror is no longer checked. Your edits are still saved on the
+phone and wait to be sent; changes not yet uploaded to your mirror are sent once on the way out. When you open
+Arkenda again, everything starts again and a sync runs at once. A pause in the middle of a transfer loses
+nothing and brings nothing twice: what was cut is sent at the next sync, a half-received file is never shown, and
+a large file goes on from where it stopped when you come back within 10 minutes. A pairing code still on screen keeps sync running until the code ends.</li>
+<li><strong>Off:</strong> sync keeps running in the background for as long as Android lets the app run, which uses more battery.</li>
+</ul>
+<h2 id="what-stays-end-to-end">What stays end-to-end</h2>
+<ul>
+<li><strong>Everything sync sends</strong> (note changes, files, media, live or through the store-and-forward log) is encrypted on
+the device that sends it and decrypted only on your paired devices. No relay (iroh&#39;s or yours) and no bucket can
+read it.</li>
+<li><strong>The store-and-forward log</strong> is sealed with the vault key and signed by the device that wrote it; a device
+opens frames only from devices it paired and hasn&#39;t removed, and skips a frame that was changed.</li>
+<li><strong>What others see:</strong> a relay sees that two addresses talk, when and how much; your bucket sees file names under
+<code>.arkenda-sync/</code> (a vault id, a device id, a sequence number), sizes and times. The backed-up files are
+encrypted only when the mirror is (its <strong>Encrypted</strong> switch, with a recovery code); otherwise the bucket keeps
+normal files and names. The Overview&#39;s sync sources (Settings ▸ Sync &amp; devices) list what this device contacts.</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Notas locales en Markdown simple. Gratis.</p></div>
+  <nav aria-label="Sitio" class="cols">
+    <div><h2>Producto</h2><ul>
+      <li><a href="../index.html#features">Funciones</a></li>
+      <li><a href="../download.html">Descargar</a></li>
+      <li><a href="../../playground/">Pruébelo</a></li>
+      <li><a href="../changelog.html">Novedades</a></li>
+    </ul></div>
+    <div><h2>Desarrolladores</h2><ul>
+      <li><a href="../plugins/index.html">Guía de plugins</a></li>
+      <li><a href="../plugins/api.html">API de plugins</a></li>
+    </ul></div>
+    <div><h2>Acerca de</h2><ul>
+      <li><a href="../privacy.html">Privacidad</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">Licencia</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Reportar un problema</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Versiones en GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

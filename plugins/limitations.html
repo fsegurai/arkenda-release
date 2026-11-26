@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Limitations · Arkenda</title>
+<meta name="description" content="How to build an Arkenda plugin.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" hreflang="en" href="limitations.html">
+<link rel="alternate" hreflang="es" href="../es/plugins/limitations.html">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="../index.html" aria-label="Arkenda home"><img src="../assets/logo.svg" alt="" width="28" height="28"><span>Arkenda</span></a>
+  <nav class="main" aria-label="Main"><ul><li><a href="../playground/">Playground</a></li><li><a href="../download.html">Download</a></li><li><a href="../plugins/index.html" aria-current="page">Plugins</a></li><li><a href="../docs/index.html">Docs</a></li><li><a href="../changelog.html">Changelog</a></li></ul></nav>
+  <a class="lang" href="../es/plugins/limitations.html" hreflang="es" lang="es" aria-label="Ver este sitio en español">Español</a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap doc">
+  <a class="back" href="index.html">← Plugin guide</a>
+  <article class="prose" lang="en">
+<h1 id="limitations">Limitations</h1>
+<p>What a plugin cannot do, what each permission opens, the performance budget it runs under, and what is
+not exposed to plugins yet. The rules themselves are in <a href="sandbox.html">The sandbox</a> and
+<a href="permissions.html">Permissions and privacy</a>; this page puts them in one place.</p>
+<h2 id="the-sandbox">The sandbox</h2>
+<p>Your code runs in a worker inside a sandboxed frame on an opaque origin
+(<a href="sandbox.html#how-it-is-isolated">How it is isolated</a>). So it has:</p>
+<ul>
+<li><strong>No DOM of the app.</strong> You describe views as data and the app draws them; Markdown blocks return
+HTML the app sanitizes.</li>
+<li><strong>No Node.js and no file system.</strong> You reach notes only through <code>ctx.notes</code>, and keep your own data
+only in <code>ctx.storage</code>.</li>
+<li><strong>No network or storage of its own.</strong> <code>fetch</code>, <code>XMLHttpRequest</code>, <code>WebSocket</code>, <code>localStorage</code> and
+IndexedDB are gone before your code runs; <code>ctx.network.fetch</code> is the only way out.</li>
+<li><strong>No code loaded at run time.</strong> The entry is one bundle; ship your dependencies inside it.</li>
+<li><strong>No secrets.</strong> The user enters a <code>secret</code> setting and the app keeps it; a sandboxed plugin never
+reads it (<a href="settings.html#secrets">Secrets</a>).</li>
+<li><strong>No other plugin&#39;s data</strong>, and nothing of the app&#39;s own settings.</li>
+</ul>
+<h2 id="what-each-permission-opens">What each permission opens</h2>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Opens</th>
+<th>Limited by</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>notes:read</code></td>
+<td><code>ctx.notes</code>, <code>ctx.knowledge</code>, <code>ctx.workspace</code> reads</td>
+<td>the notebooks and tags the user chose (<a href="permissions.html#notes-scope">Notes scope</a>)</td>
+</tr>
+<tr>
+<td><code>notes:write</code></td>
+<td>creating, editing, moving and trashing notes</td>
+<td>the same scope; changes outside it fail with <code>out-of-scope</code></td>
+</tr>
+<tr>
+<td><code>storage</code></td>
+<td><code>ctx.storage</code> and <code>ctx.settings</code></td>
+<td>settings limits (<a href="settings.html#limits">Settings ▸ Limits</a>)</td>
+</tr>
+<tr>
+<td><code>commands</code></td>
+<td>palette commands and their hotkeys</td>
+<td>users can rebind; the app&#39;s keys win</td>
+</tr>
+<tr>
+<td><code>editor</code></td>
+<td>insert menu items and toolbar buttons</td>
+<td>declared ids only</td>
+</tr>
+<tr>
+<td><code>ui:panels</code></td>
+<td>sidebar panels, status chips, settings tabs</td>
+<td>view limits (<a href="sandbox.html#limits">Sandbox limits</a>)</td>
+</tr>
+<tr>
+<td><code>ui:widgets</code></td>
+<td>dashboard widgets</td>
+<td>view limits</td>
+</tr>
+<tr>
+<td><code>markdown</code></td>
+<td>fenced code blocks you render</td>
+<td>the HTML is sanitized; 5 s per block</td>
+</tr>
+<tr>
+<td><code>ui:themes</code></td>
+<td>themes</td>
+<td>token values only, 4.5:1 text contrast</td>
+</tr>
+<tr>
+<td><code>network</code></td>
+<td><code>GET</code> to approved hosts</td>
+<td>desktop app only, <code>https</code>, 5 s, 256 KB, 3 redirects, 4 at once (<a href="permissions.html#network-hosts">Network hosts</a>)</td>
+</tr>
+<tr>
+<td><code>clipboard</code>, <code>notifications</code></td>
+<td>the clipboard, notifications</td>
+<td>within 3 s after the user runs one of your commands or buttons</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>sync sources in Settings ▸ Sync &amp; devices</td>
+<td>plugins of the <code>syncing</code> category; notes and hosts only through their own grants</td>
+</tr>
+</tbody></table>
+<p>The full list of calls is the <a href="api.html#the-plugin-context-ctx">API reference</a>.</p>
+<h2 id="performance-budget">Performance budget</h2>
+<ul>
+<li><strong>No startup cost.</strong> Your code is never part of the app&#39;s startup: the sandbox loads only when a
+third-party plugin is first turned on.</li>
+<li><strong>Off the main thread.</strong> Your code runs in a worker, so heavy work never freezes the editor; the
+app still waits for your answers, so keep them quick.</li>
+<li><strong>Time limits:</strong> 10 s to load and run <code>activate</code>, 5 s to answer each call.</li>
+<li><strong>Rate limits:</strong> 50 requests per second on average, bursts of 100; at most 100 registrations held
+at once; messages of at most 256 KB.</li>
+<li><strong>View limits:</strong> 200 nodes per view, lists nested 3 deep, 1,000 characters of text and 120 of a
+label.</li>
+<li><strong>Search:</strong> queries of 500 characters, up to 50 hits per call (20 by default).</li>
+</ul>
+<p>A plugin that breaks a limit is stopped and shown with the reason
+(<a href="sandbox.html#when-a-plugin-is-stopped">When a plugin is stopped</a>).</p>
+<h2 id="platforms">Platforms</h2>
+<p><code>network</code> works only in the desktop app; on the web and on phones it answers
+<code>network-not-available</code>. Secret settings work in the desktop and mobile apps, not on the web. The full
+matrix is in <a href="overview.html#platforms">Overview ▸ Platforms</a>.</p>
+<h2 id="not-exposed-yet">Not exposed yet</h2>
+<ul>
+<li><strong>Built-in plugins only:</strong> CodeMirror and Marked extensions, note actions, status bar items of
+their own, history providers, app events and components
+(<a href="surfaces.html#not-available-to-plugins-yet">Not available to plugins yet</a>).</li>
+<li><strong>No plugin API yet:</strong> sidebar views and map node kinds.</li>
+<li><strong>Data-only extensions</strong> (themes, fonts, icon packs, snippet packs, language packs as packages of
+their own): only plugins can be installed in this version (<a href="manifest.html#extension-kinds">Extension kinds</a>).</li>
+<li><strong>Translations</strong> of a plugin&#39;s own text (<a href="ux.html#words-and-languages">Words and languages</a>).</li>
+<li><strong>Tooling:</strong> a published <code>@arkenda/plugin-api</code> package and a test harness with fake hosts
+(<a href="testing.html">Testing a plugin</a>). The checker and the starter template are release downloads
+(<a href="getting-started.html">Getting started</a>).</li>
+<li><strong>Publishing:</strong> the marketplace, its registry and signed releases
+(<a href="package.html#publishing">Publishing</a>).</li>
+</ul>
+
+  </article>
+</div>
+
+</main>
+<footer class="site"><div class="wrap">
+  <div><a class="logo" href="../index.html"><img src="../assets/logo.svg" alt="" width="24" height="24"><span>Arkenda</span></a><p>Local-first notes in plain Markdown. Free to use.</p></div>
+  <nav aria-label="Site" class="cols">
+    <div><h2>Product</h2><ul>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../download.html">Download</a></li>
+      <li><a href="../playground/">Playground</a></li>
+      <li><a href="../changelog.html">Changelog</a></li>
+    </ul></div>
+    <div><h2>Developers</h2><ul>
+      <li><a href="../plugins/index.html">Plugin guide</a></li>
+      <li><a href="../plugins/api.html">Plugin API</a></li>
+    </ul></div>
+    <div><h2>About</h2><ul>
+      <li><a href="../privacy.html">Privacy</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/blob/HEAD/LICENSE">License</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/issues/new/choose">Report a problem</a></li>
+      <li><a href="https://github.com/fsegurai/arkenda-release/releases">Releases on GitHub</a></li>
+    </ul></div>
+  </nav>
+</div></footer>
+</body>
+</html>

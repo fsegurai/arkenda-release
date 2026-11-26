@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var o=new A(`ARKENDA_MIRROR_PORT`);export{o as t};

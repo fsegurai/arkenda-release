@@ -1,0 +1,1 @@
+import{a as A}from"./chunk-BIXle6fk.js";var e=new A(`ARKENDA_VAULT_FOLDER_CHOOSER`);export{e as t};

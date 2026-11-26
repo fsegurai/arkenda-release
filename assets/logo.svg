@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1956 1956" width="1956" height="1956">
+  <title>Arkenda</title>
+  <defs>
+    <linearGradient id="base" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3c7c9a"/>
+      <stop offset="0.55" stop-color="#1d5578"/>
+      <stop offset="1" stop-color="#0c3555"/>
+    </linearGradient>
+    <radialGradient id="disc" cx="0.78" cy="0.12" r="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.3" stop-color="#eaf7fc"/>
+      <stop offset="0.48" stop-color="#8fdff7"/>
+      <stop offset="0.62" stop-color="#2f9bcb"/>
+      <stop offset="0.8" stop-color="#0f5684"/>
+      <stop offset="1" stop-color="#0a2f4f"/>
+    </radialGradient>
+    <radialGradient id="warm" gradientUnits="userSpaceOnUse" cx="1090" cy="650" r="560">
+      <stop offset="0" stop-color="#ff8f88" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#f7a2a8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f7c4cf" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cool" gradientUnits="userSpaceOnUse" cx="940" cy="1320" r="520">
+      <stop offset="0" stop-color="#4fe2ff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#4fe2ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#40405a"/>
+      <stop offset="0.5" stop-color="#26385a"/>
+      <stop offset="1" stop-color="#1b3352"/>
+    </linearGradient>
+    <linearGradient id="lineRed" gradientUnits="userSpaceOnUse" x1="0" y1="420" x2="0" y2="1460">
+      <stop offset="0" stop-color="#c84a6a"/>
+      <stop offset="0.45" stop-color="#8a2f58"/>
+      <stop offset="1" stop-color="#15304c"/>
+    </linearGradient>
+    <linearGradient id="linePurple" gradientUnits="userSpaceOnUse" x1="0" y1="300" x2="0" y2="1540">
+      <stop offset="0" stop-color="#9b8aa6"/>
+      <stop offset="0.4" stop-color="#4e5674"/>
+      <stop offset="1" stop-color="#0f2e4a"/>
+    </linearGradient>
+    <linearGradient id="lineOuter" gradientUnits="userSpaceOnUse" x1="0" y1="260" x2="0" y2="1700">
+      <stop offset="0" stop-color="#a6b2c8"/>
+      <stop offset="0.25" stop-color="#2a5878"/>
+      <stop offset="1" stop-color="#0e2c45"/>
+    </linearGradient>
+    <filter id="step" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="-16" dy="20" stdDeviation="12" flood-color="#04182c" flood-opacity="0.7"/>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+
+  <!-- Rim and stacked discs -->
+  <ellipse cx="974" cy="967" rx="962" ry="942" fill="url(#base)"/>
+  <circle cx="990" cy="950" r="880" fill="url(#disc)" filter="url(#step)"/>
+  <circle cx="982" cy="952" r="776" fill="url(#disc)" filter="url(#step)"/>
+  <circle cx="975" cy="955" r="660" fill="url(#disc)" filter="url(#step)"/>
+  <circle cx="972" cy="952" r="538" fill="url(#disc)" filter="url(#step)"/>
+  <circle cx="968" cy="948" r="420" fill="url(#disc)" filter="url(#step)"/>
+  <circle cx="975" cy="944" r="560" fill="url(#cool)"/>
+  <circle cx="975" cy="944" r="600" fill="url(#warm)"/>
+
+  <!-- Orbits -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M 866 520 A 430 430 0 0 1 1384 960 A 420 420 0 0 1 966 1350" stroke="#26354f" stroke-width="18"/>
+    <path d="M 665 513 A 540 540 0 0 1 1310 540 A 540 540 0 0 1 1472 746 A 535 535 0 0 1 797 1444" stroke="url(#lineRed)" stroke-width="18"/>
+    <path d="M 645 383 A 660 660 0 0 1 1326 396 A 660 660 0 0 1 1436 1426 A 660 660 0 0 1 645 1527" stroke="url(#linePurple)" stroke-width="18"/>
+    <path d="M 1428 308 A 785 785 0 0 1 1596 466 A 790 790 0 0 1 1720 1214 A 770 770 0 0 1 1032 1694 A 750 750 0 0 1 847 1684" stroke="url(#lineOuter)" stroke-width="20"/>
+  </g>
+
+  <!-- Core -->
+  <circle cx="970" cy="945" r="275" fill="url(#core)" filter="url(#step)"/>
+
+  <!-- Nodes -->
+  <circle cx="1656" cy="1346" r="36" fill="#7fd0ef" opacity="0.45" filter="url(#soft)"/>
+  <circle cx="1326" cy="396" r="42" fill="#5b5a72"/>
+  <circle cx="1596" cy="466" r="40" fill="#1f4f6e"/>
+  <circle cx="1310" cy="540" r="38" fill="#c74560"/>
+  <circle cx="1472" cy="746" r="46" fill="#fff8f8"/>
+  <circle cx="1720" cy="1214" r="42" fill="#1d4f70"/>
+  <circle cx="966" cy="1350" r="50" fill="#1a3550"/>
+  <circle cx="1436" cy="1426" r="48" fill="#18344e"/>
+  <circle cx="1588" cy="1424" r="38" fill="#b9ecff"/>
+  <circle cx="1532" cy="1494" r="33" fill="#b4ecff"/>
+  <circle cx="1336" cy="1626" r="48" fill="#6fe3ff"/>
+  <circle cx="1032" cy="1694" r="46" fill="#12304a"/>
+</svg>

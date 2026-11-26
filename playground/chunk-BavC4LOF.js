@@ -1,0 +1,1 @@
+var t=`/settings/editor/markdown`;export{t};
