@@ -51,8 +51,10 @@
 - 📥 **An Inbox for quick notes** — capture first, then file each line into a note, turn it into its own note, or mark
   it done.
 - 🗂️ **More than notes** — todos, a calendar, Today, a media library with previews, tabs and split panes.
-- 🧩 **Make it yours** — light, dark and Glass themes, accents, fonts, keyboard shortcuts, CSS snippets and sandboxed
-  plugins.
+- 💬 **Comments and maps** — comment on text, sections, whiteboards and media, with replies and resolving; draw maps
+  with places, routes and areas in a note, loaded only when you ask.
+- 🧩 **Make it yours** — light, dark and Glass themes, 33 editor themes, accents, fonts, keyboard shortcuts, CSS
+  snippets and sandboxed plugins.
 
 ## 📸 A quick look
 
@@ -182,23 +184,26 @@ On Windows (PowerShell): `Get-FileHash .\<file>` and compare it with the line in
 | Switch between notes | Open notes as tabs; `Ctrl+Tab` walks through them (strip order or most recent: **Settings ▸ Editor ▸ Tabs**). |
 | Use it on your phone too | **Settings ▸ Sync & devices**, choose **Pair a device**, then enter the code on the other device. On phones, **Save battery** pauses sync while Arkenda is in the background. |
 | Change the look | **Settings ▸ Appearance**: light or dark, the Glass theme, accent colour, fonts and density. |
-| Try more | **Settings ▸ Experimental** (whiteboards, calendar, kanban and more) and **Settings ▸ Plugins**. They stay off until you turn them on, except the right-click menu, which is on and can be turned off there. |
+| Try more | **Settings ▸ Experimental** (whiteboards, kanban and more) and **Settings ▸ Plugins**. They stay off until you turn them on. |
 | Keep a copy | **Settings ▸ Data & storage ▸ Export & import ▸ Export vault** saves it as Markdown files; a folder vault already is plain files. |
 
 ### 📚 Guides
 
 | Guide | What it covers |
 |-------|----------------|
-| [Folder vaults](wiki/0.5.1/content/guides/file-vault.md) | Keeping notes in a folder of `.md` files on the desktop |
-| [Sync between your devices](wiki/0.5.1/content/guides/sync.md) | Pairing, how devices connect, the S3 mirror, Save battery |
-| [Media](wiki/0.5.1/content/guides/media.md) | Pictures, audio, video, PDFs and other files; the library and the trash |
-| [Keyboard shortcuts](wiki/0.5.1/content/guides/keyboard-shortcuts.md) | Every default key and how to change them |
-| [The desktop layout](wiki/0.5.1/content/guides/desktop-layout.md) | The sidebar, note list, note tabs and the inspector; opening Arkenda from other apps, KRunner, the taskbar and notifications |
-| [Phones and tablets](wiki/0.5.1/content/guides/phone-and-tablet.md) | The phone and tablet layouts and gestures |
-| [The activity island](wiki/0.5.1/content/guides/notch.md) | Quick capture, voice memos, screenshots and recordings |
-| [CSS snippets](wiki/0.5.1/content/guides/css-snippets.md) | Small style sheets that change how Arkenda looks |
-| [Window effect on Linux](wiki/0.5.1/content/guides/window-effect-linux.md) | Blur behind the window: what works on Linux and what to change if it does not |
-| [Building plugins](wiki/0.5.1/content/api/README.md) | The plugin guide: manifest, API, sandbox and permissions (the marketplace is not open yet) |
+| [Folder vaults](wiki/0.5.3/content/guides/file-vault.md) | Keeping notes in a folder of `.md` files on the desktop |
+| [Sync between your devices](wiki/0.5.3/content/guides/sync.md) | Pairing, how devices connect, the S3 mirror, Save battery |
+| [Comments](wiki/0.5.3/content/guides/comments.md) | Comments on text, sections, whiteboards and media; replies, resolving, search and sharing |
+| [Maps](wiki/0.5.3/content/guides/maps.md) | Map blocks with places, routes and areas; the place picker; loading maps only when you ask |
+| [Reminders](wiki/0.5.3/content/guides/reminders.md) | Reminders on tasks and notes, with Snooze and Done |
+| [Media](wiki/0.5.3/content/guides/media.md) | Pictures, audio, video, PDFs and other files; the library and the trash |
+| [Keyboard shortcuts](wiki/0.5.3/content/guides/keyboard-shortcuts.md) | Every default key and how to change them |
+| [The desktop layout](wiki/0.5.3/content/guides/desktop-layout.md) | The sidebar, note list, note tabs and the inspector; opening Arkenda from other apps, KRunner, the taskbar and notifications |
+| [Phones and tablets](wiki/0.5.3/content/guides/phone-and-tablet.md) | The phone and tablet layouts and gestures |
+| [The activity island](wiki/0.5.3/content/guides/notch.md) | Quick capture, voice memos, screenshots and recordings |
+| [CSS snippets](wiki/0.5.3/content/guides/css-snippets.md) | Small style sheets that change how Arkenda looks |
+| [Window effect on Linux](wiki/0.5.3/content/guides/window-effect-linux.md) | Blur behind the window: what works on Linux and what to change if it does not |
+| [Building plugins](wiki/0.5.3/content/api/README.md) | The plugin guide: manifest, API, sandbox and permissions (the marketplace is not open yet) |
 
 ### 🔔 Updates
 
